@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Test } from './angular-backend-0.2/test';
+import { Test } from './angular-backend/test';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
