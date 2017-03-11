@@ -5,7 +5,7 @@ import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
 
-import { AngularBackendModule } from './angular-backend-0.2/angular-backend.module';
+import { AngularBackendModule } from './angular-backend/angular-backend.module';
 
 @NgModule({
   declarations: [
