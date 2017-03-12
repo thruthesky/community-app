@@ -4,7 +4,21 @@
 
 <hr>
 <h2>Login</h2>
+  <div class="user-box">
+    <div *ngIf=" ! user.logged " class="login-form">
+      <input name="id" [(ngModel)]="_id"><input name="password" [(ngModel)]="_password"><button (click)="onClickLogin(_id, _password)" type="button">Login</button>
+    </div>
+    <div *ngIf=" user.logged " class="user-info">
+      User are logged in.
+      <button (click)="onClickLogout()" type="button">logout</button>
+    </div>
+  </div>
 <h3>Newly Registered Users</h3>
+<div *ngIf="newUsers" class="new-users" >
+  <div *ngFor="let user of newUsers" class="user">
+    {{ user.id }}
+  </div>
+</div>
 
 <hr>
 <h2>Register</h2>
