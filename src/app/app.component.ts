@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Test } from './angular-backend/test';
+import { Backend, User, Test } from './angular-backend/angular-backend.module';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -8,11 +8,23 @@ import { Test } from './angular-backend/test';
 export class AppComponent {
   title = 'app works!';
   constructor(
-    test: Test
+    // test: Test,
+    private backend: Backend,
+    private user: User
   )
   {
 
 
+    this.loadNewlyRegisteredUsers();
 
+  }
+
+  loadNewlyRegisteredUsers() {
+
+    this.user.list( {} ).subscribe( res => {
+      console.info(res);
+    }, err => {
+      console.error(err);
+    });
   }
 }
