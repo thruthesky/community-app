@@ -54,9 +54,9 @@ TODO: 1. user list with pagination like [1] [2] [3] [4] [5]
 {{ searchForm.name }}
 <h2>User Pagination</h2>
 <div *ngIf="paginationUsers" class="pagination-user" >
-  <span *ngFor="let user of paginationUsers" class="user">
-    {{ user.id }} *
-  </span>
+  <div *ngFor="let user of paginationUsers" class="user">
+    {{ user.name }}
+  </div>
 </div>
 
 
