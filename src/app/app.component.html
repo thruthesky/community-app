@@ -9,7 +9,7 @@
       <input name="id" [(ngModel)]="_id"><input name="password" [(ngModel)]="_password"><button (click)="onClickLogin(_id, _password)" type="button">Login</button>
     </div>
     <div *ngIf=" user.logged " class="user-info">
-      User are logged in.
+      User are logged in: {{ info | json }}
       <button (click)="onClickLogout()" type="button">logout</button>
     </div>
   </div>
@@ -22,3 +22,12 @@
 
 <hr>
 <h2>Register</h2>
+
+<div>
+  <div>User ID: <input name="id" [(ngModel)]="form.id"></div>
+  <div>Password: <input name="password" [(ngModel)]="form.password"></div>
+  <div>Name: <input name="name" [(ngModel)]="form.name"></div>
+  <div>Email: <input name="email" [(ngModel)]="form.email"></div>
+  <div>Gender<input name="gender" [(ngModel)]="form.gender"></div>
+  <div><button (click)="onClickRegister()" type="button">Register</button></div>
+</div>
