@@ -15,13 +15,13 @@
   </div>
 <h3>Newly Registered Users</h3>
 <div *ngIf="newUsers" class="new-users" >
-  <div *ngFor="let user of newUsers" class="user">
+  <span *ngFor="let user of newUsers" class="user">
     {{ user.id }}
-  </div>
+  </span>
 </div>
 
 <hr>
-<h2>Register</h2>
+<h2>User Register</h2>
 
 <div>
   <div>User ID: <input name="id" [(ngModel)]="form.id"></div>
@@ -33,12 +33,22 @@
 </div>
 
 
-<h2>User Profile</h2>
-<button (click)="onLoadProfile()" type="button">Load Profile</button>
+<h2>User Edit</h2>
 
+<div >
+  <button (click)="onClickLoadData()" type="button">Load user data</button> of {{ user.info?.id }}
+</div>
 <div>
-  <div>Name: <input name="name" [(ngModel)]="profile.name"></div>
-  <div>Email: <input name="email" [(ngModel)]="profile.email"></div>
-  <div>Gender<input name="gender" [(ngModel)]="profile.gender"></div>
-  <div><button (click)="onClickRegister()" type="button">Register</button></div>
+  <div>Name: <input name="name" [(ngModel)]="edit.name"></div>
+  <div>Email: <input name="email" [(ngModel)]="edit.email"></div>
+  <div>Gender<input name="gender" [(ngModel)]="edit.gender"></div>
+  <div><button (click)="onClickUpdateProfile()" type="button">Update Profile</button></div>
+</div>
+
+<hr>
+
+<div class="forum-form">
+  <div>Forum ID: <input name="id" [(ngModel)]="forum.id"><div>
+  <div>Name: <input name="name" [(ngModel)]="forum.name"></div>
+  <div><button (click)="onClickForumCreate()" type="button">create forum</button></div>
 </div>

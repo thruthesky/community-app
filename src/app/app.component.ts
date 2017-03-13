@@ -4,7 +4,9 @@ import { Backend, User, Test,
   USER_EDIT, USER_EDIT_RESPONSE,
   USER_LOGOUT_RESPONSE,
   USER_REGISTER, USER_REGISTER_RESPONSE,
-  SESSION_INFO
+  USER_DATA_RESPONSE, USER_DATA,
+  SESSION_INFO,
+  CONFIG
 } from './angular-backend/angular-backend.module';
 @Component({
   selector: 'app-root',
@@ -18,11 +20,17 @@ export class AppComponent {
   _id: string = null;
   _password: string = null;
 
-  newUsers: Array<USER> = null;
+  newUsers = <Array<USER>> [];
+
+
   form = <USER_REGISTER> {};
-  profile
+  edit = <USER_EDIT> {};
 
   info = <SESSION_INFO> {};
+
+
+  //
+  forum = <CONFIG> {};
 
   constructor(
 //    test: Test,
@@ -74,5 +82,28 @@ export class AppComponent {
       this.user.alert(err);
     });
   }
+
+  onClickLoadData() {
+    this.user.data().subscribe( (res: USER_DATA_RESPONSE) => {
+      let data = res.data.user;
+      this.edit.name = data.name;
+      this.edit.email = data.email;
+      this.edit.gender = data.gender;
+      console.log(res);
+    }, err => this.user.alert( err ) );
+  }
+
+
+  onClickUpdateProfile() {
+    this.user.edit( this.edit ).subscribe( (res:USER_EDIT_RESPONSE) => {
+      console.log(res);
+    }, err => this.user.alert( err ) );
+  }
+
+
+
+  // onClickForumCreate() {
+  //   this.
+  // }
 
 }
