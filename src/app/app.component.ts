@@ -18,6 +18,7 @@ export class AppComponent {
   title = 'app works!';
 
 
+
   _id: string = null;
   _password: string = null;
 
@@ -104,14 +105,17 @@ export class AppComponent {
     }, err => this.user.alert( err ) );
   }
 
-  onChangeSearch() {
+  onChangeSearch( $event ) {
+
+
+
     console.log('onChangeSearch', this.searchForm);
     this.paginationUsers = [];
     let cond = '';
     let bind = '';
 
     if( this.searchForm.name ) cond += "name LIKE ? ";
-    if( this.searchForm.name ) bind += "%name%";
+    if( this.searchForm.name ) bind += `%${this.searchForm.name}%`;
     this.searchQuery.from = 0;
     this.searchQuery.limit = 2;
     this.searchQuery.where = cond;
