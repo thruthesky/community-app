@@ -4,8 +4,9 @@ import { Backend, User, Test,
   USER_EDIT, USER_EDIT_RESPONSE,
   USER_LOGOUT_RESPONSE,
   USER_REGISTER, USER_REGISTER_RESPONSE,
-  USER_DATA_RESPONSE, USER_DATA,
+  USER_DATA_RESPONSE,
   SESSION_INFO,
+  USER_LIST, USER_FIELDS,
   CONFIG
 } from './angular-backend/angular-backend.module';
 @Component({
@@ -22,6 +23,9 @@ export class AppComponent {
 
   newUsers = <Array<USER>> [];
 
+  paginationUsers = <Array<USER>> [];
+  searchForm = <USER_FIELDS>{};
+  searchQuery = <USER_LIST>{};
 
   form = <USER_REGISTER> {};
   edit = <USER_EDIT> {};
@@ -40,14 +44,14 @@ export class AppComponent {
   {
     // this.onClickLogin( 'admin', 'admin' );
     this.loadNewlyRegisteredUsers();
-    
+    this.loadSearchedData();
   }
 
   loadNewlyRegisteredUsers() {
 
     this.user.list( { order: 'idx DESC' } ).subscribe( (res: USER_LIST_RESPONSE) => {
       this.newUsers = res.data.users;
-      console.info(res);
+      console.info( 'loadNewlyRegisteredUsers', res);
     }, err => {
       alert( err );
       console.error(err);
@@ -98,6 +102,34 @@ export class AppComponent {
     this.user.edit( this.edit ).subscribe( (res:USER_EDIT_RESPONSE) => {
       console.log(res);
     }, err => this.user.alert( err ) );
+  }
+
+  onChangeSearch() {
+    console.log('onChangeSearch', this.searchForm);
+    this.paginationUsers = [];
+    let cond = '';
+    let bind = '';
+
+    if( this.searchForm.name ) cond += "name LIKE ? ";
+    if( this.searchForm.name ) bind += "%name%";
+    this.searchQuery.from = 0;
+    this.searchQuery.limit = 2;
+    this.searchQuery.where = cond;
+    this.searchQuery.bind = bind;
+
+
+    console.log('onChangeSearch::searchQuery', this.searchQuery);
+    this.loadSearchedData();
+  }
+
+
+  loadSearchedData() {
+
+    this.user.list( this.searchQuery ).subscribe( (res:USER_LIST_RESPONSE) => {
+      console.info( 'loadSearchedData', res );
+      this.paginationUsers = res.data.users;
+    }, err => this.user.alert( err ) );
+
   }
 
 

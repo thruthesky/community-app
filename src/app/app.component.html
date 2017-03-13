@@ -47,10 +47,18 @@
 
 
 <h2>User management By admin</h2>
-
 TODO: 1. user list with pagination like [1] [2] [3] [4] [5]
 2. user search.
 3. user edit.
+<div>User Name: <input name="id" ([ngModel])="searchForm.name" (change)="onChangeSearch()"></div>
+<h2>User Pagination</h2>
+<div *ngIf="paginationUsers" class="pagination-user" >
+  <span *ngFor="let user of paginationUsers" class="user">
+    {{ user.id }} *
+  </span>
+</div>
+
+
 
 
 <hr>
