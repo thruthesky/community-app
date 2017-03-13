@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Backend, User, Test,
   USER, USER_LOGIN, USER_LOGIN_RESPONSE, USER_LIST_RESPONSE,
+  USER_EDIT, USER_EDIT_RESPONSE,
   USER_LOGOUT_RESPONSE,
   USER_REGISTER, USER_REGISTER_RESPONSE,
   SESSION_INFO
@@ -19,6 +20,7 @@ export class AppComponent {
 
   newUsers: Array<USER> = null;
   form = <USER_REGISTER> {};
+  profile
 
   info = <SESSION_INFO> {};
 
@@ -51,7 +53,6 @@ export class AppComponent {
     };
     this.user.login( req ).subscribe( (res: USER_LOGIN_RESPONSE ) => {
       console.log( res );
-      this.info = this.user.getSessionInfo();
     }, err => {
       this.user.alert( err );
       console.log(err);
@@ -69,7 +70,6 @@ export class AppComponent {
   onClickRegister() {
     this.user.register( this.form ).subscribe( (res: USER_REGISTER_RESPONSE) => {
       console.info( res );
-      this.info = this.user.getSessionInfo();
     }, err => {
       this.user.alert(err);
     });
