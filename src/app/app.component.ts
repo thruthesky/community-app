@@ -54,7 +54,6 @@ private user: User
     this.searchChangeDebounce
       .debounceTime(300) // wait 300ms after the last event before emitting last event
       .subscribe( () => this.onChangedSearch() );
-
   }
 
   loadNewlyRegisteredUsers() {
