@@ -8,8 +8,8 @@ import {Component, Input, Output, EventEmitter} from '@angular/core';
 export class PageNavigationComponent {
 
   numbers = [];
-  totalPage = 0;
-  totalDisplayed = 0;
+  no_of_total_pages = 0;
+  //totalDisplayed = 0;
   currentDisplay = 0;
 
   @Input() no_of_total_items :number = null;
@@ -23,35 +23,56 @@ export class PageNavigationComponent {
 
   constructor() { }
 
-  ngOnChanges(){
-    this.showPagination();
+  ngOnInit() {
+    
   }
+  
+  ngOnChanges(){
+    console.log("ngOnChanges: ...");
+    if ( this.no_of_total_items > 0 ) this.showPagination();
+  }
+
   showPagination() {
-    this.totalPage = Math.ceil(this.no_of_total_items / this.no_of_items_in_one_page);
+    console.log('this.no_of_total_items:', this.no_of_total_items);
+    this.no_of_total_pages = Math.ceil(this.no_of_total_items / this.no_of_items_in_one_page);
 
 
-    this.totalDisplayed =  this.no_of_pages_in_navigator;
+    //this.totalDisplayed =  this.no_of_pages_in_navigator;
 
 
-    if (this.totalDisplayed == 0 ) return;
+    // if ( this.no_of_pages_in_navigator == 0 ) return;
 
     this.currentDisplay = Math.floor( (this.no_of_current_page -1) / this.no_of_pages_in_navigator);
     console.log('showPagination::currentDisplay',this.currentDisplay);
-    console.log('showPagination::totalDisplayed',this.totalDisplayed);
-    console.log('showPagination::totalPage',this.totalPage);
-    this.numbers = Array.from(new Array(this.totalDisplayed), (x,i) => i+1);
+    console.log('showPagination::no_of_pages_in_navigator',this.no_of_pages_in_navigator);
+    console.log('showPagination::totalPage',this.no_of_total_pages);
+
+
+    this.numbers = [];
+    for ( let i = 0; i < this.no_of_pages_in_navigator; i ++ ) {
+      let current_page_no = this.currentDisplay  * this.no_of_pages_in_navigator + i;
+      let next_block_page_no = ( this.currentDisplay + 1)  * this.no_of_pages_in_navigator;
+      if ( current_page_no < this.no_of_total_pages && current_page_no < next_block_page_no ) {
+        this.numbers.push( current_page_no + 1 );
+      }
+    }
+    // for( let i = this.currentDisplay; (i < this.no_of_total_pages) && ( i < ( this.currentDisplay * this.no_of_pages_in_navigator )) ; i ++ ) this.numbers.push( i );
+    console.log('numbers: ', this.numbers);
   }
   nextPage(){
-    this.pageClick.emit( this.no_of_current_page+1 );
+    let nextPage = (this.currentDisplay + 1) * this.no_of_pages_in_navigator + 1;
+    console.log('nextPage: ', nextPage);
+    this.pageClick.emit( nextPage );
   }
   previousPage(){
     this.pageClick.emit( this.no_of_current_page-1 );
   }
   gotoPage( page ) {
+    console.log('page: ', page);
     this.pageClick.emit( page );
   }
   gotoLast() {
-    this.pageClick.emit( this.totalPage );
+    this.pageClick.emit( this.no_of_total_pages );
   }
   gotoFirst() {
     this.pageClick.emit( 1 );

@@ -151,7 +151,7 @@ private user: User
   limit = 5;
   currentPage = 1;
   numberPerNav = 4;
-  total = 10;
+  total = 0;
 
   loadSearchedData() {
 
@@ -162,6 +162,7 @@ private user: User
       console.info( 'loadSearchedData', res );
       this.paginationUsers = res.data.users;
       this.total = parseInt( res.data.total );
+      console.log('total: ', this.total);
       //this.showPagination();
     }, err => this.user.alert( err ) );
 
