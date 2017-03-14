@@ -8,3 +8,29 @@
 
 
 
+# TODO
+
+input:
+    no of totoal records:
+
+options:
+    page no.
+    no of items in one page.
+    no of pages in one navigation bar.
+
+    to show first, last
+
+    @Input() ...;
+
+
+    <page-navigation
+        [no_of_total_items]="345"
+        [no_of_items_in_one_page] = "11"
+        [no_of_pages_in_navigator] = "13"
+        [no_of_current_page] = "15"
+        [show_prev_next] = "true"
+        [show_first_last] = "true"
+        (pageClick)="onPageClick()"
+        
+    >
+    </page-navigation>
