@@ -4,15 +4,15 @@
 
 <hr>
 <h2>Login</h2>
-  <div class="user-box">
-    <div *ngIf=" ! user.logged " class="login-form">
-      <input name="id" [(ngModel)]="_id"><input name="password" [(ngModel)]="_password"><button (click)="onClickLogin(_id, _password)" type="button">Login</button>
-    </div>
-    <div *ngIf=" user.logged " class="user-info">
-      User are logged in: {{ user.getSessionInfo().id }}
-      <button (click)="onClickLogout()" type="button">logout</button>
-    </div>
+<div class="user-box">
+  <div *ngIf=" ! user.logged " class="login-form">
+    <input name="id" [(ngModel)]="_id"><input name="password" [(ngModel)]="_password"><button (click)="onClickLogin(_id, _password)" type="button">Login</button>
   </div>
+  <div *ngIf=" user.logged " class="user-info">
+    User are logged in: {{ user.getSessionInfo().id }}
+    <button (click)="onClickLogout()" type="button">logout</button>
+  </div>
+</div>
 <h3>Newly Registered Users</h3>
 <div *ngIf="newUsers" class="new-users" >
   <span *ngFor="let user of newUsers" class="user">
@@ -50,12 +50,13 @@
 TODO: 1. user list with pagination like [1] [2] [3] [4] [5]
 2. user search.
 3. user edit.
-<div>User Name: <input name="id" ([ngModel])="searchForm.name" (ngModelChange)="onChangeSearch()"></div>
+<div>User Name: <input name="id" [(ngModel)]="searchForm.name" (keyup)="onChangeSearch()"></div>
+{{ searchForm.name }}
 <h2>User Pagination</h2>
 <div *ngIf="paginationUsers" class="pagination-user" >
-  <span *ngFor="let user of paginationUsers" class="user">
-    {{ user.id }} *
-  </span>
+  <div *ngFor="let user of paginationUsers" class="user">
+    {{ user.name }}
+  </div>
 </div>
 
 
@@ -66,7 +67,7 @@ TODO: 1. user list with pagination like [1] [2] [3] [4] [5]
 <h1>Forum</h1>
 <h2>Forum Create</h2>
 <div class="forum-form">
-  <div>Forum ID: <input name="id" [(ngModel)]="forum.id"><div>
-  <div>Name: <input name="name" [(ngModel)]="forum.name"></div>
-  <div><button (click)="onClickForumCreate()" type="button">create forum</button></div>
-</div>
+  <div>Forum ID: <input name="id" [(ngModel)]="forum.id"></div>
+    <div>Name: <input name="name" [(ngModel)]="forum.name"></div>
+    <div><button (click)="onClickForumCreate()" type="button">create forum</button></div>
+  </div>

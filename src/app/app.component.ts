@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+import { Subject } from 'rxjs/Subject';
+import 'rxjs/add/operator/debounceTime';
+
 import { Backend, User, Test,
   USER, USER_LOGIN, USER_LOGIN_RESPONSE, USER_LIST_RESPONSE,
   USER_EDIT, USER_EDIT_RESPONSE,
@@ -16,7 +19,6 @@ import { Backend, User, Test,
 })
 export class AppComponent {
   title = 'app works!';
-
 
   _id: string = null;
   _password: string = null;
@@ -36,15 +38,23 @@ export class AppComponent {
   //
   forum = <CONFIG> {};
 
+
+  searchChangeDebounce = new Subject();
   constructor(
 //    test: Test,
-    private backend: Backend,
-    private user: User
+private backend: Backend,
+private user: User
   )
   {
     // this.onClickLogin( 'admin', 'admin' );
     this.loadNewlyRegisteredUsers();
-    this.loadSearchedData();
+    this.onChangedSearch();
+
+
+    this.searchChangeDebounce
+      .debounceTime(300) // wait 300ms after the last event before emitting last event
+      .subscribe( () => this.onChangedSearch() );
+
   }
 
   loadNewlyRegisteredUsers() {
@@ -105,21 +115,27 @@ export class AppComponent {
   }
 
   onChangeSearch() {
-    console.log('onChangeSearch');
+    this.searchChangeDebounce.next();
+  }
+  onChangedSearch() {
+
+    console.log('onChangeSearch', this.searchForm);
+
+    if ( this.searchForm.name === void 0 ) return;
+    if ( this.searchForm.name.length < 2 ) return;
+
     this.paginationUsers = [];
     let cond = '';
     let bind = '';
-
     if( this.searchForm.name ) cond += "name LIKE ? ";
-    if( this.searchForm.name ) bind += "%name%";
+    if( this.searchForm.name ) bind += `%${this.searchForm.name}%`;
     this.searchQuery.from = 0;
-    this.searchQuery.limit = 2;
+    this.searchQuery.limit = 5;
     this.searchQuery.where = cond;
     this.searchQuery.bind = bind;
-
-
     console.log('onChangeSearch::searchQuery', this.searchQuery);
     this.loadSearchedData();
+
   }
 
 
