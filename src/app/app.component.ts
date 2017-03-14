@@ -26,15 +26,13 @@ export class AppComponent {
   newUsers = <Array<USER>> [];
 
   paginationUsers = <Array<USER>> [];
-  searchForm = <USER_FIELDS>{};
+  searchForm = <USER>{};
   searchQuery = <USER_LIST>{};
 
   form = <USER_REGISTER> {};
   edit = <USER_EDIT> {};
 
   info = <SESSION_INFO> {};
-
-
   //
   forum = <CONFIG> {};
 
@@ -96,18 +94,21 @@ private user: User
     });
   }
 
-  onClickLoadData() {
-    this.user.data().subscribe( (res: USER_DATA_RESPONSE) => {
+  onClickLoadData( id? : string) {
+    this.user.data( id ).subscribe( (res: USER_DATA_RESPONSE) => {
       let data = res.data.user;
       this.edit.name = data.name;
       this.edit.email = data.email;
       this.edit.gender = data.gender;
-      console.log(res);
+      this.edit.id = data.id;
+      /** this.edit = res.data.user; **/
+      console.log('onClickLoadData::res', res);
     }, err => this.user.alert( err ) );
   }
 
 
   onClickUpdateProfile() {
+    console.log('onClickUpdateProfile::this.edit', this.edit );
     this.user.edit( this.edit ).subscribe( (res:USER_EDIT_RESPONSE) => {
       console.log(res);
     }, err => this.user.alert( err ) );
@@ -116,37 +117,85 @@ private user: User
   onChangeSearch() {
     this.searchChangeDebounce.next();
   }
-  onChangedSearch() {
 
+  onChangedSearch() {
     console.log('onChangeSearch', this.searchForm);
 
-    if ( this.searchForm.name === void 0 ) return;
-    if ( this.searchForm.name.length < 2 ) return;
+    if ( this.searchForm.id ) { if ( this.searchForm.id.length < 2 ) return; }
+    if ( this.searchForm.name ) { if ( this.searchForm.name.length < 2 ) return; }
+    if ( this.searchForm.email ) { if ( this.searchForm.email.length < 2 ) return; }
 
-    this.paginationUsers = [];
     let cond = '';
     let bind = '';
-    if( this.searchForm.name ) cond += "name LIKE ? ";
-    if( this.searchForm.name ) bind += `%${this.searchForm.name}%`;
-    this.searchQuery.from = 0;
-    this.searchQuery.limit = 5;
+
+    if( this.searchForm.id ) cond += "id LIKE ? ";
+    if( this.searchForm.id ) bind += `%${this.searchForm.id}%`;
+
+    if( this.searchForm.name ) cond += cond ? "AND ( name LIKE ? OR middle_name LIKE ? OR last_name LIKE ? ) " : "( name LIKE ? OR middle_name LIKE ? OR last_name LIKE ? )";
+    if( this.searchForm.name ) bind += bind ? `,%${this.searchForm.name}%,%${this.searchForm.name}%,%${this.searchForm.name}%` : `%${this.searchForm.name}%,%${this.searchForm.name}%,%${this.searchForm.name}%`;
+
+    if( this.searchForm.email ) cond += cond ? "AND email LIKE ? " : "email LIKE ? ";
+    if( this.searchForm.email ) bind += bind ? `,%${this.searchForm.email}%` : `%${this.searchForm.email}%`;
+
+
+    console.log('CONDITION::', cond);
+
+    console.log('BINDING::', bind);
+
     this.searchQuery.where = cond;
     this.searchQuery.bind = bind;
     console.log('onChangeSearch::searchQuery', this.searchQuery);
     this.loadSearchedData();
-
   }
 
 
   loadSearchedData() {
 
+    this.paginationUsers = [];
+    this.searchQuery.from = this.limit*this.currentPage - this.limit;
+    this.searchQuery.limit = this.limit;
     this.user.list( this.searchQuery ).subscribe( (res:USER_LIST_RESPONSE) => {
       console.info( 'loadSearchedData', res );
       this.paginationUsers = res.data.users;
+      this.total = parseInt( res.data.total );
+      this.showPagination();
     }, err => this.user.alert( err ) );
+
 
   }
 
+
+  numbers = [];
+  currentPage = 1;
+  total = 0;
+  limit = 5;
+  totalPage = 0;
+  totalDisplayed = 3;
+  showPagination() {
+    this.totalPage = Math.ceil(this.total / this.limit);
+    //console.log('showPagination::this.totalPage', this.totalPage);
+    this.numbers = Array.from(new Array(this.totalPage), (x,i) => i+1);
+  }
+  nextPage(){
+    this.currentPage += 1;
+    this.loadSearchedData();
+  }
+  previousPage(){
+    this.currentPage -= 1;
+    this.loadSearchedData();
+  }
+  gotoPage( page ) {
+    this.currentPage = page;
+    this.loadSearchedData();
+  }
+  gotoLast() {
+    this.currentPage = this.totalPage;
+    this.loadSearchedData();
+  }
+  gotoFirst() {
+    this.currentPage = 1;
+    this.loadSearchedData();
+  }
 
 
   // onClickForumCreate() {
