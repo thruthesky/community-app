@@ -105,7 +105,7 @@ export class AppComponent {
   }
 
   onChangeSearch() {
-    console.log('onChangeSearch', this.searchForm);
+    console.log('onChangeSearch');
     this.paginationUsers = [];
     let cond = '';
     let bind = '';
