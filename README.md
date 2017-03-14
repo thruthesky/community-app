@@ -30,5 +30,7 @@ options:
         [no_of_current_page] = "15"
         [show_prev_next] = "true"
         [show_first_last] = "true"
+        (pageClick)="onPageClick()"
+        
     >
     </page-navigation>
