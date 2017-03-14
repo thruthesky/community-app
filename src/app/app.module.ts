@@ -6,10 +6,12 @@ import { HttpModule } from '@angular/http';
 import { AppComponent } from './app.component';
 
 import { AngularBackendModule } from './angular-backend/angular-backend.module';
+import { PageNavigationComponent } from './pagination/pagination.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    PageNavigationComponent
   ],
   imports: [
     BrowserModule,

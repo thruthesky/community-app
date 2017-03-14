@@ -1,0 +1,12 @@
+<div class="pagination">
+  <button type="button" *ngIf="show_first_last" [disabled]="no_of_current_page == 1" (click)="gotoFirst()"> << </button>
+  <button type="button" *ngIf="show_prev_next"  [disabled]="no_of_current_page == 1" (click)="previousPage()"> < </button>
+  <button type="button"
+          *ngFor="let x of numbers"
+          [disabled]="no_of_current_page == x + currentDisplay*no_of_pages_in_navigator"
+          [ngClass]="{'active': no_of_current_page == x + currentDisplay*no_of_pages_in_navigator }"
+          (click)="gotoPage( x + currentDisplay*no_of_pages_in_navigator)"
+  >{{x+currentDisplay*no_of_pages_in_navigator}}</button>
+  <button type="button" *ngIf="show_prev_next"  [disabled]="no_of_current_page == totalPage" (click)="nextPage()"> > </button>
+  <button type="button" *ngIf="show_first_last" [disabled]="no_of_current_page == totalPage" (click)="gotoLast()"> >> </button>
+</div>

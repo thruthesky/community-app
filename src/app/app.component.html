@@ -59,13 +59,19 @@ TODO: 1. user list with pagination like [1] [2] [3] [4] [5]
   <div *ngFor="let user of paginationUsers" class="user">
     {{ user.name }} <button (click)="onClickLoadData( user.id )" type="button">Edit</button>
   </div>
-  <div class="pagination">
-    <button type="button" [disabled]="currentPage == 1" (click)="gotoFirst()"> << </button>
-    <button type="button" [disabled]="currentPage == 1" (click)="previousPage()"> < </button>
-    <button type="button" *ngFor="let x of numbers" (click)="gotoPage(x)" [ngClass]="{'active': currentPage == x }" [disabled]="currentPage == x">{{x}}</button>
-    <button type="button" [disabled]="currentPage == totalPage" (click)="nextPage()"> > </button>
-    <button type="button" [disabled]="currentPage == totalPage" (click)="gotoLast()"> >> </button>
-  </div>
+
+
+  <page-navigation
+    [no_of_total_items]=" total "
+    [no_of_items_in_one_page] = " limit "
+    [no_of_pages_in_navigator] = " numberPerNav "
+    [no_of_current_page] = " currentPage "
+    [show_prev_next] = " true "
+    [show_first_last] = " true "
+    (pageClick)="onPageClick($event)"
+  >
+  </page-navigation>
+
 </div>
 
 <hr>

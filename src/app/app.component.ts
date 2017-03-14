@@ -148,6 +148,10 @@ private user: User
     this.loadSearchedData();
   }
 
+  limit = 5;
+  currentPage = 1;
+  numberPerNav = 4;
+  total = 10;
 
   loadSearchedData() {
 
@@ -158,44 +162,53 @@ private user: User
       console.info( 'loadSearchedData', res );
       this.paginationUsers = res.data.users;
       this.total = parseInt( res.data.total );
-      this.showPagination();
+      //this.showPagination();
     }, err => this.user.alert( err ) );
 
 
   }
 
+  onPageClick($event) {
+    console.log('onPageClick::$event',$event);
+    this.currentPage = $event;
+    this.loadSearchedData();
+  }
 
-  numbers = [];
-  currentPage = 1;
-  total = 0;
-  limit = 5;
-  totalPage = 0;
-  totalDisplayed = 3;
-  showPagination() {
+  /**
+   *
+   numbers = [];
+   currentPage = 1;
+   total = 0;
+   limit = 5;
+   totalPage = 0;
+   totalDisplayed = 3;
+   showPagination() {
     this.totalPage = Math.ceil(this.total / this.limit);
     //console.log('showPagination::this.totalPage', this.totalPage);
     this.numbers = Array.from(new Array(this.totalPage), (x,i) => i+1);
   }
-  nextPage(){
+   nextPage(){
     this.currentPage += 1;
     this.loadSearchedData();
   }
-  previousPage(){
+   previousPage(){
     this.currentPage -= 1;
     this.loadSearchedData();
   }
-  gotoPage( page ) {
+   gotoPage( page ) {
     this.currentPage = page;
     this.loadSearchedData();
   }
-  gotoLast() {
+   gotoLast() {
     this.currentPage = this.totalPage;
     this.loadSearchedData();
   }
-  gotoFirst() {
+   gotoFirst() {
     this.currentPage = 1;
     this.loadSearchedData();
   }
+
+   ***/
 
 
   // onClickForumCreate() {
