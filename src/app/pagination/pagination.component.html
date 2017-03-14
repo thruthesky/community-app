@@ -1,0 +1,15 @@
+<div class="pagination">
+  <button type="button" *ngIf="show_first_last" (click)="gotoFirst()"> << </button>
+  <button type="button" *ngIf="show_prev_next"  (click)="previousPage()"> < </button>
+  <button type="button"
+          *ngFor="let x of numbers"
+          
+          [ngClass]="{'active': no_of_current_page == x }"
+          (click)="gotoPage( x )"
+  >{{x}}</button>
+
+
+  <button type="button" *ngIf="show_prev_next && numbers[ numbers.length - 1] < no_of_total_pages "  (click)="nextPage()"> > </button>
+  <button type="button" *ngIf="show_first_last && numbers[ numbers.length - 1] < no_of_total_pages" (click)="gotoLast()"> >> </button>
+
+</div>
