@@ -57,8 +57,8 @@
     {{ user.name }} <button (click)="onClickLoadData( user.id )" type="button">Edit</button>
   </div>
   <page-navigation
-    [no_of_total_items]=" total "
-    [no_of_items_in_one_page] = " limit "
+    [no_of_total_items]=" totalRecord "
+    [no_of_items_in_one_page] = " limitPerPage "
     [no_of_pages_in_navigator] = " numberPerNav "
     [no_of_current_page] = " currentPage "
     [show_prev_next] = " true "

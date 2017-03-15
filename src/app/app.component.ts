@@ -22,10 +22,10 @@ export class AppComponent {
 
   _id: string = null;
   _password: string = null;
-  limit = 5;
+  limitPerPage = 5;
   currentPage = 1;
   numberPerNav = 4;
-  total = 0;
+  totalRecord = 0;
 
   newUsers = <Array<USER>> [];
 
@@ -106,13 +106,13 @@ private user: User
       this.edit.gender = data.gender;
       this.edit.id = data.id;
       /** this.edit = res.data.user; **/
-      console.log('onClickLoadData::res', res);
+      //console.log('onClickLoadData::res', res);
     }, err => this.user.alert( err ) );
   }
 
 
   onClickUpdateProfile() {
-    console.log('onClickUpdateProfile::this.edit', this.edit );
+    //console.log('onClickUpdateProfile::this.edit', this.edit );
     this.user.edit( this.edit ).subscribe( (res:USER_EDIT_RESPONSE) => {
       console.log(res);
     }, err => this.user.alert( err ) );
@@ -123,7 +123,7 @@ private user: User
   }
 
   onChangedSearch() {
-    console.log('onChangeSearch', this.searchForm);
+    //console.log('onChangeSearch', this.searchForm);
 
     if ( this.searchForm.id ) { if ( this.searchForm.id.length < 2 ) return; }
     if ( this.searchForm.name ) { if ( this.searchForm.name.length < 2 ) return; }
@@ -141,14 +141,9 @@ private user: User
     if( this.searchForm.email ) cond += cond ? "AND email LIKE ? " : "email LIKE ? ";
     if( this.searchForm.email ) bind += bind ? `,%${this.searchForm.email}%` : `%${this.searchForm.email}%`;
 
-
-    console.log('CONDITION::', cond);
-
-    console.log('BINDING::', bind);
-
     this.searchQuery.where = cond;
     this.searchQuery.bind = bind;
-    console.log('onChangeSearch::searchQuery', this.searchQuery);
+    //console.log('onChangeSearch::searchQuery', this.searchQuery);
     this.loadSearchedData();
   }
 
@@ -156,13 +151,13 @@ private user: User
   loadSearchedData() {
 
     this.paginationUsers = [];
-    this.searchQuery.from = this.limit*this.currentPage - this.limit;
-    this.searchQuery.limit = this.limit;
+    this.searchQuery.from = this.limitPerPage*this.currentPage - this.limitPerPage;
+    this.searchQuery.limit = this.limitPerPage;
     this.user.list( this.searchQuery ).subscribe( (res:USER_LIST_RESPONSE) => {
-      console.info( 'loadSearchedData', res );
+      //console.info( 'loadSearchedData', res );
       this.paginationUsers = res.data.users;
-      this.total = parseInt( res.data.total );
-      console.log('total: ', this.total);
+      this.totalRecord = parseInt( res.data.total );
+      //console.log('total: ', this.totalRecord);
       //this.showPagination();
     }, err => this.user.alert( err ) );
 
@@ -170,7 +165,7 @@ private user: User
   }
 
   onPageClick($event) {
-    console.log('onPageClick::$event',$event);
+    //console.log('onPageClick::$event',$event);
     this.currentPage = $event;
     this.loadSearchedData();
   }

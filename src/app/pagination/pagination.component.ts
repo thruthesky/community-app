@@ -50,7 +50,7 @@ export class PageNavigationComponent {
   previousPage(){
     let prevPage = (this.currentDisplay) * this.no_of_pages_in_navigator;
     //console.log('prev: ', prevPage);
-    this.pageClick.emit( this.no_of_current_page-1 );
+    this.pageClick.emit( prevPage );
   }
   gotoPage( page ) {
     //console.log('page: ', page);
