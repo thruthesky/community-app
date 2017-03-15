@@ -22,6 +22,10 @@ export class AppComponent {
 
   _id: string = null;
   _password: string = null;
+  limit = 5;
+  currentPage = 1;
+  numberPerNav = 4;
+  total = 0;
 
   newUsers = <Array<USER>> [];
 
@@ -148,10 +152,6 @@ private user: User
     this.loadSearchedData();
   }
 
-  limit = 5;
-  currentPage = 1;
-  numberPerNav = 4;
-  total = 0;
 
   loadSearchedData() {
 
@@ -174,43 +174,6 @@ private user: User
     this.currentPage = $event;
     this.loadSearchedData();
   }
-
-  /**
-   *
-   numbers = [];
-   currentPage = 1;
-   total = 0;
-   limit = 5;
-   totalPage = 0;
-   totalDisplayed = 3;
-   showPagination() {
-    this.totalPage = Math.ceil(this.total / this.limit);
-    //console.log('showPagination::this.totalPage', this.totalPage);
-    this.numbers = Array.from(new Array(this.totalPage), (x,i) => i+1);
-  }
-   nextPage(){
-    this.currentPage += 1;
-    this.loadSearchedData();
-  }
-   previousPage(){
-    this.currentPage -= 1;
-    this.loadSearchedData();
-  }
-   gotoPage( page ) {
-    this.currentPage = page;
-    this.loadSearchedData();
-  }
-   gotoLast() {
-    this.currentPage = this.totalPage;
-    this.loadSearchedData();
-  }
-   gotoFirst() {
-    this.currentPage = 1;
-    this.loadSearchedData();
-  }
-
-   ***/
-
 
   // onClickForumCreate() {
   //   this.
