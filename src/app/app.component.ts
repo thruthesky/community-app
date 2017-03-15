@@ -42,6 +42,16 @@ export class AppComponent {
 
 
   searchChangeDebounce = new Subject();
+
+
+  paginationClass = {
+    ul: 'pagination',
+    li: 'page-item',
+    a: 'page-link',
+    active: 'active',
+    pageIn: 'page-indicator'
+  };
+
   constructor(
 //    test: Test,
 private backend: Backend,

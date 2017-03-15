@@ -18,6 +18,19 @@ export class PageNavigationComponent {
   @Input() show_prev_next:boolean = true;
   @Input() show_first_last:boolean = true;
 
+  @Input () text_prev:string  = '&lsaquo;';
+  @Input () text_next:string  = '&rsaquo;';
+  @Input () text_first:string = '&laquo;';
+  @Input () text_last:string  = '&raquo;';
+
+  @Input () structureClass = {
+    ul: 'pagination',
+    li: 'page-item',
+    a: 'page-link',
+    active: 'active',
+    pageIn: 'page-indicator'
+  };
+
   @Output() pageClick = new EventEmitter();
 
   constructor() { }
