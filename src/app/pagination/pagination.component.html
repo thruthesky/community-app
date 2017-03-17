@@ -1,4 +1,4 @@
-<nav>
+<nav *ngIf="no_of_total_items">
   <ul class="{{structureClass.ul}}">
     <li class="{{structureClass.li}}{{structureClass.pageIn}}"><a class="{{structureClass.a}}">Page {{no_of_current_page}} of {{no_of_total_pages}}</a></li>
     <li class="{{structureClass.li}}" *ngIf="show_first_last && currentDisplay > 0" (click)="gotoFirst()">

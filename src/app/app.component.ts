@@ -167,6 +167,7 @@ private user: User
       //console.info( 'loadSearchedData', res );
       this.paginationUsers = res.data.users;
       this.totalRecord = parseInt( res.data.total );
+      this.currentPage = 1;
       //console.log('total: ', this.totalRecord);
       //this.showPagination();
     }, err => this.user.alert( err ) );
