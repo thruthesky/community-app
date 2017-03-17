@@ -72,6 +72,19 @@
   >
   </page-navigation>
 </div>
+<hr>
+<h1>Simple HTML File Upload</h1>
+<form ngNoForm method="POST" action="http://localhost/www/backend/index.php" enctype="multipart/form-data" target="_blank">
+  <input type="hidden" name="route" value="upload">
+  model: <input name="model">
+  model_idx: <input name="model_idx">
+  code: <input name="code">
+  file: <input type="file" name="userfile">
+  <input type="submit" value="Submit">
+</form>
+<h1>Angular File Upload</h1>
+<input #userfile type="file" (change)="onChangeFile( userfile )">
+
 
 <hr>
 

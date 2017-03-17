@@ -1,6 +1,11 @@
 import { Component } from '@angular/core';
 import { Subject } from 'rxjs/Subject';
 import 'rxjs/add/operator/debounceTime';
+import { Http } from '@angular/http';
+
+import { ProgressService } from '../service/progress';
+
+
 
 import { Backend, User, Test,
   USER, USER_LOGIN, USER_LOGIN_RESPONSE, USER_LIST_RESPONSE,
@@ -54,6 +59,8 @@ export class AppComponent {
 
   constructor(
 //    test: Test,
+    private http: Http,
+    private progress: ProgressService,
 private backend: Backend,
 private user: User
   )
@@ -66,6 +73,13 @@ private user: User
     this.searchChangeDebounce
       .debounceTime(300) // wait 300ms after the last event before emitting last event
       .subscribe( () => this.onChangedSearch() );
+
+
+      this.progress.uploadProgress.subscribe( res => {
+        console.log("progress: ", res);
+
+      });
+      
   }
 
   loadNewlyRegisteredUsers() {
@@ -179,6 +193,26 @@ private user: User
     //console.log('onPageClick::$event',$event);
     this.currentPage = $event;
     this.loadSearchedData();
+  }
+
+  onChangeFile( fileInput ) {
+
+    console.log("file changed: ", fileInput);
+    let file = fileInput.files[0];
+    console.log("file: ", file);
+
+    let formData = new FormData();
+    formData.append( 'route', 'upload' );
+    formData.append( 'model', 'def' );
+    formData.append( 'model_idx', '456' );
+    formData.append( 'code', 'purple' );
+    formData.append( 'userfile', file, file.name);
+    this.http.post( 'http://localhost/www/backend/index.php', formData).subscribe(res=>{
+      console.info("file upload success: ", res);
+    }, err => {
+      console.error(err);
+    })
+
   }
 
   // onClickForumCreate() {
