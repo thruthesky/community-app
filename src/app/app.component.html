@@ -84,7 +84,7 @@
 </form>
 <h1>Angular File Upload</h1>
 <input #userfile type="file" (change)="onChangeFile( userfile )">
-
+<div class="progress" *ngIf="percentage">{{percentage}}</div>
 
 <hr>
 

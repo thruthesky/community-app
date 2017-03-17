@@ -1,9 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { HttpModule, BrowserXhr } from '@angular/http';
-import { ProgressService } from '../service/progress';
-import { CustomBrowserXhr } from '../service/custom-browser-xhr';
+import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
 
@@ -21,10 +19,7 @@ import { PageNavigationComponent } from './pagination/pagination.component';
     HttpModule,
     AngularBackendModule
   ],
-  providers: [
-    ProgressService,
-    { provide: BrowserXhr, useClass: CustomBrowserXhr }
-  ],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
