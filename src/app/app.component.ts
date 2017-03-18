@@ -2,22 +2,24 @@ import { Component, NgZone } from '@angular/core';
 import { Subject } from 'rxjs/Subject';
 import 'rxjs/add/operator/debounceTime';
 import { Http } from '@angular/http';
-import { File } from './angular-backend/file'
 
 
 
-import { Backend, User, Test,
-  USER, USER_LOGIN, USER_LOGIN_RESPONSE, USER_LIST_RESPONSE,
+
+import { Backend, User, Test, File, PostConfig, PostData,
+  USER, USER_LOGIN, USER_LOGIN_RESPONSE,
   USER_EDIT, USER_EDIT_RESPONSE,
   USER_LOGOUT_RESPONSE,
   USER_REGISTER, USER_REGISTER_RESPONSE,
   USER_DATA_RESPONSE,
   SESSION_INFO,
-  USER_LIST, USER_FIELDS,
+  USER_FIELDS,
   FILE_UPLOAD,
   CONFIG,
-  CONFIG_CREATE
+  CONFIG_CREATE,
+  LIST, USER_LIST_RESPONSE
 } from './angular-backend/angular-backend.module';
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -38,7 +40,7 @@ export class AppComponent {
 
   paginationUsers = <Array<USER>> [];
   searchForm = <USER>{};
-  searchQuery = <USER_LIST>{};
+  searchQuery = <LIST>{};
 
   form = <USER_REGISTER> {};
   edit = <USER_EDIT> {};
@@ -72,7 +74,9 @@ export class AppComponent {
               private backend: Backend,
               private user: User,
               private ngZone: NgZone,
-              private file: File) {
+              private config: PostConfig,
+              private post: PostData,
+              private file: File ) {
     // this.onClickLogin( 'admin', 'admin' );
     this.loadNewlyRegisteredUsers();
     this.onChangedSearch();
@@ -246,6 +250,21 @@ export class AppComponent {
 
   onClickForumCreate() {
     console.log("forum: ", this.forum);
-    // this.config.create();
+    this.config.create( this.forum ).subscribe( res => {
+      console.log(res);
+    }, err => {
+      console.log(err);
+      this.config.alert( err );
+    })
+  }
+  onClickForumList() {
+
+    this.config.list( { limit: 1, where: 'id LIKE ?', bind: 'my%', order: 'idx DESC' } ).subscribe( res => {
+      console.log(res);
+    }, err => {
+      console.log(err);
+    });
+
+    
   }
 }

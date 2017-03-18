@@ -2,6 +2,19 @@
   {{title}}
 </h1>
 
+
+<hr>
+
+<h1>Forum</h1>
+<h2>Forum Create</h2>
+<div class="forum-form">
+  <div>Forum ID: <input name="id" [(ngModel)]="forum.id"></div>
+  <div>Name: <input name="name" [(ngModel)]="forum.name"></div>
+  <div><button (click)="onClickForumCreate()" type="button">create forum</button></div>
+</div>
+<h2>List Forums <button (click)="onClickForumList()">list</button></h2>
+
+
 <hr>
 <h2>Login</h2>
 <div class="user-box">
@@ -92,13 +105,3 @@
 </form>
 -->
 
-
-<hr>
-
-<h1>Forum</h1>
-<h2>Forum Create</h2>
-<div class="forum-form">
-  <div>Forum ID: <input name="id" [(ngModel)]="forum.id"></div>
-    <div>Name: <input name="name" [(ngModel)]="forum.name"></div>
-    <div><button (click)="onClickForumCreate()" type="button">create forum</button></div>
-  </div>
