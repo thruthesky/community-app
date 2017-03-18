@@ -15,7 +15,8 @@ import { Backend, User, Test,
   SESSION_INFO,
   USER_LIST, USER_FIELDS,
   FILE_UPLOAD,
-  CONFIG
+  CONFIG,
+  CONFIG_CREATE
 } from './angular-backend/angular-backend.module';
 @Component({
   selector: 'app-root',
@@ -44,10 +45,16 @@ export class AppComponent {
 
   info = <SESSION_INFO> {};
   //
-  forum = <CONFIG> {};
+  forum = <CONFIG_CREATE> {};
 
+  user_data: USER = null;
 
   searchChangeDebounce = new Subject();
+
+  user_photo_idx: number = 0;
+  src_photo: string = null;
+  edit_src_photo: string = null;
+
 
 
   paginationClass = {
@@ -111,6 +118,9 @@ export class AppComponent {
   }
 
   onClickRegister() {
+
+    //
+    this.form.file_hooks = [ this.user_photo_idx ];
     this.user.register(this.form).subscribe((res: USER_REGISTER_RESPONSE) => {
       console.info(res);
     }, err => {
@@ -120,13 +130,14 @@ export class AppComponent {
 
   onClickLoadData(id?: string) {
     this.user.data(id).subscribe((res: USER_DATA_RESPONSE) => {
-      let data = res.data.user;
-      this.edit.name = data.name;
-      this.edit.email = data.email;
-      this.edit.gender = data.gender;
-      this.edit.id = data.id;
+      this.user_data = res.data.user;
+      this.edit.name = this.user_data.name;
+      this.edit.email = this.user_data.email;
+      this.edit.gender = this.user_data.gender;
+      this.edit.id = this.user_data.id;
+      this.edit_src_photo = this.file.src( { idx: this.user_data.primary_photo_idx });
       /** this.edit = res.data.user; **/
-      //console.log('onClickLoadData::res', res);
+      console.log('onClickLoadData::res', res);
     }, err => this.user.alert(err));
   }
 
@@ -201,36 +212,40 @@ export class AppComponent {
     console.log("file changed: ", fileInput);
     let file = fileInput.files[0];
     console.log("file: ", file);
+    let req: FILE_UPLOAD = { model: 'user' };
+
+    this.file.upload(req, file).subscribe(res => {
+      console.log(res);
+      this.user_photo_idx = res.data.idx;
+      this.src_photo = this.file.src( { idx: res.data.idx } );
+    }, err => {
+      console.log('error', err);
+    });
+  }
+
+  onEditChangeFile( fileInput ) {
+        console.log("file changed: ", fileInput);
+    let file = fileInput.files[0];
+    console.log("file: ", file);
     let req: FILE_UPLOAD = {
-      model: 'abc',
-      model_idx: 123,
-      code: 'qwe'
+      model: 'user',
+      model_idx: this.user_data.idx,
+      code: 'primary_photo',
+      unique: 'Y',
+      finish: 'Y'
     };
 
     this.file.upload(req, file).subscribe(res => {
       console.log(res);
+      this.user_photo_idx = res.data.idx;
+      this.edit_src_photo = this.file.src( { idx: res.data.idx } );
     }, err => {
       console.log('error', err);
     });
+  }
 
-    /*
-     let formData = new FormData();
-     formData.append( 'route', 'upload' );
-     formData.append( 'model', 'def' );
-     formData.append( 'model_idx', '456' );
-     formData.append( 'code', 'purple' );
-     formData.append( 'userfile', file, file.name);
-     this.http.post( 'http://localhost/www/backend/index.php', formData).subscribe(res=>{
-     console.info("file upload success: ", res);
-     }, err => {
-     console.error(err);
-     })
-
-     }*/
-
-    // onClickForumCreate() {
-    //   this.
-    // }
-
+  onClickForumCreate() {
+    console.log("forum: ", this.forum);
+    // this.config.create();
   }
 }

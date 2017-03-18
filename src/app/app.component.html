@@ -24,6 +24,9 @@
 <h2>User Register</h2>
 
 <div>
+  <input #userfile type="file" (change)="onChangeFile( userfile )">
+  <div class="progress" *ngIf="percentage">{{percentage}}%</div>
+  <img src="{{ src_photo }}" width="100%">
   <div>User ID: <input name="id" [(ngModel)]="form.id"></div>
   <div>Password: <input name="password" [(ngModel)]="form.password"></div>
   <div>Name: <input name="name" [(ngModel)]="form.name"></div>
@@ -39,6 +42,10 @@
   <button (click)="onClickLoadData()" type="button">Load user data</button> of {{ user.info?.id }}
 </div>
 <div>
+
+  <input #userfileEdit type="file" (change)="onEditChangeFile( userfileEdit )">
+  <div class="progress" *ngIf="percentage">{{percentage}}%</div>
+  <img src="{{ edit_src_photo }}" width="100%">
   <div>Name: <input name="name" [(ngModel)]="edit.name"></div>
   <div>Email: <input name="email" [(ngModel)]="edit.email"></div>
   <div>Gender<input name="gender" [(ngModel)]="edit.gender"></div>
@@ -73,6 +80,7 @@
   </page-navigation>
 </div>
 <hr>
+<!--
 <h1>Simple HTML File Upload</h1>
 <form ngNoForm method="POST" action="http://localhost/www/backend/index.php" enctype="multipart/form-data" target="_blank">
   <input type="hidden" name="route" value="upload">
@@ -82,9 +90,8 @@
   file: <input type="file" name="userfile">
   <input type="submit" value="Submit">
 </form>
-<h1>Angular File Upload</h1>
-<input #userfile type="file" (change)="onChangeFile( userfile )">
-<div class="progress" *ngIf="percentage">{{percentage}}</div>
+-->
+
 
 <hr>
 
