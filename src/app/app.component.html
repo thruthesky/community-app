@@ -24,6 +24,9 @@
 <h2>User Register</h2>
 
 <div>
+  <input #userfile type="file" (change)="onChangeFile( userfile )">
+  <div class="progress" *ngIf="percentage">{{percentage}}%</div>
+  <img src="{{ src_photo }}" width="100%">
   <div>User ID: <input name="id" [(ngModel)]="form.id"></div>
   <div>Password: <input name="password" [(ngModel)]="form.password"></div>
   <div>Name: <input name="name" [(ngModel)]="form.name"></div>
@@ -39,6 +42,10 @@
   <button (click)="onClickLoadData()" type="button">Load user data</button> of {{ user.info?.id }}
 </div>
 <div>
+
+  <input #userfileEdit type="file" (change)="onEditChangeFile( userfileEdit )">
+  <div class="progress" *ngIf="percentage">{{percentage}}%</div>
+  <img src="{{ edit_src_photo }}" width="100%">
   <div>Name: <input name="name" [(ngModel)]="edit.name"></div>
   <div>Email: <input name="email" [(ngModel)]="edit.email"></div>
   <div>Gender<input name="gender" [(ngModel)]="edit.gender"></div>
@@ -47,9 +54,6 @@
 
 
 <h2>User management By admin</h2>
-TODO: 1. user list with pagination like [1] [2] [3] [4] [5]
-2. user search.
-3. user edit.
 <div>UserID: <input name="id" [(ngModel)]="searchForm.id" (keyup)="onChangeSearch()"></div>
 <div>Name: <input name="name" [(ngModel)]="searchForm.name" (keyup)="onChangeSearch()"></div>
 <div>Email: <input name="email" [(ngModel)]="searchForm.email" (keyup)="onChangeSearch()"></div>
@@ -59,24 +63,35 @@ TODO: 1. user list with pagination like [1] [2] [3] [4] [5]
   <div *ngFor="let user of paginationUsers" class="user">
     {{ user.name }} <button (click)="onClickLoadData( user.id )" type="button">Edit</button>
   </div>
-
-
   <page-navigation
-    [no_of_total_items]=" total "
-    [no_of_items_in_one_page] = " limit "
+    [no_of_total_items]=" totalRecord "
+    [no_of_items_in_one_page] = " limitPerPage "
     [no_of_pages_in_navigator] = " numberPerNav "
     [no_of_current_page] = " currentPage "
     [show_prev_next] = " true "
     [show_first_last] = " true "
-    [text_prev] = "&rquote; Prev"
-    [text_next] = "&lquote; Next"
-    [text_first] = "First"
-    [text_last] = "Last";
+    [text_prev] = " '&lsaquo; Prev' "
+    [text_next] = " 'Next &rsaquo;' "
+    [text_first] = " '&laquo; First' "
+    [text_last] = " 'Last &raquo;' "
+    [structureClass]=" paginationClass "
     (pageClick)="onPageClick($event)"
   >
   </page-navigation>
-
 </div>
+<hr>
+<!--
+<h1>Simple HTML File Upload</h1>
+<form ngNoForm method="POST" action="http://localhost/www/backend/index.php" enctype="multipart/form-data" target="_blank">
+  <input type="hidden" name="route" value="upload">
+  model: <input name="model">
+  model_idx: <input name="model_idx">
+  code: <input name="code">
+  file: <input type="file" name="userfile">
+  <input type="submit" value="Submit">
+</form>
+-->
+
 
 <hr>
 
