@@ -48,3 +48,11 @@ options:
         
     >
     </page-navigation>
+
+
+
+# History
+
+## 0.0.3
+
+* Examples of User registration, login, logout, admin management, file upload.
