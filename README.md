@@ -8,6 +8,20 @@
 
 
 
+
+# Installation
+
+
+````
+$ git clone https://github.com/thruthesky/community-app
+$ git submodule update --init
+$ npm install --verbose
+$ ng serve
+````
+
+
+
+
 # TODO
 
 input:
