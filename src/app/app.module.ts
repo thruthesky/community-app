@@ -5,7 +5,7 @@ import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
 
-import { AngularBackendModule } from './angular-backend/angular-backend.module';
+import { AngularBackend } from './angular-backend/angular-backend';
 import { PageNavigationComponent } from './pagination/pagination.component';
 
 @NgModule({
@@ -17,7 +17,7 @@ import { PageNavigationComponent } from './pagination/pagination.component';
     BrowserModule,
     FormsModule,
     HttpModule,
-    AngularBackendModule
+    AngularBackend
   ],
   providers: [],
   bootstrap: [AppComponent]
