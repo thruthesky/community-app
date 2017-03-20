@@ -1,0 +1,49 @@
+<nav class="breadcrumb">
+  <span class="breadcrumb-item">Users</span>
+</nav>
+<table class="table">
+  <thead>
+  <tr>
+    <th>idx</th>
+    <th>User ID</th>
+    <th>E-mail</th>
+    <th>Name</th>
+    <th>Nickname</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let user of users">
+    <th scope="row">{{ user.idx }}x</th>
+    <td>{{ user.id }}</td>
+    <td>{{ user.email }}</td>
+    <td>{{ user.name }}</td>
+    <td>{{ user.nickname }}</td>
+  </tr>
+
+  </tbody>
+</table>
+
+<nav class="breadcrumb">
+  <span class="breadcrumb-item">Post Config</span>
+</nav>
+
+<button class="btn btn-sm">Add PostConfig</button>
+<table class="table">
+  <thead>
+  <tr>
+    <th>idx</th>
+    <th>Config ID</th>
+    <th>Name</th>
+    <th>Description</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let config of postConfig">
+    <th scope="row">{{ config.idx }}x</th>
+    <td>{{ config.id }}</td>
+    <td>{{ config.name }}</td>
+    <td>{{ config.description }}</td>
+  </tr>
+
+  </tbody>
+</table>

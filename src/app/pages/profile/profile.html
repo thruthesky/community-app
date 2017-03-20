@@ -1,0 +1,15 @@
+<div class="container">
+
+  <form class="form-signin">
+    <h2 class="form-signin-heading">Please sign up</h2>
+    <label for="inputEmail" class="sr-only">Email address</label>
+    <input type="email" name="email" id="inputEmail" [(ngModel)]="form.email" class="form-control" placeholder="Email address" required autofocus>
+    <label for="inputNickname" class="sr-only">Nickname</label>
+    <input type="text" name="nickname" id="inputNickname" [(ngModel)]="form.nickname" class="form-control" placeholder="Nickname" >
+    <label for="inputName" class="sr-only">Name</label>
+    <input type="text" name="nickname" id="inputName" [(ngModel)]="form.name" class="form-control" placeholder="name" >
+
+    <button class="btn btn-success btn-block btn-sm" (click)="onClickUpdate()">Update</button>
+  </form>
+
+</div> <!-- /container -->
