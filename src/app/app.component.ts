@@ -18,7 +18,7 @@ import { Backend, User, Test, File, PostConfig, PostData,
   CONFIG,
   CONFIG_CREATE,
   LIST, USER_LIST_RESPONSE
-} from './angular-backend/angular-backend.module';
+} from './angular-backend/angular-backend';
 
 @Component({
   selector: 'app-root',
