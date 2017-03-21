@@ -15,14 +15,12 @@ import { CreateConfigComponent } from './components/modals/create_postconfig/cre
 import { HomePage } from './pages/home/home';
 import { LoginPage } from './pages/login/login';
 import { RegisterPage } from './pages/register/register';
-import { ProfilePage } from './pages/profile/profile';
 import { ForumPage } from './pages/forum/forum';
 import { AdminPage } from './pages/adminpage/adminpage';
 const appRoutes: Routes = [
   { path: '', component: HomePage },
   { path: 'login', component: LoginPage },
   { path: 'register', component: RegisterPage },
-  { path: 'profile', component: ProfilePage },
   { path: 'forum', component: ForumPage },
   { path: 'admin', component: AdminPage }
 ];
@@ -34,7 +32,6 @@ const appRoutes: Routes = [
     HomePage,
     LoginPage,
     RegisterPage,
-    ProfilePage,
     ForumPage,
     AdminPage,
     CreateConfigComponent
