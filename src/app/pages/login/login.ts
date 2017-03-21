@@ -5,7 +5,7 @@ import { User, USER_LOGIN, USER_LOGIN_RESPONSE } from './../../angular-backend/a
   templateUrl: './login.html',
   styleUrls:['./login.css']
 })
-export class LoginPage{
+export class LoginPage {
   form: USER_LOGIN = <USER_LOGIN>{}
   constructor(
     private user: User

@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { User, USER_LOGOUT_RESPONSE, USER_LIST_RESPONSE, PostConfig } from './../../angular-backend/angular-backend';
+import { CreateConfigComponent } from './../../components/modals/create_postconfig/create';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 @Component({
   selector: 'admin-page',
   templateUrl: './adminpage.html',
@@ -8,7 +10,11 @@ import { User, USER_LOGOUT_RESPONSE, USER_LIST_RESPONSE, PostConfig } from './..
 export class AdminPage{
   users;
   postConfig;
-  constructor( private user: User, private postconfig: PostConfig ){
+  constructor(
+    private user: User,
+    private postconfig: PostConfig,
+    private modalService: NgbModal
+  ){
     this.getUsers();
     this.getPostConfig();
   }
@@ -31,5 +37,9 @@ export class AdminPage{
       alert( err );
       console.error( err );
     })
+  }
+
+  onClickShowPostConfigModal() {
+    const modalRef = this.modalService.open( CreateConfigComponent );
   }
 }

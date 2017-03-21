@@ -3,12 +3,15 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { RouterModule, Routes} from '@angular/router';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 import { AppComponent } from './app.component';
 
 import { AngularBackend } from './angular-backend/angular-backend';
 import { PageNavigationComponent } from './pagination/pagination.component';
 import { HeaderComponent } from './components/header/header';
+import { CreateConfigComponent } from './components/modals/create_postconfig/create';
+
 import { HomePage } from './pages/home/home';
 import { LoginPage } from './pages/login/login';
 import { RegisterPage } from './pages/register/register';
@@ -33,16 +36,19 @@ const appRoutes: Routes = [
     RegisterPage,
     ProfilePage,
     ForumPage,
-    AdminPage
+    AdminPage,
+    CreateConfigComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpModule,
     AngularBackend,
-    RouterModule.forRoot( appRoutes )
+    RouterModule.forRoot( appRoutes ),
+    NgbModule.forRoot()
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents:[ CreateConfigComponent ]
 })
 export class AppModule { }
