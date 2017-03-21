@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { User, USER_LOGIN, USER_LOGIN_RESPONSE } from './../../angular-backend/angular-backend';
 import { Router } from '@angular/router';
 @Component({
@@ -6,12 +6,15 @@ import { Router } from '@angular/router';
   templateUrl: './login.html',
   styleUrls:['./login.css']
 })
-export class LoginPage {
+export class LoginPage implements OnInit{
   form: USER_LOGIN = <USER_LOGIN>{}
   constructor(
     private user: User,
     private router: Router
   ){
+
+  }
+  ngOnInit() {
     this.checkLogin();
   }
   checkLogin(){

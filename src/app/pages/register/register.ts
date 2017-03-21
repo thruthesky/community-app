@@ -34,7 +34,7 @@ export class RegisterPage implements OnInit{
 
 
     onClickRegister(){
-      this.form.file_hooks = [ this.user_photo_idx ];
+      // this.form.file_hooks = [ this.user_photo_idx ];
       this.user.register(this.form).subscribe((res: USER_REGISTER_RESPONSE) => {
         console.info(res);
       }, err => {
@@ -62,7 +62,6 @@ export class RegisterPage implements OnInit{
   }
 
   onChangeFileUpload( fileInput ) {
-
     let file = fileInput.files[0];
     console.log("file: ", file);
     let req: FILE_UPLOAD = {

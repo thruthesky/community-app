@@ -22,6 +22,7 @@ import { AdminPage } from './pages/adminpage/adminpage';
 const appRoutes: Routes = [
   { path: '', component: HomePage },
   { path: 'login', component: LoginPage },
+  { path: 'profile', component: RegisterPage },
   { path: 'register', component: RegisterPage },
   { path: 'forum', component: ForumPage },
   { path: 'admin', component: AdminPage }
