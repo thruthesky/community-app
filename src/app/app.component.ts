@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Test } from './angular-backend/test/test';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -6,6 +7,6 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'app work!';
-  constructor() {
+  constructor( test: Test ) {
   }
 }

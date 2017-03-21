@@ -17,6 +17,8 @@ import { LoginPage } from './pages/login/login';
 import { RegisterPage } from './pages/register/register';
 import { ForumPage } from './pages/forum/forum';
 import { AdminPage } from './pages/adminpage/adminpage';
+
+
 const appRoutes: Routes = [
   { path: '', component: HomePage },
   { path: 'login', component: LoginPage },
