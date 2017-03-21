@@ -18,15 +18,12 @@
         <li class="nav-item" *ngIf=" user.logged">
           <a class="nav-link" routerLink="/profile">Profile</a>
         </li>
-        <li class="nav-item" *ngIf="user.logged && usertype == 'admin'">
-          <a class="nav-link" routerLink="/admin">admin page</a>
-        </li>
         <li class="nav-item">
           <a class="nav-link" routerLink="/forum">Forum</a>
         </li>
 
         <li class="nav-item" *ngIf=" user.logged">
-          <a class="nav-link" (click)="onClickLogout()">Logout</a>
+          <a class="nav-link" routerLink="" (click)="onClickLogout()">Logout</a>
         </li>
 
       </ul>

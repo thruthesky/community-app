@@ -7,6 +7,6 @@ import { Test } from './angular-backend/test/test';
 })
 export class AppComponent {
   title = 'app work!';
-  constructor( test: Test ) {
+  constructor( ) {
   }
 }
