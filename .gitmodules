@@ -1,3 +1,6 @@
 [submodule "src/app/angular-backend"]
 	path = src/app/angular-backend
 	url = https://github.com/thruthesky/angular-backend
+[submodule "ng-bootstrap-components"]
+	path = ng-bootstrap-components
+	url = https://github.com/thruthesky/ng-bootstrap-components
