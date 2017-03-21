@@ -18,6 +18,8 @@ import { RegisterPage } from './pages/register/register';
 import { ProfilePage } from './pages/profile/profile';
 import { ForumPage } from './pages/forum/forum';
 import { AdminPage } from './pages/adminpage/adminpage';
+
+
 const appRoutes: Routes = [
   { path: '', component: HomePage },
   { path: 'login', component: LoginPage },
