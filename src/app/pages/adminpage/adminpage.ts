@@ -5,7 +5,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 @Component({
   selector: 'admin-page',
   templateUrl: './adminpage.html',
-  styleUrls:['./adminpage.css']
+  styleUrls:['./adminpage.scss']
 })
 export class AdminPage{
   users;

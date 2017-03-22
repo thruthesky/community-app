@@ -3,7 +3,7 @@ import { User, USER_LOGOUT_RESPONSE } from './../../angular-backend/angular-back
 @Component({
   selector: 'header-component',
   templateUrl: './header.html',
-  styleUrls:['header.css']
+  styleUrls:['header.scss']
 })
 export class HeaderComponent implements OnInit{
   isLogged = null;

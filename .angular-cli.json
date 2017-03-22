@@ -1,7 +1,7 @@
 {
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
   "project": {
-    "name": "community-app"
+    "name": "Communit App"
   },
   "apps": [
     {
@@ -19,9 +19,11 @@
       "testTsconfig": "tsconfig.spec.json",
       "prefix": "app",
       "styles": [
-        "styles.css"
+        "styles.scss",
+        "enhance/css/enhance.scss"
       ],
-      "scripts": [],
+      "scripts": [
+      ],
       "environmentSource": "environments/environment.ts",
       "environments": {
         "dev": "environments/environment.ts",
@@ -51,7 +53,8 @@
     }
   },
   "defaults": {
-    "styleExt": "css",
-    "component": {}
+    "styleExt": "scss",
+    "component": {
+    }
   }
 }
