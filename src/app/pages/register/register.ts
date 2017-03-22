@@ -14,7 +14,7 @@ import { User, Test, File,
 @Component({
   selector: 'register-page',
   templateUrl: './register.html',
-  styleUrls:['./register.css']
+  styleUrls:['./register.scss']
 })
 export class RegisterPage implements OnInit{
   form: USER_REGISTER | USER_EDIT = {};
@@ -35,7 +35,7 @@ export class RegisterPage implements OnInit{
 
 
     onClickRegister(){
-      this.form.file_hooks = [ this.user_photo_idx ];
+      //this.form.file_hooks = [ this.user_photo_idx ];
       this.user.register(this.form).subscribe((res: USER_REGISTER_RESPONSE) => {
         console.info(res);
       }, err => {

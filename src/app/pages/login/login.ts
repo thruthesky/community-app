@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'login-page',
   templateUrl: './login.html',
-  styleUrls:['./login.css']
+  styleUrls:['./login.scss']
 })
 export class LoginPage implements OnInit{
   form: USER_LOGIN = <USER_LOGIN>{}

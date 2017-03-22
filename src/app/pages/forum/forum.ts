@@ -3,7 +3,7 @@ import { POST_CREATE, POST, PostData} from './../../angular-backend/angular-back
 @Component({
   selector: 'forum-page',
   templateUrl: './forum.html',
-  styleUrls:['forum.css']
+  styleUrls:['forum.scss']
 })
 export class ForumPage{
   constructor( private post: PostData ){
