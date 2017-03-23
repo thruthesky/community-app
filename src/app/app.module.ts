@@ -7,7 +7,7 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 import { AppComponent } from './app.component';
 
-import { AngularBackend } from './angular-backend/angular-backend';
+import { AngularBackend, BackendAdminPage } from './angular-backend/angular-backend';
 import { PageNavigationComponent } from './pagination/pagination.component';
 import { HeaderComponent } from './components/header/header';
 import { CreateConfigComponent } from './components/modals/create_postconfig/create';
@@ -16,7 +16,7 @@ import { HomePage } from './pages/home/home';
 import { LoginPage } from './pages/login/login';
 import { RegisterPage } from './pages/register/register';
 import { ForumPage } from './pages/forum/forum';
-import { AdminPage } from './pages/adminpage/adminpage';
+//import { AdminPage } from './pages/adminpage/adminpage';
 
 import { EnhanceSample } from '../enhance/components/sample';
 
@@ -26,7 +26,8 @@ const appRoutes: Routes = [
   { path: 'profile', component: RegisterPage },
   { path: 'register', component: RegisterPage },
   { path: 'forum', component: ForumPage },
-  { path: 'admin', component: AdminPage }
+  //{ path: 'admin', component: AdminPage },
+  { path: 'admin', component: BackendAdminPage }
 ];
 @NgModule({
   declarations: [
@@ -37,7 +38,7 @@ const appRoutes: Routes = [
     LoginPage,
     RegisterPage,
     ForumPage,
-    AdminPage,
+   // AdminPage,
     CreateConfigComponent,
     EnhanceSample
   ],
