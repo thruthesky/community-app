@@ -8,6 +8,7 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { AppComponent } from './app.component';
 
 import { AngularBackend } from './angular-backend/angular-backend';
+import { AngularBackendAdmin, BackendAdminPage, BackendAdminUserPage } from './angular-backend/angular-backend-admin';
 import { PageNavigationComponent } from './pagination/pagination.component';
 import { HeaderComponent } from './components/header/header';
 import { CreateConfigComponent } from './components/modals/create_postconfig/create';
@@ -16,7 +17,7 @@ import { HomePage } from './pages/home/home';
 import { LoginPage } from './pages/login/login';
 import { RegisterPage } from './pages/register/register';
 import { ForumPage } from './pages/forum/forum';
-import { AdminPage } from './pages/adminpage/adminpage';
+//import { AdminPage } from './pages/adminpage/adminpage';
 
 import { EnhanceSample } from '../enhance/components/sample';
 
@@ -26,7 +27,11 @@ const appRoutes: Routes = [
   { path: 'profile', component: RegisterPage },
   { path: 'register', component: RegisterPage },
   { path: 'forum', component: ForumPage },
-  { path: 'admin', component: AdminPage }
+  //{ path: 'admin', component: AdminPage },
+  { path: 'admin', component: BackendAdminPage },
+  { path: 'admin/user', component: BackendAdminUserPage },
+
+  { path: '**', component: HomePage },
 ];
 @NgModule({
   declarations: [
@@ -37,7 +42,7 @@ const appRoutes: Routes = [
     LoginPage,
     RegisterPage,
     ForumPage,
-    AdminPage,
+   // AdminPage,
     CreateConfigComponent,
     EnhanceSample
   ],
@@ -46,6 +51,7 @@ const appRoutes: Routes = [
     FormsModule,
     HttpModule,
     AngularBackend,
+    AngularBackendAdmin,
     RouterModule.forRoot( appRoutes ),
     NgbModule.forRoot()
   ],
