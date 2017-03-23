@@ -24,6 +24,28 @@ $ ng serve
 
 # TODO
 
+
+## Add resources
+
+* boostrap v4
+* ng-boostrap
+* font-awesome
+
+## Design, layout
+
+* Copy https://v4-alpha.getbootstrap.com/examples/navbar-top/
+* put menus: Register, Login, Profile update, resign, Forum.
+
+
+## User Funtionality.
+
+
+
+## pagination
+
+done.
+
+````
 input:
     no of totoal records:
 
@@ -49,6 +71,7 @@ options:
     >
     </page-navigation>
 
+````
 
 
 # History
