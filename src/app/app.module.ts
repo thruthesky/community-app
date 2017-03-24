@@ -8,7 +8,7 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { AppComponent } from './app.component';
 
 import { AngularBackend } from './angular-backend/angular-backend';
-import { AngularBackendAdmin, BackendAdminPage, BackendAdminUserPage } from './angular-backend/angular-backend-admin';
+import { AngularBackendAdmin, BackendAdminPage, BackendAdminUserListPage } from './angular-backend/angular-backend-admin';
 import { AngularBackendComponentModule } from './angular-backend/modules/angular-backend-components.module';
 import { HeaderComponent } from './components/header/header';
 import { CreateConfigComponent } from './components/modals/create_postconfig/create';
@@ -29,7 +29,7 @@ const appRoutes: Routes = [
   { path: 'forum', component: ForumPage },
   //{ path: 'admin', component: AdminPage },
   { path: 'admin', component: BackendAdminPage },
-  { path: 'admin/user', component: BackendAdminUserPage },
+  { path: 'admin/user', component: BackendAdminUserListPage },
 
   { path: '**', component: HomePage },
 ];
