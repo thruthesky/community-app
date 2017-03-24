@@ -33,10 +33,12 @@ export class PageNavigationComponent {
 
   @Output() pageClick = new EventEmitter();
 
-  constructor() { }
+  constructor() {
+    console.log('pagination::constructor()');
+  }
 
   ngOnChanges(){
-    //console.log("ngOnChanges: ...");
+    console.log("ngOnChanges: ...");
     if ( this.no_of_total_items > 0 ) this.showPagination();
   }
 
