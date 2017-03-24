@@ -9,7 +9,7 @@ import { AppComponent } from './app.component';
 
 import { AngularBackend } from './angular-backend/angular-backend';
 import { AngularBackendAdmin, BackendAdminPage, BackendAdminUserPage } from './angular-backend/angular-backend-admin';
-import { PageNavigationComponent } from './pagination/pagination.component';
+import { AngularBackendComponentModule } from './angular-backend/modules/angular-backend-components.module';
 import { HeaderComponent } from './components/header/header';
 import { CreateConfigComponent } from './components/modals/create_postconfig/create';
 
@@ -36,7 +36,6 @@ const appRoutes: Routes = [
 @NgModule({
   declarations: [
     AppComponent,
-    PageNavigationComponent,
     HeaderComponent,
     HomePage,
     LoginPage,
@@ -53,7 +52,8 @@ const appRoutes: Routes = [
     AngularBackend,
     AngularBackendAdmin,
     RouterModule.forRoot( appRoutes ),
-    NgbModule.forRoot()
+    NgbModule.forRoot(),
+    AngularBackendComponentModule
   ],
   providers: [],
   bootstrap: [AppComponent],
