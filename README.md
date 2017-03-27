@@ -21,6 +21,11 @@ $ ng serve
 
 
 
+# Update
+
+http://angularjs.blogspot.com/2017/03/angular-400-now-available.html
+
+
 
 # TODO
 

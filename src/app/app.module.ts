@@ -8,10 +8,12 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { AppComponent } from './app.component';
 
 import { AngularBackend } from './angular-backend/angular-backend';
+
 import { AngularBackendAdmin,
   BackendAdminPage,
   BackendAdminUserListPage,
-  BackendAdminUserEditPage
+  BackendAdminUserEditPage,
+  BackendAdminForumPage
 } from './angular-backend/angular-backend-admin';
 
 
@@ -39,6 +41,7 @@ const appRoutes: Routes = [
   { path: 'admin', component: BackendAdminPage },
   { path: 'admin/user', component: BackendAdminUserListPage },
   { path: 'admin/user/edit/:idx', component: BackendAdminUserEditPage },
+  { path: 'admin/forum', component: BackendAdminForumPage },
 
   { path: '**', component: HomePage },
 ];
