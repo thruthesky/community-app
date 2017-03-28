@@ -1,0 +1,22 @@
+<header-component></header-component>
+<div class="container">
+
+  <form class="form-signin">
+
+    <input #userfile type="file" accept="image/*" (change)="onChangeFileUpload( userfile )">
+    <img src="{{ src_photo }}">
+
+    <h2 class="form-signin-heading">Please sign up</h2>
+    <input type="email" name="email" id="inputEmail" [(ngModel)]="form.email" class="form-control" placeholder="Email address" required autofocus>
+      <input *ngIf="!user.logged" type="text" name="id" id="inputId" [(ngModel)]="form.id" class="form-control" placeholder="User ID" required autofocus>
+    <input type="text" name="nickname" id="inputNickname" [(ngModel)]="form.nickname" class="form-control" placeholder="Nickname" >
+    <input type="text" name="name" id="inputName" [(ngModel)]="form.name" class="form-control" placeholder="name" >
+      <input *ngIf="!user.logged" type="password" name="password" id="inputPassword" [(ngModel)]="form.password" class="form-control" placeholder="Password" required>
+    <button class="btn btn-success btn-block btn-sm" (click)="onClickUpdate()" *ngIf="user.logged">Update</button>
+    <span *ngIf="!user.logged">
+      <button class="btn btn-success btn-block btn-sm" (click)="onClickRegister()">Sign up</button>
+      <button class="btn btn-primary btn-block btn-sm" type="button" routerLink="/login">Sign in</button>
+    </span>
+  </form>
+
+</div> <!-- /container -->
