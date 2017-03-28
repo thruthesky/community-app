@@ -38,12 +38,15 @@ const appRoutes: Routes = [
   //{ path: 'admin', component: AdminPage },
 
 
-  { path: 'admin', component: BackendAdminPage },
+
   { path: 'admin/user', component: BackendAdminUserListPage },
   { path: 'admin/user/edit/:idx', component: BackendAdminUserEditPage },
+  { path: 'admin/forum/:idx', component: BackendAdminForumPage },
   { path: 'admin/forum', component: BackendAdminForumPage },
+  { path: 'admin', component: BackendAdminPage },
 
   { path: '**', component: HomePage },
+
 ];
 @NgModule({
   declarations: [
