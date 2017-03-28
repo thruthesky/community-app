@@ -1,5 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
-
+@import './app/enhancer/scss/enhancer';
+// base
 body {
     margin-top: 84px;
     background: #e8e8e8;
@@ -9,17 +10,12 @@ body {
 
 $header-background-color: #797979;
 
-.top-menu {
-    color: white;
-    background-color: $header-background-color;
-    font-weight: 100;
-    text-align: center;
-    cursor: pointer;
-    .fa {
-        color: $header-background-color;
-    }
-    .fa-circle {
-        color: white;
-    }
 
+// layout
+
+body {
+  margin-top: $top-menu-height + $gutter;
 }
+
+// theme
+

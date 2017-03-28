@@ -22,7 +22,7 @@ import { RegisterPage } from './pages/register/register';
 import { ForumPage } from './pages/forum/forum';
 //import { AdminPage } from './pages/adminpage/adminpage';
 
-import { EnhanceSample } from '../enhance/components/sample';
+import { EnhanceSample } from './enhancer/components/sample';
 
 const appRoutes: Routes = [
   { path: '', component: HomePage },
