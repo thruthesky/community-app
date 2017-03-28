@@ -1,41 +1,59 @@
-<header>
-  <nav class="navbar navbar-toggleable-md navbar-inverse bg-inverse mb-4">
-    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <a class="navbar-brand" routerLink="">Community</a>
-    <div class="collapse navbar-collapse" id="navbarCollapse">
-      <ul class="navbar-nav mr-auto">
-        <li class="nav-item">
-          <a class="nav-link" routerLink="">Home</a>
-        </li>
+<header class="top-menu">
+  <nav>
+    <ul>
+      <li routerLink="/home">
+        <span class="fa-stack fa-lg">
+          <i class="fa fa-circle fa-stack-2x"></i>
+          <i class="fa fa-home fa-stack-1x"></i>
+        </span>
+        <div class="text">Home</div>
+      </li>
+      <li *ngIf=" ! user.logged " routerLink="/login">
+        <span class="fa-stack fa-lg">
+          <i class="fa fa-circle fa-stack-2x"></i>
+          <i class="fa fa-sign-in fa-stack-1x"></i>
+        </span>
+        <div class="text">Login</div>
+      </li>
+      <li *ngIf=" user.logged " (click)="onClickLogout()">
+        <span class="fa-stack fa-lg">
+          <i class="fa fa-circle fa-stack-2x"></i>
+          <i class="fa fa-sign-out fa-stack-1x"></i>
+        </span>
+        <div class="text">Logout</div>
+      </li>
+      
+      <li *ngIf=" ! user.logged " routerLink="/register">
+        <span class="fa-stack fa-lg">
+          <i class="fa fa-circle fa-stack-2x"></i>
+          <i class="fa fa-user-plus fa-stack-1x"></i>
+        </span>
+        <div class="text">Register</div>
+      </li>
+      <li *ngIf=" user.logged " routerLink="/profile">
+        <span class="fa-stack fa-lg">
+          <i class="fa fa-circle fa-stack-2x"></i>
+          <i class="fa fa-user-circle-o fa-stack-1x"></i>
+        </span>
+        <div class="text">Profile</div>
+      </li>
 
-
-        <li class="nav-item">
-          
-            <a *ngIf=" user.logged; else loginBox" class="nav-link" routerLink="" (click)="onClickLogout()">Logout</a>
-            <ng-template #loginBox ><a class="nav-link" routerLink="/login">Login</a></ng-template>
-              
-        </li>
-
-
-
-        <li class="nav-item" *ngIf=" ! user.logged">
-          <a class="nav-link" routerLink="/register">Register</a>
-        </li>
-        <li class="nav-item" *ngIf=" user.logged">
-          <a class="nav-link" routerLink="/profile">Profile</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" routerLink="/forum">Forum</a>
-        </li>
-
-
-      </ul>
-      <form class="form-inline mt-2 mt-md-0">
-        <input class="form-control mr-sm-2" type="text" placeholder="Search">
-        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-      </form>
-    </div>
+      <li routerLink="/forum/qna">
+        <span class="fa-stack fa-lg">
+          <i class="fa fa-circle fa-stack-2x"></i>
+          <i class="fa fa-commenting-o fa-stack-1x"></i>
+        </span>
+        <div class="text">QnA</div>
+      </li>
+      
+      <li routerLink="/forum/test">
+        <span class="fa-stack fa-lg">
+          <i class="fa fa-circle fa-stack-2x"></i>
+          <i class="fa fa-file-photo-o fa-stack-1x"></i>
+        </span>
+        <div class="text">Gallery</div>
+      </li>
+      
+    </ul>
   </nav>
 </header>

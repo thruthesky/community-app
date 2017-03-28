@@ -27,7 +27,7 @@ import { RegisterPage } from './pages/register/register';
 import { ForumPage } from './pages/forum/forum';
 //import { AdminPage } from './pages/adminpage/adminpage';
 
-import { EnhanceSample } from '../enhance/components/sample';
+import { EnhanceSample } from './enhancer/components/sample';
 
 const appRoutes: Routes = [
   { path: '', component: HomePage },
@@ -35,6 +35,8 @@ const appRoutes: Routes = [
   { path: 'profile', component: RegisterPage },
   { path: 'register', component: RegisterPage },
   { path: 'forum', component: ForumPage },
+  { path: 'forum/:post_config_id', component: ForumPage },
+  
   //{ path: 'admin', component: AdminPage },
 
 

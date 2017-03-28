@@ -1,5 +1,21 @@
 /* You can add global styles to this file, and also import other style files */
-
+@import './app/enhancer/scss/enhancer';
+// base
 body {
+    margin-top: 84px;
     background: #e8e8e8;
 }
+
+
+
+$header-background-color: #797979;
+
+
+// layout
+
+body {
+  margin-top: $top-menu-height + $gutter;
+}
+
+// theme
+
