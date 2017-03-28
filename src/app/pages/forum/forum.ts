@@ -3,8 +3,9 @@ import { ActivatedRoute } from '@angular/router';
 import { Subject } from 'rxjs/Subject';
 import 'rxjs/add/operator/debounceTime';
 import { PostData,
-  POST_CREATE, POST,
+  POST,
   POST_LIST, POST_LIST_RESPONSE, LIST } from './../../angular-backend/angular-backend';
+
 @Component({
   selector: 'forum-page',
   templateUrl: './forum.html',
@@ -24,8 +25,9 @@ export class ForumPage {
   searchForm = <POST>{};
   searchQuery = <LIST>{};
 
-
   searchChangeDebounce = new Subject();
+
+
 
 
   constructor(
@@ -62,6 +64,16 @@ export class ForumPage {
 
     if (this.searchForm.title) cond += cond ? "AND ( title LIKE ? ) " : "( title LIKE ?  )";
     if (this.searchForm.title) bind += bind ? `,%${this.searchForm.name}%,%${this.searchForm.title}%,%${this.searchForm.title}%` : `%${this.searchForm.title}%,%${this.searchForm.name}%,%${this.searchForm.name}%`;
+    let req: POST_LIST = {
+      order : 'idx DESC',
+      extra: {
+        'post_config_id' : this.post_config_id
+      }
+    };
+    this.postData.list( req ).subscribe( (res: POST_LIST_RESPONSE) => {
+      console.log(res);
+      this.posts = res.data.posts;
+    }, err => this.postData.alert( err ) );
 
 
     this.searchQuery.where = cond;
