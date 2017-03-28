@@ -1,10 +1,12 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Subject } from 'rxjs/Subject';
 import 'rxjs/add/operator/debounceTime';
 import { PostData,
   POST,
-  POST_LIST, POST_LIST_RESPONSE, LIST } from './../../angular-backend/angular-backend';
+  POST_LIST, POST_LIST_RESPONSE, LIST,
+  POST_CREATE, POST_CREATE_RESPONSE } from './../../angular-backend/angular-backend';
 
 @Component({
   selector: 'forum-page',
@@ -12,6 +14,7 @@ import { PostData,
   styleUrls:['./forum.css']
 })
 export class ForumPage {
+  postForm: POST_CREATE = {};
   pagination = <Array<POST>> [];
   posts: POST_LIST = [];
   post_config_id: string = null;
@@ -27,11 +30,9 @@ export class ForumPage {
 
   searchChangeDebounce = new Subject();
 
-
-
-
   constructor(
     activated: ActivatedRoute,
+    private ngbmodal: NgbModal,
     private postData: PostData )
   {
     activated.params.subscribe( params => {
@@ -45,6 +46,26 @@ export class ForumPage {
       }
     });
   }
+
+  onClickPost() {
+    this.postForm.post_config_id = this.post_config_id;
+    this.postData.create( this.postForm ).subscribe( ( res: POST_CREATE_RESPONSE ) =>{
+      console.log( res );
+    }, err => this.postData.alert( err ) );
+  }
+
+
+
+  onClickDeletePost( postidx ) {
+    let confirmDelete = confirm('Are you sure you want to delete this post?');
+    if( ! confirmDelete) return console.log('canceled');
+
+    this.postData.delete( parseInt(postidx) ).subscribe( (res) =>{
+      console.info( 'res::' , res );
+      console.log( 'deleted: ', postidx );
+    }, err => this.postData.alert( 'error: ' + err));
+  }
+
 
   onChangedSearch() {
     //console.log('onChangeSearch', this.searchForm);
@@ -98,7 +119,7 @@ export class ForumPage {
     this.searchQuery.extra = {
       'post_config_id' : this.post_config_id,
     };
-    this.searchQuery.where = "parent_idx = 0";
+    this.searchQuery.where = "parent_idx = 0 AND deleted IS NULL";
     this.postData.list(this.searchQuery).subscribe((res: POST_LIST_RESPONSE ) => {
       //console.info( 'loadSearchedData', res );
       this.pagination = res.data.posts;

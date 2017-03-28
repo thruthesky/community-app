@@ -2,7 +2,7 @@ import { Component, Input, OnInit} from '@angular/core';
 import 'rxjs/add/operator/debounceTime';
 import { POST_CREATE,
   POST_CREATE_RESPONSE,
-  PostData} from './../../angular-backend/angular-backend';
+  PostData, FILE_UPLOAD, FILE_UPLOAD_RESPONSE, File} from './../../angular-backend/angular-backend';
 
 
 @Component({
@@ -11,12 +11,13 @@ import { POST_CREATE,
 })
 
 export class CommentFormComponent implements OnInit{
+  photoIdx:number;
   active: boolean = false;
   commentForm: POST_CREATE = {};
 
   @Input() parentIdx;
   @Input() configId: string;
-  constructor( private post: PostData ) {}
+  constructor( private post: PostData, private file: File) {}
 
   ngOnInit() {
     this.commentForm.parent_idx = this.parentIdx;
@@ -24,6 +25,7 @@ export class CommentFormComponent implements OnInit{
 
   onClickCreateComment() {
     this.commentForm.post_config_id = this.configId;
+    this.commentForm.file_hooks = [this.photoIdx];
     this.post.create( this.commentForm ).subscribe( (res: POST_CREATE_RESPONSE ) =>{
       console.log( res );
       this.active = false;
@@ -31,5 +33,17 @@ export class CommentFormComponent implements OnInit{
   }
   onClickActivateCommentBox() {
     this.active = true;
+  }
+  onChangeFile( fileInput ) {
+    console.log("file changed: ", fileInput);
+    let file = fileInput.files[0];
+    let req: FILE_UPLOAD = {};
+
+    this.file.upload(req, file).subscribe(res => {
+      console.log(res);
+      this.photoIdx = res.data.idx;
+    }, err => {
+      console.log('error', err);
+    });
   }
 }

@@ -26,7 +26,6 @@ export class ViewComponent implements OnInit{
   searchQuery = <LIST>{};
 
 
-  searchChangeDebounce = new Subject();
 
 
   @Input() parent_idx;
@@ -78,7 +77,7 @@ export class ViewComponent implements OnInit{
     this.searchQuery.extra = {
       'post_config_id' : this.post_config
     };
-    this.searchQuery.where = `parent_idx = ${this.parent_idx}`;
+    this.searchQuery.where = `parent_idx = ${this.parent_idx} AND deleted IS NULL`;
     this.post.list(this.searchQuery).subscribe((res: POST_LIST_RESPONSE ) => {
       //console.info( 'loadSearchedData', res );
       this.pagination = res.data.posts;
@@ -87,19 +86,14 @@ export class ViewComponent implements OnInit{
     }, err => this.post.alert(err));
   }
 
-  loads() {
+  onClickSelectComment(idx) {
+    // this.load(idx);
+  }
 
-    let req: POST_LIST = {};
-    console.log('parent idx:: ', typeof this.parent_idx );
-    req.extra = {
-      'post_config_id' : 'qna'
-    }
-    req.where = `parent_idx = ${this.parent_idx}`;
-    this.post.list( req ).subscribe( (res: POST_LIST_RESPONSE) => {
-      this.pagination = res.data.posts;
-      console.log( 'comments :: ' , this.pagination );
-    }, err => this.post.alert( err ) );
-
+  onClickDeleteComment( idx ) {
+    this.post.delete( parseInt(idx) ).subscribe( res =>{
+      console.log( res );
+    }, err => console.error( err ) );
   }
 
 }
