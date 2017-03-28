@@ -3,8 +3,11 @@ import { ActivatedRoute } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Subject } from 'rxjs/Subject';
 import 'rxjs/add/operator/debounceTime';
-import { PostData,
+import {
+  PostData,
+  File,
   POST,
+  FILE_UPLOAD,
   POST_LIST, POST_LIST_RESPONSE, LIST,
   POST_CREATE, POST_CREATE_RESPONSE } from './../../angular-backend/angular-backend';
 
@@ -30,9 +33,12 @@ export class ForumPage {
 
   searchChangeDebounce = new Subject();
 
+
+  photoIdxes: Array<number> = [];
   constructor(
     activated: ActivatedRoute,
     private ngbmodal: NgbModal,
+    private file: File,
     private postData: PostData )
   {
     activated.params.subscribe( params => {
@@ -49,6 +55,7 @@ export class ForumPage {
 
   onClickPost() {
     this.postForm.post_config_id = this.post_config_id;
+    this.postForm.file_hooks = this.photoIdxes;
     this.postData.create( this.postForm ).subscribe( ( res: POST_CREATE_RESPONSE ) =>{
       console.log( res );
     }, err => this.postData.alert( err ) );
@@ -118,6 +125,8 @@ export class ForumPage {
     this.searchQuery.limit = this.limitPerPage;
     this.searchQuery.extra = {
       'post_config_id' : this.post_config_id,
+      file: true,
+      meta: true
     };
     this.searchQuery.where = "parent_idx = 0 AND deleted IS NULL";
     this.postData.list(this.searchQuery).subscribe((res: POST_LIST_RESPONSE ) => {
@@ -130,6 +139,19 @@ export class ForumPage {
 
 
 
+
+  onChangeFile( fileInput ) {
+    console.log("file changed: ", fileInput);
+    let file = fileInput.files[0];
+    let req: FILE_UPLOAD = {};
+
+    this.file.upload(req, file).subscribe(res => {
+      console.log("file upload", res);
+      this.photoIdxes.push( res.data.idx );
+    }, err => {
+      console.log('error', err);
+    });
+  }
 
 
 

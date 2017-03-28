@@ -3,6 +3,11 @@
 <br/>
 
 <div>
+
+  <div *ngFor=" let idx of photoIdxes ">
+    <img style="width: 100%" src="{{ file.src( { idx: idx } ) }}">
+  </div>
+  <input type="file" #userfile (change)="onChangeFile( userfile )">
   <input type="text" name="title" id="title" [(ngModel)]="postForm.title">
   <input type="text" name="content" id="content" [(ngModel)]="postForm.content">
   <button class="btn btn-sm btn-secondary" (click)="onClickPost()">Post</button>
