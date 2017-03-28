@@ -1,2 +1,37 @@
 <header-component></header-component>
-FORUM
+{{ post_config_id }}
+
+<div *ngIf="pagination">
+  <div *ngFor="let post of pagination" >
+    <span class="post" >
+      {{ post.idx }} | {{ post.title }}
+    </span>
+    <div>
+      <comment-form-component
+        [parentIdx]=post.idx
+        [configId] = post_config_id
+
+      >
+      </comment-form-component>
+
+    </div>
+    <view-component
+      [parent_idx]= post.idx
+      [post_config]= post_config_id
+    >
+    </view-component>
+
+  </div>
+
+
+  <page-navigation
+    [no_of_total_items]=" totalRecord "
+    [no_of_items_in_one_page] = " limitPerPage "
+    [no_of_pages_in_navigator] = " numberPerNav "
+    [no_of_current_page] = " currentPage "
+    [show_prev_next] = " true "
+    (pageClick)="onPageClick($event)"
+  >
+  </page-navigation>
+</div>
+

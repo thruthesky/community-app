@@ -15,6 +15,8 @@ import {
 import { AngularBackendComponentModule } from './angular-backend/modules/angular-backend-components.module';
 import { HeaderComponent } from './components/header/header';
 import { CreateConfigComponent } from './components/modals/create_postconfig/create';
+import { ViewComponent } from './components/view-component/view-component';
+import { CommentFormComponent } from './components/comment-form-component/comment-form-component';
 
 import { HomePage } from './pages/home/home';
 import { LoginPage } from './pages/login/login';
@@ -31,7 +33,7 @@ const appRoutes: Routes = [
   { path: 'register', component: RegisterPage },
   { path: 'forum', component: ForumPage },
   { path: 'forum/:post_config_id', component: ForumPage },
-  
+
   //{ path: 'admin', component: AdminPage },
   { path: 'admin', component: BackendAdminPage },
   { path: 'admin/user', component: BackendAdminUserListPage },
@@ -49,7 +51,9 @@ const appRoutes: Routes = [
     ForumPage,
    // AdminPage,
     CreateConfigComponent,
-    EnhanceSample
+    EnhanceSample,
+    ViewComponent,
+    CommentFormComponent
   ],
   imports: [
     BrowserModule,

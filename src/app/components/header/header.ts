@@ -6,7 +6,6 @@ import { User, USER_LOGOUT_RESPONSE } from './../../angular-backend/angular-back
   styleUrls:['header.scss']
 })
 export class HeaderComponent implements OnInit{
-  isLogged = null;
   usertype;
   constructor( private user: User ){
 

@@ -1,0 +1,7 @@
+<div *ngIf="active">
+  <input type="text"  [(ngModel)]="commentForm.title" name="title" id="title">
+  <input type="text"  [(ngModel)]="commentForm.content" name="content" id="content">
+  <button class="btn btn-sm" (click)="onClickCreateComment()">Create Comment</button>
+  <button class="btn btn-sm" (click)="active = false">Cancel</button>
+</div>
+<div class="breadcrumb"><button *ngIf="! active"  class="btn btn-sm btn-primary" (click)="onClickActivateCommentBox()">Toggle Comment Box</button></div>

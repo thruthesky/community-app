@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { POST, PostData, File, POST_LIST_RESPONSE, POSTS } from './../../app/angular-backend/angular-backend';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { CreatePostDataComponent } from './../../components/modals/write_postdata/create';
+// import { CreatePostDataComponent } from './../../components/modals/write_postdata/create';
 import { Subject } from 'rxjs/Subject';
 @Component({
   selector: 'forum-page',
@@ -21,9 +21,9 @@ export class ForumPage{
 
 
   onClickShowEditPost( post ) {
-    console.log("onClickShowEditPost: ", post);
-      let modalReference = this.ngbmodal.open( CreatePostDataComponent )
-      modalReference.componentInstance.form = post;
+    // console.log("onClickShowEditPost: ", post);
+    //   let modalReference = this.ngbmodal.open( CreatePostDataComponent )
+    //   modalReference.componentInstance.form = post;
   }
   onClickDeletePost( postidx ) {
       let confirmDelete = confirm('Are you sure you want to delete this post?');
@@ -52,13 +52,13 @@ export class ForumPage{
 
       });
 
-      
+
       console.log('posts: ', this.posts );
     }, err => console.error( err ) );
   }
 
   onClickshowPostModal() {
-    const modalRef = this.ngbmodal.open( CreatePostDataComponent );
+    // const modalRef = this.ngbmodal.open( CreatePostDataComponent );
   }
 
 }

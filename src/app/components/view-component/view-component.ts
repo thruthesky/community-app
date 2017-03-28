@@ -1,25 +1,26 @@
-import { Component } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Component, Input, OnInit} from '@angular/core';
 import { Subject } from 'rxjs/Subject';
 import 'rxjs/add/operator/debounceTime';
-import { PostData,
-  POST_CREATE, POST,
-  POST_LIST, POST_LIST_RESPONSE, LIST } from './../../angular-backend/angular-backend';
+import { POST,
+          PostData,
+          POST_LIST,
+          POST_LIST_RESPONSE,
+          LIST } from './../../angular-backend/angular-backend';
+
 @Component({
-  selector: 'forum-page',
-  templateUrl: './forum.html',
-  styleUrls:['./forum.css']
+  selector: 'view-component',
+  templateUrl: './view-component.html',
+  styleUrls:['./view-component.css']
 })
-export class ForumPage {
-  pagination = <Array<POST>> [];
-  posts: POST_LIST = [];
-  post_config_id: string = null;
+
+export class ViewComponent implements OnInit{
 
   limitPerPage: number = 5;
   currentPage: number = 1;
   numberPerNav: number = 4;
   totalRecord: number = 0;
-  comments = <Array<POST>>[];
+
+  pagination = <Array<POST>> [];
 
   searchForm = <POST>{};
   searchQuery = <LIST>{};
@@ -28,20 +29,17 @@ export class ForumPage {
   searchChangeDebounce = new Subject();
 
 
-  constructor(
-    activated: ActivatedRoute,
-    private postData: PostData )
-  {
-    activated.params.subscribe( params => {
-      if ( params['post_config_id'] !== void 0 ) {
-        this.post_config_id = params['post_config_id'];
-        this.onChangedSearch();
+  @Input() parent_idx;
+  @Input() post_config: string;
 
-        this.searchChangeDebounce
-          .debounceTime(300) // wait 300ms after the last event before emitting last event
-          .subscribe(() => this.onChangedSearch());
-      }
-    });
+
+  constructor( private post: PostData ) {
+    // this.loads();
+  }
+
+  ngOnInit() {
+    // this.loads();
+  this.onChangedSearch();
   }
 
   onChangedSearch() {
@@ -71,33 +69,37 @@ export class ForumPage {
     this.loadSearchedData();
   }
 
-
-  onPageClick($event) {
-    //console.log('onPageClick::$event',$event);
-    this.currentPage = $event;
-    this.loadSearchedData();
-  }
-
   loadSearchedData() {
 
     this.pagination = [];
     this.searchQuery.from = this.limitPerPage * this.currentPage - this.limitPerPage;
     this.searchQuery.limit = this.limitPerPage;
+
     this.searchQuery.extra = {
-      'post_config_id' : this.post_config_id,
+      'post_config_id' : this.post_config
     };
-    this.searchQuery.where = "parent_idx = 0";
-    this.postData.list(this.searchQuery).subscribe((res: POST_LIST_RESPONSE ) => {
+    this.searchQuery.where = `parent_idx = ${this.parent_idx}`;
+    this.post.list(this.searchQuery).subscribe((res: POST_LIST_RESPONSE ) => {
       //console.info( 'loadSearchedData', res );
       this.pagination = res.data.posts;
       this.totalRecord = parseInt(res.data.total);
-      console.log( 'data:: ' , this.pagination );
-    }, err => this.postData.alert(err));
+      console.log( 'comment:: ' , res.data );
+    }, err => this.post.alert(err));
   }
 
+  loads() {
 
+    let req: POST_LIST = {};
+    console.log('parent idx:: ', typeof this.parent_idx );
+    req.extra = {
+      'post_config_id' : 'qna'
+    }
+    req.where = `parent_idx = ${this.parent_idx}`;
+    this.post.list( req ).subscribe( (res: POST_LIST_RESPONSE) => {
+      this.pagination = res.data.posts;
+      console.log( 'comments :: ' , this.pagination );
+    }, err => this.post.alert( err ) );
 
-
-
+  }
 
 }
