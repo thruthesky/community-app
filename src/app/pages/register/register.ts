@@ -25,7 +25,7 @@ export class RegisterPage implements OnInit{
   // edit_src_photo: string = null;
 
   constructor(
-    private user: User,
+    public user: User,
     private file: File ) {
 
   }
