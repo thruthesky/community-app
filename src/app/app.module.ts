@@ -30,6 +30,8 @@ const appRoutes: Routes = [
   { path: 'profile', component: RegisterPage },
   { path: 'register', component: RegisterPage },
   { path: 'forum', component: ForumPage },
+  { path: 'forum/:post_config_id', component: ForumPage },
+  
   //{ path: 'admin', component: AdminPage },
   { path: 'admin', component: BackendAdminPage },
   { path: 'admin/user', component: BackendAdminUserListPage },

@@ -1,11 +1,60 @@
-<header class="h-2">
-  <nav class="navbar fixed-top">
+<header class="">
+  <nav class="navbar fixed-top p-0">
 
-    <span class="fa-stack fa-lg">
-  <i class="fa fa-circle fa-stack-2x"></i>
-  <i class="fa fa-flag fa-stack-1x fa-inverse"></i>
-</span>
-    
-    
+    <ul class="top-menu list-style-none list-float-left">
+      <li routerLink="/home">
+        <span class="fa-stack fa-lg">
+          <i class="fa fa-circle fa-stack-2x"></i>
+          <i class="fa fa-home fa-stack-1x"></i>
+        </span>
+        <div class="text">Home</div>
+      </li>
+      <li *ngIf=" ! user.logged " routerLink="/login">
+        <span class="fa-stack fa-lg">
+          <i class="fa fa-circle fa-stack-2x"></i>
+          <i class="fa fa-sign-in fa-stack-1x"></i>
+        </span>
+        <div class="text">Login</div>
+      </li>
+      <li *ngIf=" user.logged " (click)="onClickLogout()">
+        <span class="fa-stack fa-lg">
+          <i class="fa fa-circle fa-stack-2x"></i>
+          <i class="fa fa-sign-out fa-stack-1x"></i>
+        </span>
+        <div class="text">Logout</div>
+      </li>
+      
+      <li *ngIf=" ! user.logged " routerLink="/register">
+        <span class="fa-stack fa-lg">
+          <i class="fa fa-circle fa-stack-2x"></i>
+          <i class="fa fa-user-plus fa-stack-1x"></i>
+        </span>
+        <div class="text">Register</div>
+      </li>
+      <li *ngIf=" user.logged " routerLink="/profile">
+        <span class="fa-stack fa-lg">
+          <i class="fa fa-circle fa-stack-2x"></i>
+          <i class="fa fa-user-circle-o fa-stack-1x"></i>
+        </span>
+        <div class="text">Profile</div>
+      </li>
+
+      <li routerLink="/forum/qna">
+        <span class="fa-stack fa-lg">
+          <i class="fa fa-circle fa-stack-2x"></i>
+          <i class="fa fa-commenting-o fa-stack-1x"></i>
+        </span>
+        <div class="text">QnA</div>
+      </li>
+      
+      <li routerLink="/forum/gallery">
+        <span class="fa-stack fa-lg">
+          <i class="fa fa-circle fa-stack-2x"></i>
+          <i class="fa fa-file-photo-o fa-stack-1x"></i>
+        </span>
+        <div class="text">Gallery</div>
+      </li>
+      
+    </ul>
   </nav>
 </header>
