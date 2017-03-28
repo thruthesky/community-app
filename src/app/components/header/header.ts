@@ -7,7 +7,7 @@ import { User, USER_LOGOUT_RESPONSE } from './../../angular-backend/angular-back
 })
 export class HeaderComponent implements OnInit{
   usertype;
-  constructor( private user: User ){
+  constructor( public user: User ){
 
   }
   ngOnInit(){

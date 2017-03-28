@@ -14,7 +14,6 @@ import {
  } from './angular-backend/angular-backend-admin';
 import { AngularBackendComponentModule } from './angular-backend/modules/angular-backend-components.module';
 import { HeaderComponent } from './components/header/header';
-import { CreateConfigComponent } from './components/modals/create_postconfig/create';
 import { ViewComponent } from './components/view-component/view-component';
 import { CommentFormComponent } from './components/comment-form-component/comment-form-component';
 
@@ -50,7 +49,7 @@ const appRoutes: Routes = [
     RegisterPage,
     ForumPage,
    // AdminPage,
-    CreateConfigComponent,
+   
     EnhanceSample,
     ViewComponent,
     CommentFormComponent
@@ -67,6 +66,6 @@ const appRoutes: Routes = [
   ],
   providers: [],
   bootstrap: [AppComponent],
-  entryComponents:[ CreateConfigComponent ]
+  entryComponents:[  ]
 })
 export class AppModule { }
