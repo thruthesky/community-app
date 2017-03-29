@@ -1,16 +1,32 @@
 <header-component></header-component>
 {{ post_config_id }}
+<br/>
+
+<div>
+
+  <div *ngFor=" let idx of photoIdxes ">
+    <img style="width: 100%" src="{{ file.src( { idx: idx } ) }}">
+  </div>
+  <input type="file" #userfile (change)="onChangeFile( userfile )">
+  <input type="text" name="title" id="title" [(ngModel)]="postForm.title">
+  <input type="text" name="content" id="content" [(ngModel)]="postForm.content">
+  <button class="btn btn-sm btn-secondary" (click)="onClickPost()">Post</button>
+</div>
+
 
 <div *ngIf="pagination">
   <div *ngFor="let post of pagination" >
-    <span class="post" >
+    <span class="post">
       {{ post.idx }} | {{ post.title }}
+    </span>
+    <span class="postaction">
+          <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+          <i class="fa fa-times" aria-hidden="true" (click)="onClickDeletePost(post.idx)"></i>
     </span>
     <div>
       <comment-form-component
         [parentIdx]=post.idx
         [configId] = post_config_id
-
       >
       </comment-form-component>
 
@@ -33,10 +49,4 @@
     (pageClick)="onPageClick($event)"
   >
   </page-navigation>
-</div>
-
-
-
-<div *ngFor="let post of posts">
-    {{ post.title }}
 </div>
