@@ -7,7 +7,7 @@ import {
   PostData,
   File,
   POST,
-  FILE_UPLOAD,
+  UPLOAD,
   POST_LIST, POST_LIST_RESPONSE, LIST,
   POST_CREATE, POST_CREATE_RESPONSE } from './../../angular-backend/angular-backend';
 
@@ -143,7 +143,7 @@ export class ForumPage {
   onChangeFile( fileInput ) {
     console.log("file changed: ", fileInput);
     let file = fileInput.files[0];
-    let req: FILE_UPLOAD = {};
+    let req = <UPLOAD> {};
 
     this.file.upload(req, file).subscribe(res => {
       console.log("file upload", res);

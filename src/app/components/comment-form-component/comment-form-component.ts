@@ -2,7 +2,8 @@ import { Component, Input, OnInit} from '@angular/core';
 import 'rxjs/add/operator/debounceTime';
 import { POST_CREATE,
   POST_CREATE_RESPONSE,
-  PostData, FILE_UPLOAD, FILE_UPLOAD_RESPONSE, File} from './../../angular-backend/angular-backend';
+  PostData,
+  UPLOAD, FILE_UPLOAD_RESPONSE, File} from './../../angular-backend/angular-backend';
 
 
 @Component({
@@ -37,7 +38,9 @@ export class CommentFormComponent implements OnInit{
   onChangeFile( fileInput ) {
     console.log("file changed: ", fileInput);
     let file = fileInput.files[0];
-    let req: FILE_UPLOAD = {};
+    let req: UPLOAD = {
+      model: 'post'
+    };
 
     this.file.upload(req, file).subscribe(res => {
       console.log(res);

@@ -3,9 +3,8 @@
 
   <form class="form-signin">
 
-    <input *ngIf="!user.logged" #userfile type="file" (change)="onChangeFileUpload( userfile )">
-    <input *ngIf="user.logged" #userfileedit type="file" (change)="onEditFile( userfileedit )">
-    <img src="{{ src_photo }}">
+    <input #userfile type="file" (change)="onChangeFileUpload( userfile )">
+    <img *ngIf=" primary_photo_idx " src="{{ file.url( primary_photo_idx ) }}">
 
     <h2 class="form-signin-heading">Please sign up</h2>
     <input type="email" name="email" id="inputEmail" [(ngModel)]="form.email" class="form-control" placeholder="Email address" required autofocus>
