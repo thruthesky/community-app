@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { User, USER_LOGIN, USER_LOGIN_RESPONSE } from './../../angular-backend/angular-backend';
+import { User, USER_LOGIN, USER_LOGIN_RESPONSE } from './../../../angular-backend/angular-backend';
 import { Router } from '@angular/router';
 @Component({
   selector: 'login-page',

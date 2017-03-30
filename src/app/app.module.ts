@@ -18,14 +18,14 @@ import { AngularBackendAdmin,
 
 
 import { AngularBackendComponentModule } from './angular-backend/modules/angular-backend-components.module';
-import { HeaderComponent } from './components/header/header';
-import { ViewComponent } from './components/view-component/view-component';
+import { HeaderComponent } from './community-app/components/header/header';
+import { CommentListComponent } from './community-app/components/comment-list-component/comment-list-component';
 import { CommentFormComponent } from './components/comment-form-component/comment-form-component';
 
 
-import { LoginPage } from './pages/login/login';
-import { RegisterPage } from './pages/register/register';
-import { ForumPage } from './pages/forum/forum';
+import { LoginPage } from './community-app/pages/login/login';
+import { RegisterPage } from './community-app/pages/register/register';
+import { ForumPage } from './community-app/pages/forum/forum';
 //import { AdminPage } from './pages/adminpage/adminpage';
 
 import { EnhanceSample } from './enhancer/components/sample';
@@ -66,7 +66,7 @@ const appRoutes: Routes = [
    // AdminPage,
    
     EnhanceSample,
-    ViewComponent,
+    CommentListComponent,
     CommentFormComponent
   ],
   imports: [

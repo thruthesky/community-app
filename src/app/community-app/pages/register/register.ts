@@ -11,7 +11,7 @@ import { User, Test, File,
   FILE_UPLOAD,
   ANONYMOUS_PRIMARY_PHOTO_UPLOAD,
   PRIMARY_PHOTO_UPLOAD
-} from './../../angular-backend/angular-backend';
+} from './../../../angular-backend/angular-backend';
 
 @Component({
   selector: 'register-page',

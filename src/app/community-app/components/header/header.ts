@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { User, USER_LOGOUT_RESPONSE } from './../../angular-backend/angular-backend';
+import { User, USER_LOGOUT_RESPONSE } from './../../../angular-backend/angular-backend';
 @Component({
   selector: 'header-component',
   templateUrl: './header.html',
