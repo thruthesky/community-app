@@ -13,7 +13,9 @@ import { AngularBackendAdmin,
   BackendAdminPage,
   BackendAdminUserListPage,
   BackendAdminUserEditPage,
-  BackendAdminForumPage
+  BackendAdminForumConfigPage,
+  BackendAdminForumCategoryPage,
+  BackendAdminForumPostPage
 } from './angular-backend/angular-backend-admin';
 
 
@@ -26,7 +28,6 @@ import { HomePage } from './pages/home/home';
 import { LoginPage } from './pages/login/login';
 import { RegisterPage } from './pages/register/register';
 import { ForumPage } from './pages/forum/forum';
-//import { AdminPage } from './pages/adminpage/adminpage';
 
 import { EnhanceSample } from './enhancer/components/sample';
 
@@ -44,8 +45,11 @@ const appRoutes: Routes = [
 
   { path: 'admin/user', component: BackendAdminUserListPage },
   { path: 'admin/user/edit/:idx', component: BackendAdminUserEditPage },
-  { path: 'admin/forum/:idx', component: BackendAdminForumPage },
-  { path: 'admin/forum', component: BackendAdminForumPage },
+  { path: 'admin/forum', component: BackendAdminForumConfigPage },
+  { path: 'admin/forum/configs', component: BackendAdminForumConfigPage },
+  { path: 'admin/forum/categories', component: BackendAdminForumCategoryPage },
+  { path: 'admin/forum/posts', component: BackendAdminForumPostPage },
+
   { path: 'admin', component: BackendAdminPage },
 
   { path: '**', component: HomePage },
