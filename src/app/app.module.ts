@@ -20,7 +20,7 @@ import { AngularBackendAdmin,
 import { AngularBackendComponentModule } from './angular-backend/modules/angular-backend-components.module';
 import { HeaderComponent } from './community-app/components/header/header';
 import { CommentListComponent } from './community-app/components/comment-list-component/comment-list-component';
-import { CommentFormComponent } from './components/comment-form-component/comment-form-component';
+import { CommentFormComponent } from './community-app/components/comment-form-component/comment-form-component';
 
 
 import { LoginPage } from './community-app/pages/login/login';
