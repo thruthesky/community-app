@@ -17,15 +17,15 @@ import { AngularBackendAdmin,
 } from './angular-backend/angular-backend-admin';
 
 
+
 import { AngularBackendComponentModule } from './angular-backend/modules/angular-backend-components.module';
-import { HeaderComponent } from './community-app/components/header/header';
-import { CommentListComponent } from './community-app/components/comment-list-component/comment-list-component';
-import { CommentFormComponent } from './community-app/components/comment-form-component/comment-form-component';
+import { CommunityAppModule } from './community-app/community-app.module';
 
 
 import { LoginPage } from './community-app/pages/login/login';
 import { RegisterPage } from './community-app/pages/register/register';
 import { ForumPage } from './community-app/pages/forum/forum';
+
 //import { AdminPage } from './pages/adminpage/adminpage';
 
 import { EnhanceSample } from './enhancer/components/sample';
@@ -33,6 +33,7 @@ import { EnhanceSample } from './enhancer/components/sample';
 ///////
 
 import { HomePage } from './community-app/community-app.module';
+
 
 const appRoutes: Routes = [
   { path: '', component: HomePage },
@@ -58,16 +59,9 @@ const appRoutes: Routes = [
 @NgModule({
   declarations: [
     AppComponent,
-    HeaderComponent,
-    HomePage,
-    LoginPage,
-    RegisterPage,
-    ForumPage,
    // AdminPage,
    
-    EnhanceSample,
-    CommentListComponent,
-    CommentFormComponent
+    EnhanceSample
   ],
   imports: [
     BrowserModule,
@@ -77,7 +71,8 @@ const appRoutes: Routes = [
     AngularBackendAdmin,
     RouterModule.forRoot( appRoutes ),
     NgbModule.forRoot(),
-    AngularBackendComponentModule
+    AngularBackendComponentModule,
+    CommunityAppModule
   ],
   providers: [],
   bootstrap: [AppComponent],

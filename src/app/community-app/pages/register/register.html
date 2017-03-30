@@ -1,22 +1,69 @@
 <header-component></header-component>
 <div class="container">
 
-  <form class="form-signin">
-
-    <input #userfile type="file" (change)="onChangeFileUpload( userfile )">
-    <img *ngIf=" primary_photo_idx " src="{{ file.url( primary_photo_idx ) }}">
 
     <h2 class="form-signin-heading">Please sign up</h2>
-    <input type="email" name="email" id="inputEmail" [(ngModel)]="form.email" class="form-control" placeholder="Email address" required autofocus>
-      <input *ngIf="!user.logged" type="text" name="id" id="inputId" [(ngModel)]="form.id" class="form-control" placeholder="User ID" required autofocus>
-    <input type="text" name="nickname" id="inputNickname" [(ngModel)]="form.nickname" class="form-control" placeholder="Nickname" >
-    <input type="text" name="name" id="inputName" [(ngModel)]="form.name" class="form-control" placeholder="name" >
-      <input *ngIf="!user.logged" type="password" name="password" id="inputPassword" [(ngModel)]="form.password" class="form-control" placeholder="Password" required>
-    <button class="btn btn-success btn-block btn-sm" (click)="onClickUpdate()" *ngIf="user.logged">Update</button>
-    <span *ngIf="!user.logged">
-      <button class="btn btn-success btn-block btn-sm" (click)="onClickRegister()">Sign up</button>
-      <button class="btn btn-primary btn-block btn-sm" type="button" routerLink="/login">Sign in</button>
-    </span>
+
+
+    <form [formGroup]="form" novalidate>
+      <div class="row">
+        <input #userfile type="file" (change)="onChangeFileUpload( userfile )">
+      </div>
+      <img *ngIf=" primary_photo_idx " src="{{ file.url( primary_photo_idx ) }}">
+      
+      <ng-container *ngIf=" ! user.logged ">
+      <div class="row">
+        <input class="form-control" formControlName="id" placeholder="User ID">
+      </div>
+      <div *ngIf="formErrors.id" class="alert alert-danger">
+        {{ formErrors.id }}
+      </div>
+      <div class="row">
+        <input class="form-control" formControlName="password" placeholder="Password">
+      </div>
+      <div *ngIf="formErrors.password" class="alert alert-danger">
+        {{ formErrors.password }}
+      </div>
+      </ng-container>
+      
+      <div class="row" *ngIf=" user.logged ">
+        {{ user.info.id }}
+      </div>
+      
+
+
+      <div class="row">
+        <input class="form-control" formControlName="name" placeholder="Name">
+      </div>
+      <div *ngIf="formErrors.name" class="alert alert-danger">
+        {{ formErrors.name }}
+      </div>
+
+      <div class="row">
+        <input class="form-control" formControlName="email" placeholder="Email">
+      </div>
+      <div *ngIf="formErrors.email" class="alert alert-danger">
+        {{ formErrors.email }}
+      </div>
+      <div class="row">
+        <input class="form-control" formControlName="mobile" placeholder="Mobile">
+      </div>
+      <div class="row" *ngIf=" ! user.logged ">
+          <button type="button" class="btn btn-success btn-block btn-sm" (click)="onClickRegister()"
+            [disabled] = " ! form.valid "
+          >Register</button>
+          <button class="btn btn-primary btn-block btn-sm" type="button" routerLink="/login">Log In</button>
+      </div>
+      <div class="row" *ngIf=" user.logged ">
+          <button type="button" class="btn btn-success btn-block btn-sm" (click)="onClickUpdate()"
+          [disabled] = " ! form.valid "
+          >Update</button>
+          <button class="btn btn-primary btn-block btn-sm" type="button" routerLink="/">Cancel</button>
+      </div>
+      
   </form>
+
+
+  
 
 </div> <!-- /container -->

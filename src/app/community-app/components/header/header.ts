@@ -11,10 +11,10 @@ export class HeaderComponent implements OnInit{
 
   }
   ngOnInit(){
-      if( ! this.user.logged ) return;
-      this.user.data().subscribe( res =>{
-        this.usertype = res.data.user.id;
-      });
+      // if( ! this.user.logged ) return;
+      // this.user.data().subscribe( res =>{
+      //   this.usertype = res.data.user.id;
+      // });
   }
   onClickLogout(){
     this.user.logout().subscribe((res: USER_LOGOUT_RESPONSE) => {

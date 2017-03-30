@@ -1,4 +1,5 @@
-import { Component, OnInit, NgZone } from '@angular/core';
+import { Component, NgZone } from '@angular/core';
+import { FormBuilder, FormGroup, FormControl, Validators, AbstractControl } from '@angular/forms';
 
 import { User, Test, File,
   USER,
@@ -10,7 +11,9 @@ import { User, Test, File,
   USER_EDIT,
   FILE_UPLOAD,
   ANONYMOUS_PRIMARY_PHOTO_UPLOAD,
-  PRIMARY_PHOTO_UPLOAD
+  PRIMARY_PHOTO_UPLOAD,
+  _USER_CREATE,
+  _USER_EDIT
 } from './../../../angular-backend/angular-backend';
 
 @Component({
@@ -18,89 +21,180 @@ import { User, Test, File,
   templateUrl: './register.html',
   styleUrls:['./register.scss']
 })
-export class RegisterPage implements OnInit{
-  form: USER_REGISTER | USER_EDIT = {};
+export class RegisterPage {
+  //form: USER_REGISTER | USER_EDIT = {};
   userData: USER_FIELDS = null;
 
 
   primary_photo_idx: number = null;
 
-  //src_photo: string = null;
-  // edit_src_photo: string = null;
+
+  form: FormGroup;
 
   constructor(
     private ngZone: NgZone,
+    private fb: FormBuilder,
     public user: User,
     private file: File ) {
 
-  }
-  ngOnInit(){
-    if( this.user.logged ) this.loadData();
-  }
 
+      if ( this.user.logged ) this.loadUserData();
 
-    onClickRegister(){
-      this.form.file_hooks = [ this.primary_photo_idx ];
-      this.user.register(this.form).subscribe((res: USER_REGISTER_RESPONSE) => {
-        console.info(res);
-      }, err => {
-        this.user.alert(err);
+      let re = new RegExp("[a-zA-Z0-9]+");
+      this.form = fb.group({
+        name: [ '', [ Validators.required, Validators.minLength(3), Validators.maxLength(32) ] ],
+        email: [ '', [ Validators.required, this.emailValidator ] ],
+        mobile: []
       });
-    }
 
-  loadData(){
-    this.form = {};
+      if ( ! this.user.logged ) {
+        this.form.addControl( 'id', new FormControl('', [ Validators.required, Validators.minLength(3), Validators.maxLength(32)] ) );
+        this.form.addControl( 'password', new FormControl('', [ Validators.required, Validators.minLength(5), Validators.maxLength(128)] ) );
+      }
+      
+      this.form.valueChanges.subscribe( res => this.onValueChanged( res ) );
+      
+  }
+
+  emailValidator(c: AbstractControl): { [key: string]: any } {
+    if ( c.value.length < 8 ) {
+      return { 'minlength' : '' };
+    }
+    if ( c.value.length > 64 ) {
+      return { 'maxlength' : '' };
+    }
+    let re = new RegExp( /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/ ).test( <string> c.value );
+    if ( re ) return;
+    else return { 'malformed': '' };
+  }
+
+  formErrors = {
+    id: '',
+    password: '',
+    name: '',
+    email: ''
+  };
+
+  validationMessages = {
+    id: {
+      'required':      'ID is required.',
+      'minlength':     'ID must be at least 3 characters long.',
+      'maxlength':     'ID cannot be more than 32 characters long.'
+    },
+    name: {
+      'required':      'Name is required.',
+      'minlength':     'Name must be at least 3 characters long.',
+      'maxlength':     'Name cannot be more than 32 characters long.'
+    },
+    password: {
+      'required': 'Password is required.',
+      'minlength':     'Password must be at least 5 characters long.',
+      'maxlength':     'Password cannot be more than 128 characters long.'
+    },
+    email: {
+      'required':     'Email is required.',
+      'minlength':     'Email must be at least 8 characters long.',
+      'maxlength':     'Email cannot be more than 32 characters long.',
+      'malformed':    'Email must be in valid format. valudator error'
+    }
+    
+  };
+  
+  onValueChanged(data?: any) {
+    if ( ! this.form ) return;
+    const form = this.form;
+    for ( const field in this.formErrors ) {
+      this.formErrors[field] = '';        // clear previous error message (if any)
+      const control = form.get(field);
+      if ( control && control.dirty && ! control.valid ) {
+        const messages = this.validationMessages[field];
+        for ( const key in control.errors ) {
+          this.formErrors[field] += messages[key] + ' ';
+        }
+      }
+    }
+  }
+  
+    // onClickRegister(){
+    //   // this.form.file_hooks = [ this.primary_photo_idx ];
+    //   // this.user.register(this.form).subscribe((res: USER_REGISTER_RESPONSE) => {
+    //   //   console.info(res);
+    //   // }, err => {
+    //   //   this.user.alert(err);
+    //   // });
+    // }
+
+  loadUserData(){
+    
     this.user.data().subscribe( ( res: USER_DATA_RESPONSE ) => {
       this.userData = res.data.user;
-      this.form = this.userData;
+      //this.form = this.userData;
       console.log(this.userData);
+
+      this.form.patchValue( this.userData );
+
       //this.src_photo = this.file.src( { idx: this.userData.primary_photo_idx });
       this.primary_photo_idx = this.userData.primary_photo_idx;
       console.log('loaduserdata::res', res);
     }, err => this.user.alert(err));
   }
-  onClickUpdate(){
-    let editdata:USER_EDIT = {
-      email     : this.form.email,
-      name      : this.form.name,
-      nickname  : this.form.nickname
-    };
-    this.user.edit( editdata ).subscribe( ( res: USER_EDIT_RESPONSE ) => {
-      console.log( res );
-    }, err => this.user.alert( err ) );
-  }
-
   onChangeFileUpload( fileInput ) {
     let file = fileInput.files[0];
     console.log("file: ", file);
-    let anonymouse: ANONYMOUS_PRIMARY_PHOTO_UPLOAD = {
+    let anonymous: ANONYMOUS_PRIMARY_PHOTO_UPLOAD = {
       model: 'user',
-      code: 'primary_photo',
+      code: 'primary_photo'
     };
 
     let user: PRIMARY_PHOTO_UPLOAD;
     let upload;
 
     if ( this.user.logged ) {
-      user = anonymouse as PRIMARY_PHOTO_UPLOAD;
+      user = anonymous as PRIMARY_PHOTO_UPLOAD;
       user.model_idx = this.user.info.idx;
       user.unique = 'Y';
       user.finish = 'Y';
       upload = this.file.uploadPrimaryPhoto( user, file );
     }
     else {
-      upload = this.file.uploadAnonymousPrimaryPhoto( anonymouse, file );
+      upload = this.file.uploadAnonymousPrimaryPhoto( anonymous, file );
     }
 
     upload.subscribe(res => {
-      console.log(res);
+                                    // console.log(res);
+                                    // console.log('prmary idx: ', this.primary_photo_idx);
       this.primary_photo_idx = res.data.idx;
-      console.log('prmary idx: ', this.primary_photo_idx);
       this.ngZone.run( () => {} );
     }, err => {
       console.log('error', err);
+      this.file.alert(err);
     });
   }
 
+  onClickRegister() {
+    
+    console.log( this.form.value );
+
+    let register = <_USER_CREATE> this.form.value;
+
+    register.file_hooks = [ this.primary_photo_idx ];
+    this.user.register( register ).subscribe( res => {
+
+      console.log('register: ', register);
+
+    }, err => this.user.alert( err ) );
+    
+  }
+
+
+
+  onClickUpdate() {
+    let edit = <_USER_EDIT> this.form.value;
+    delete edit['password'];
+    delete edit['id'];
+    this.user.edit( edit ).subscribe( ( res: USER_EDIT_RESPONSE ) => {
+      console.log( res );
+    }, err => this.user.alert( err ) );
+  }
 
 }
