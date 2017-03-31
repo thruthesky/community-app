@@ -24,12 +24,16 @@ import { HeaderComponent } from './components/header/header';
 import { ViewComponent } from './components/view-component/view-component';
 import { CommentFormComponent } from './components/comment-form-component/comment-form-component';
 
-import { HomePage } from './pages/home/home';
+
 import { LoginPage } from './pages/login/login';
 import { RegisterPage } from './pages/register/register';
 import { ForumPage } from './pages/forum/forum';
 
 import { EnhanceSample } from './enhancer/components/sample';
+
+///////
+
+import { HomePage } from './community-app/community-app.module';
 
 const appRoutes: Routes = [
   { path: '', component: HomePage },

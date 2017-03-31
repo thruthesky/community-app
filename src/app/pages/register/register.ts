@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, NgZone } from '@angular/core';
 
 import { User, Test, File,
   USER,
@@ -8,7 +8,9 @@ import { User, Test, File,
   USER_FIELDS,
   USER_EDIT_RESPONSE,
   USER_EDIT,
-  FILE_UPLOAD
+  FILE_UPLOAD,
+  ANONYMOUS_PRIMARY_PHOTO_UPLOAD,
+  PRIMARY_PHOTO_UPLOAD
 } from './../../angular-backend/angular-backend';
 
 @Component({
@@ -21,10 +23,13 @@ export class RegisterPage implements OnInit{
   userData: USER_FIELDS = null;
 
 
-  src_photo: string = null;
+  primary_photo_idx: number = null;
+
+  //src_photo: string = null;
   // edit_src_photo: string = null;
 
   constructor(
+    private ngZone: NgZone,
     public user: User,
     private file: File ) {
 
@@ -35,7 +40,7 @@ export class RegisterPage implements OnInit{
 
 
     onClickRegister(){
-      //this.form.file_hooks = [ this.user_photo_idx ];
+      this.form.file_hooks = [ this.primary_photo_idx ];
       this.user.register(this.form).subscribe((res: USER_REGISTER_RESPONSE) => {
         console.info(res);
       }, err => {
@@ -49,7 +54,8 @@ export class RegisterPage implements OnInit{
       this.userData = res.data.user;
       this.form = this.userData;
       console.log(this.userData);
-      this.src_photo = this.file.src( { idx: this.userData.primary_photo_idx });
+      //this.src_photo = this.file.src( { idx: this.userData.primary_photo_idx });
+      this.primary_photo_idx = this.userData.primary_photo_idx;
       console.log('loaduserdata::res', res);
     }, err => this.user.alert(err));
   }
@@ -67,40 +73,34 @@ export class RegisterPage implements OnInit{
   onChangeFileUpload( fileInput ) {
     let file = fileInput.files[0];
     console.log("file: ", file);
-    let req: FILE_UPLOAD = {
+    let anonymouse: ANONYMOUS_PRIMARY_PHOTO_UPLOAD = {
       model: 'user',
       code: 'primary_photo',
-      unique: 'Y',
-      finish: 'Y'
     };
 
-    this.file.upload(req, file).subscribe(res => {
+    let user: PRIMARY_PHOTO_UPLOAD;
+    let upload;
+
+    if ( this.user.logged ) {
+      user = anonymouse as PRIMARY_PHOTO_UPLOAD;
+      user.model_idx = this.user.info.idx;
+      user.unique = 'Y';
+      user.finish = 'Y';
+      upload = this.file.uploadPrimaryPhoto( user, file );
+    }
+    else {
+      upload = this.file.uploadAnonymousPrimaryPhoto( anonymouse, file );
+    }
+
+    upload.subscribe(res => {
       console.log(res);
-      
-      this.src_photo = this.file.src( { idx: res.data.idx } );
+      this.primary_photo_idx = res.data.idx;
+      console.log('prmary idx: ', this.primary_photo_idx);
+      this.ngZone.run( () => {} );
     }, err => {
       console.log('error', err);
     });
   }
 
-  onEditFile( fileInput ) {
-    console.log("file changed: ", fileInput);
-    let file = fileInput.files[0];
-    console.log("file: ", file);
-    let req: FILE_UPLOAD = {
-      model: 'user',
-      model_idx: this.userData.idx,
-      code: 'primary_photo',
-      unique: 'Y',
-      finish: 'Y'
-    };
 
-    this.file.upload(req, file).subscribe(res => {
-      console.log(res);
-      
-      this.src_photo = this.file.src( { idx: res.data.idx } );
-    }, err => {
-      console.log('error', err);
-    });
-  }
 }
