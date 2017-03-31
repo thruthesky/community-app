@@ -3,7 +3,7 @@ import 'rxjs/add/operator/debounceTime';
 import { POST_CREATE,
   POST_CREATE_RESPONSE,
   PostData,
-  UPLOAD, FILE_UPLOAD_RESPONSE, File} from './../../angular-backend/angular-backend';
+  UPLOAD, FILE_UPLOAD_RESPONSE, File} from './../../../angular-backend/angular-backend';
 
 
 @Component({

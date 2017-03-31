@@ -9,7 +9,7 @@ import {
   POST,
   UPLOAD,
   POST_LIST, POST_LIST_RESPONSE, LIST,
-  POST_CREATE, POST_CREATE_RESPONSE } from './../../angular-backend/angular-backend';
+  POST_CREATE, POST_CREATE_RESPONSE } from './../../../angular-backend/angular-backend';
 
 @Component({
   selector: 'forum-page',

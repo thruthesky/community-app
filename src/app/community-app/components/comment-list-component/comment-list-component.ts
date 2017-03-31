@@ -5,15 +5,15 @@ import { POST,
           PostData,
           POST_LIST,
           POST_LIST_RESPONSE,
-          LIST } from './../../angular-backend/angular-backend';
+          LIST } from './../../../angular-backend/angular-backend';
 
 @Component({
-  selector: 'view-component',
-  templateUrl: './view-component.html',
-  styleUrls:['./view-component.css']
+  selector: 'comment-list-component',
+  templateUrl: './comment-list-component.html',
+  styleUrls:['./comment-list-component.css']
 })
 
-export class ViewComponent implements OnInit{
+export class CommentListComponent implements OnInit{
 
   limitPerPage: number = 5;
   currentPage: number = 1;

@@ -1,0 +1,66 @@
+<header-component></header-component>
+<section class="page-body">
+<div class="container">
+    <h2 class="form-signin-heading">Please sign up</h2>
+
+
+    <form [formGroup]="form" novalidate>
+      <div class="row form-group">
+        <input class="form-control-file" #userfile type="file" (change)="onChangeFileUpload( userfile )">
+      </div>
+      <img *ngIf=" primary_photo_idx " src="{{ file.url( primary_photo_idx ) }}">
+      
+      <ng-container *ngIf=" ! user.logged ">
+      <div class="row">
+        <input class="form-control" formControlName="id" placeholder="User ID">
+      </div>
+      <div *ngIf="formErrors.id" class="alert alert-danger">
+        {{ formErrors.id }}
+      </div>
+      <div class="row">
+        <input class="form-control" formControlName="password" placeholder="Password">
+      </div>
+      <div *ngIf="formErrors.password" class="alert alert-danger">
+        {{ formErrors.password }}
+      </div>
+      </ng-container>
+      
+      <div class="row" *ngIf=" user.logged ">
+        {{ user.info.id }}
+      </div>
+      
+
+
+      <div class="row">
+        <input class="form-control" formControlName="name" placeholder="Name">
+      </div>
+      <div *ngIf="formErrors.name" class="alert alert-danger">
+        {{ formErrors.name }}
+      </div>
+
+      <div class="row">
+        <input class="form-control" formControlName="email" placeholder="Email">
+      </div>
+      <div *ngIf="formErrors.email" class="alert alert-danger">
+        {{ formErrors.email }}
+      </div>
+      <div class="row">
+        <input class="form-control" formControlName="mobile" placeholder="Mobile">
+      </div>
+      <div class="row" *ngIf=" ! user.logged ">
+          <button type="button" class="btn btn-success btn-block btn-sm" (click)="onClickRegister()"
+            [disabled] = " ! form.valid "
+          >Register</button>
+          <button class="btn btn-primary btn-block btn-sm" type="button" routerLink="/login">Log In</button>
+      </div>
+      <div class="row" *ngIf=" user.logged ">
+          <button type="button" class="btn btn-success btn-block btn-sm" (click)="onClickUpdate()"
+          [disabled] = " ! form.valid "
+          >Update</button>
+          <button class="btn btn-primary btn-block btn-sm" type="button" routerLink="/">Cancel</button>
+      </div>
+      
+  </form>
+
+</div> <!-- /container -->
+</section>

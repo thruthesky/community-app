@@ -19,21 +19,21 @@ import { AngularBackendAdmin,
 } from './angular-backend/angular-backend-admin';
 
 
+
 import { AngularBackendComponentModule } from './angular-backend/modules/angular-backend-components.module';
-import { HeaderComponent } from './components/header/header';
-import { ViewComponent } from './components/view-component/view-component';
-import { CommentFormComponent } from './components/comment-form-component/comment-form-component';
+import { CommunityAppModule } from './community-app/community-app.module';
 
 
-import { LoginPage } from './pages/login/login';
-import { RegisterPage } from './pages/register/register';
-import { ForumPage } from './pages/forum/forum';
+import { LoginPage } from './community-app/pages/login/login';
+import { RegisterPage } from './community-app/pages/register/register';
+import { ForumPage } from './community-app/pages/forum/forum';
 
 import { EnhanceSample } from './enhancer/components/sample';
 
 ///////
 
 import { HomePage } from './community-app/community-app.module';
+
 
 const appRoutes: Routes = [
   { path: '', component: HomePage },
@@ -42,10 +42,6 @@ const appRoutes: Routes = [
   { path: 'register', component: RegisterPage },
   { path: 'forum', component: ForumPage },
   { path: 'forum/:post_config_id', component: ForumPage },
-
-  //{ path: 'admin', component: AdminPage },
-
-
 
   { path: 'admin/user', component: BackendAdminUserListPage },
   { path: 'admin/user/edit/:idx', component: BackendAdminUserEditPage },
@@ -62,16 +58,9 @@ const appRoutes: Routes = [
 @NgModule({
   declarations: [
     AppComponent,
-    HeaderComponent,
-    HomePage,
-    LoginPage,
-    RegisterPage,
-    ForumPage,
    // AdminPage,
    
-    EnhanceSample,
-    ViewComponent,
-    CommentFormComponent
+    EnhanceSample
   ],
   imports: [
     BrowserModule,
@@ -81,7 +70,8 @@ const appRoutes: Routes = [
     AngularBackendAdmin,
     RouterModule.forRoot( appRoutes ),
     NgbModule.forRoot(),
-    AngularBackendComponentModule
+    AngularBackendComponentModule,
+    CommunityAppModule
   ],
   providers: [],
   bootstrap: [AppComponent],

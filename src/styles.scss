@@ -18,11 +18,14 @@ $header-background-color: #797979;
 .page-header {
 }
 .page-body {
-  margin-top: $top-menu-height + $gutter;
-  @media ( min-width: $sm ) {
+    margin-top: $top-menu-height + $gutter;
+    margin: auto $gutter;
+    @media ( min-width: $sm ) {
+        max-width: $lg;
+    }
+    @media ( min-width: $lg ) {
         margin-left: auto;
         margin-right: auto;
-        max-width: $lg;
     }
 }
 .page-foter {

@@ -1,18 +1,14 @@
 <header-component></header-component>
-{{ post_config_id }}
-<br/>
+<section class="page-body">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item">Home</li>
+    <li class="breadcrumb-item">Forum</li>
+    <li class="breadcrumb-item active">{{ post_config_id }}</li>
+  </ol>
 
-<div>
-
-  <div *ngFor=" let idx of photoIdxes ">
-    <img style="width: 100%" src="{{ file.src( { idx: idx } ) }}">
-  </div>
-  <input type="file" #userfile (change)="onChangeFile( userfile )">
-  <input type="text" name="title" id="title" [(ngModel)]="postForm.title">
-  <input type="text" name="content" id="content" [(ngModel)]="postForm.content">
-  <button class="btn btn-sm btn-secondary" (click)="onClickPost()">Post</button>
-</div>
-
+  <post-form-component
+    [post_config_id]=" post_config_id "
+  ></post-form-component>
 
 <div *ngIf="pagination">
   <div *ngFor="let post of pagination" >
@@ -31,11 +27,11 @@
       </comment-form-component>
 
     </div>
-    <view-component
+    <comment-list-component
       [parent_idx]= post.idx
       [post_config]= post_config_id
     >
-    </view-component>
+    </comment-list-component>
 
   </div>
 
@@ -50,3 +46,5 @@
   >
   </page-navigation>
 </div>
+
+</section>
