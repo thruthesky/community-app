@@ -138,29 +138,12 @@ export class RegisterPage {
       console.log('loaduserdata::res', res);
     }, err => this.user.alert(err));
   }
+
+
   onChangeFileUpload( fileInput ) {
+    
     let file = fileInput.files[0];
-    console.log("file: ", file);
-    let anonymous: ANONYMOUS_PRIMARY_PHOTO_UPLOAD = {
-      model: 'user',
-      code: 'primary_photo'
-    };
-
-    let user: PRIMARY_PHOTO_UPLOAD;
-    let upload;
-
-    if ( this.user.logged ) {
-      user = anonymous as PRIMARY_PHOTO_UPLOAD;
-      user.model_idx = this.user.info.idx;
-      user.unique = 'Y';
-      user.finish = 'Y';
-      upload = this.file.uploadPrimaryPhoto( user, file );
-    }
-    else {
-      upload = this.file.uploadAnonymousPrimaryPhoto( anonymous, file );
-    }
-
-    upload.subscribe(res => {
+    this.file.uploadPrimaryPhoto( file ).subscribe(res => {
                                     // console.log(res);
                                     // console.log('prmary idx: ', this.primary_photo_idx);
       this.primary_photo_idx = res.data.idx;

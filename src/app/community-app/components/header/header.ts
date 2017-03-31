@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { User, USER_LOGOUT_RESPONSE } from './../../../angular-backend/angular-backend';
 @Component({
   selector: 'header-component',
@@ -7,7 +8,9 @@ import { User, USER_LOGOUT_RESPONSE } from './../../../angular-backend/angular-b
 })
 export class HeaderComponent implements OnInit{
   usertype;
-  constructor( public user: User ){
+  constructor( 
+    private router: Router,
+    public user: User ) {
 
   }
   ngOnInit(){
@@ -16,7 +19,8 @@ export class HeaderComponent implements OnInit{
       //   this.usertype = res.data.user.id;
       // });
   }
-  onClickLogout(){
+  onClickLogout() {
+    this.router.navigate( [ '/' ] );
     this.user.logout().subscribe((res: USER_LOGOUT_RESPONSE) => {
       console.log(res);
     }, err => {

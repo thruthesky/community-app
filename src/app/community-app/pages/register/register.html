@@ -1,13 +1,12 @@
 <header-component></header-component>
+<section class="page-body">
 <div class="container">
-
-
     <h2 class="form-signin-heading">Please sign up</h2>
 
 
     <form [formGroup]="form" novalidate>
-      <div class="row">
-        <input #userfile type="file" (change)="onChangeFileUpload( userfile )">
+      <div class="row form-group">
+        <input class="form-control-file" #userfile type="file" (change)="onChangeFileUpload( userfile )">
       </div>
       <img *ngIf=" primary_photo_idx " src="{{ file.url( primary_photo_idx ) }}">
       
@@ -63,7 +62,5 @@
       
   </form>
 
-
-  
-
 </div> <!-- /container -->
+</section>
