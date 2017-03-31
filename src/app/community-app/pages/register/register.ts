@@ -40,7 +40,6 @@ export class RegisterPage {
 
       if ( this.user.logged ) this.loadUserData();
 
-      let re = new RegExp("[a-zA-Z0-9]+");
       this.form = fb.group({
         name: [ '', [ Validators.required, Validators.minLength(3), Validators.maxLength(32) ] ],
         email: [ '', [ Validators.required, this.emailValidator ] ],
@@ -52,7 +51,9 @@ export class RegisterPage {
         this.form.addControl( 'password', new FormControl('', [ Validators.required, Validators.minLength(5), Validators.maxLength(128)] ) );
       }
       
-      this.form.valueChanges.subscribe( res => this.onValueChanged( res ) );
+      this.form.valueChanges
+        .debounceTime( 1000 )
+        .subscribe( res => this.onValueChanged( res ) );
       
   }
 
@@ -115,15 +116,7 @@ export class RegisterPage {
     }
   }
   
-    // onClickRegister(){
-    //   // this.form.file_hooks = [ this.primary_photo_idx ];
-    //   // this.user.register(this.form).subscribe((res: USER_REGISTER_RESPONSE) => {
-    //   //   console.info(res);
-    //   // }, err => {
-    //   //   this.user.alert(err);
-    //   // });
-    // }
-
+  
   loadUserData(){
     
     this.user.data().subscribe( ( res: USER_DATA_RESPONSE ) => {
@@ -141,15 +134,10 @@ export class RegisterPage {
 
 
   onChangeFileUpload( fileInput ) {
-    
     let file = fileInput.files[0];
     this.file.uploadPrimaryPhoto( file ).subscribe(res => {
-                                    // console.log(res);
-                                    // console.log('prmary idx: ', this.primary_photo_idx);
       this.primary_photo_idx = res.data.idx;
-      this.ngZone.run( () => {} );
     }, err => {
-      console.log('error', err);
       this.file.alert(err);
     });
   }

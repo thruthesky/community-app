@@ -11,10 +11,12 @@ export { HomePage } from './pages/home/home';
 import { HeaderComponent } from './components/header/header';
 import { CommentListComponent } from './components/comment-list-component/comment-list-component';
 import { CommentFormComponent } from './components/comment-form-component/comment-form-component';
+import { PostFormComponent } from './components/post-form-component/post-form-component';
 
 import { LoginPage } from './pages/login/login';
 import { RegisterPage } from './pages/register/register';
 import { ForumPage } from './pages/forum/forum';
+
 
 
 @NgModule({
@@ -25,7 +27,8 @@ import { ForumPage } from './pages/forum/forum';
         RegisterPage,
         ForumPage,
         CommentListComponent,
-        CommentFormComponent
+        CommentFormComponent,
+        PostFormComponent
     ],
     imports: [
         CommonModule,

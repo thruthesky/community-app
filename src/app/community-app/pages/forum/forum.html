@@ -6,32 +6,9 @@
     <li class="breadcrumb-item active">{{ post_config_id }}</li>
   </ol>
 
-  <form>
-
-
-      <div *ngFor=" let idx of photoIdxes ">
-          <img style="width: 100%" src="{{ file.src( { idx: idx } ) }}">
-      </div>
-      
-      <div class="form-group">
-        <label for="file-box">Upload Photos</label>
-        <input type="file" class="form-control-file" id="file-box" #userfile (change)="onChangeFile( userfile )">
-        <small class="form-text text-muted">Please select a photo to upload</small>
-      </div>
-      <div class="form-group">
-        <label for="title-box">Title</label>
-        <input type="text" class="form-control" id="title-box">
-        <small class="form-text text-muted">Input title</small>
-      </div>
-      <div class="form-group">
-        <label for="content-box">Content</label>
-        <textarea class="form-control" id="content-box"></textarea>
-        <small class="form-text text-muted">Please, input content</small>
-      </div>
-      
-      <button type="submit" class="btn btn-primary">Post</button>
-
-  </form>
+  <post-form-component
+    [post_config_id]=" post_config_id "
+  ></post-form-component>
 
 <div *ngIf="pagination">
   <div *ngFor="let post of pagination" >
