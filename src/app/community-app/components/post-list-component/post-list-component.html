@@ -1,0 +1,14 @@
+post-list-component:
+<section *ngIf=" share.posts ">
+  <article *ngFor="let post of share.posts" >
+    
+    <post-view-component [post]=" post "></post-view-component>
+    
+    <ng-container *ngIf=" post.comments ">
+      <comment-view-component *ngFor=" let comment of post.comments "
+        [comment]=" comment ">
+      </comment-view-component>
+    </ng-container>
+
+  </article>
+</section>

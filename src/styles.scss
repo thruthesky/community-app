@@ -31,3 +31,23 @@ $header-background-color: #797979;
 .page-foter {
 
 }
+
+[depth='0'] {
+    margin-left: 1em;
+}
+
+[depth='1'] {
+    margin-left: 2em;
+}
+[depth='2'] {
+    margin-left: 3em;
+}
+[depth='3'] {
+    margin-left: 4em;
+}
+[depth='4'] {
+    margin-left: 5em;
+}
+[depth='5'] {
+    margin-left: 6em;
+}

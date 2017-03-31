@@ -1,0 +1,21 @@
+<hr>
+
+<article class="comment" [attr.depth]=" comment.depth ">
+idx: {{ comment.idx }}
+<p>{{ comment.content }}</p>
+
+      <div class="files clearfix" *ngIf=" comment.files ">
+        <div class="w-25 float-left" *ngFor=" let file of comment.files ">
+          <img [src]=" file.url " style="width: 100%;">
+        </div>
+      </div>
+<p>
+    <span (click)=" showCommentForm = !showCommentForm ">Reply</span>
+    Report
+</p>
+<comment-form-component
+    [parent_idx]=" comment.idx "
+    [active] = " showCommentForm "
+    (created) = " showCommentForm = false "
+    ></comment-form-component>
+</article>
