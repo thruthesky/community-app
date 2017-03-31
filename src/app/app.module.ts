@@ -49,6 +49,7 @@ const appRoutes: Routes = [
   { path: 'admin/forum/configs', component: BackendAdminForumConfigPage },
   { path: 'admin/forum/categories', component: BackendAdminForumCategoryPage },
   { path: 'admin/forum/posts', component: BackendAdminForumPostPage },
+  { path: 'admin/forum/posts/:post_config_id', component: BackendAdminForumPostPage },
 
   { path: 'admin', component: BackendAdminPage },
 
