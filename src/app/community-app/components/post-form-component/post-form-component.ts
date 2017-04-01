@@ -1,13 +1,13 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import {
     PostData,
     File,
     NUMBERS,
     _FILE,
-    _POST_CREATE, _POST_CREATE_RESPONSE
+    _POST, _POST_CREATE, _POST_CREATE_RESPONSE
 } from './../../../angular-backend/angular-backend';
-
+import { ShareService } from './../../services/share-service';
 @Component({
     selector: 'post-form-component',
     templateUrl: 'post-form-component.html'
@@ -17,7 +17,11 @@ export class PostFormComponent {
     formGroup: FormGroup;
     files: Array<_FILE> = [];
     active: boolean = false;
+
+    @Output() created = new EventEmitter<_POST>();
+
     constructor(
+        public share: ShareService,
         private fb: FormBuilder,
         public file: File,
         private postData: PostData
@@ -51,9 +55,20 @@ export class PostFormComponent {
     create.post_config_id = this.post_config_id;
     create.file_hooks = this.files.map( (f:_FILE) => f.idx );
     
-    this.postData.create( create ).subscribe( ( res: _POST_CREATE_RESPONSE ) =>{
-      console.log( res );
+    this.postData.create( create ).subscribe( ( res: _POST_CREATE_RESPONSE ) => {
+        this.share.posts.unshift( res.data );
+        console.log( res );
+        this.success( res.data );
     }, err => this.postData.alert( err ) );
+  }
+
+
+  success( data: _POST ) {
+    this.files = [];
+    this.formGroup.get('title').patchValue('');
+    this.formGroup.get('content').patchValue('');
+    this.active = false;
+    this.created.emit( data );
   }
 
 }

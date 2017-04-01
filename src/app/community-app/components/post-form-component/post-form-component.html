@@ -1,23 +1,26 @@
-<button type="button" class="btn btn-sm btn-primary" (click)=" active = ! active ">Create a New Post</button>
-  <form *ngIf=" active " [formGroup]="formGroup" (ngSubmit)="onSubmit()" novalidate>
-      <div *ngFor=" let file of files ">
-          <img style="max-width: 100%" src="{{ file.url }}">
-      </div>
-      <div class="form-group">
-        <label for="file-box">Upload Photos</label>
-        <input type="file" class="form-control-file" id="file-box" #userfile (change)="onChangeFile( userfile )">
-        <small class="form-text text-muted">Please select a photo to upload</small>
-      </div>
-      <div class="form-group">
-        <label for="title-box">Title</label>
-        <input type="text" class="form-control" id="title-box" formControlName="title">
-        <small class="form-text text-muted">Input title</small>
-      </div>
-      <div class="form-group">
-        <label for="content-box">Content</label>
-        <textarea class="form-control" id="content-box" formControlName="content"></textarea>
-        <small class="form-text text-muted">Please, input content</small>
-      </div>
-      
-      <button type="submit" class="btn btn-primary">Post</button>
-  </form>
+<button *ngIf=" ! active " type="button" class="btn btn-sm btn-primary" (click)=" active = ! active ">Create a New Post</button>
+
+
+<form *ngIf=" active " [formGroup]="formGroup" (ngSubmit)="onSubmit()" novalidate>
+    <div *ngFor=" let file of files ">
+        <img style="max-width: 100%" src="{{ file.url }}">
+    </div>
+    <div class="form-group">
+      <label for="file-box">Upload Photos</label>
+      <input type="file" class="form-control-file" id="file-box" #userfile (change)="onChangeFile( userfile )">
+      <small class="form-text text-muted">Please select a photo to upload</small>
+    </div>
+    <div class="form-group">
+      <label for="title-box">Title</label>
+      <input type="text" class="form-control" id="title-box" formControlName="title">
+      <small class="form-text text-muted">Input title</small>
+    </div>
+    <div class="form-group">
+      <label for="content-box">Content</label>
+      <textarea class="form-control" id="content-box" formControlName="content"></textarea>
+      <small class="form-text text-muted">Please, input content</small>
+    </div>
+    
+    <button type="submit" class="btn btn-primary">Post</button>
+    <button type="submit" class="btn btn-Secondary" (click)=" active = false ">Cancel</button>
+</form>

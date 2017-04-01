@@ -19,7 +19,7 @@
 
       <div class="files clearfix" *ngIf=" post.files ">
         <div class="w-25 float-left" *ngFor=" let file of post.files ">
-          <img [src]=" file.url " style="width: 100%;">
+          <img [src]=" file.url + '&type=jpg&resize=best-fit&width=100&height=100&quality=70' " style="width: 100%;">
         </div>
       </div>
     <span class="card-link" (click)=" showCommentForm = !showCommentForm ">Reply</span>

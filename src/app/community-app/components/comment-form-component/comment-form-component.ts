@@ -15,7 +15,7 @@ import { ShareService } from './../../services/share-service';
   templateUrl: './comment-form-component.html'
 })
 
-export class CommentFormComponent implements OnInit{
+export class CommentFormComponent implements OnInit {
   
   
   formGroup: FormGroup;

@@ -16,6 +16,13 @@
 $ git clone https://github.com/thruthesky/community-app
 $ git submodule update --init
 $ npm install --verbose
+$ npm install --save classlist.js
+````
+
+* Open src/polyfills.ts and uncomments IE9~IE10.
+    * You may need to import some modules. Those modules are already stated in polyfills.ts
+
+````
 $ ng serve
 ````
 

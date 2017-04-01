@@ -7,7 +7,8 @@ import {
     // _FILE, _FILES,
     // _POST_CREATE, _POST_CREATE_RESPONSE,
     _LIST, _POST_LIST_RESPONSE,
-    _POSTS
+    _POST, _POSTS,
+    _FILE
 } from './../../../angular-backend/angular-backend';
 import { ShareService } from './../../services/share-service';
 @Component({
@@ -44,6 +45,11 @@ export class PostListComponent implements OnInit {
         };
         this.postData.list( req ).subscribe((res: _POST_LIST_RESPONSE ) => {
             console.log( res.data.posts );
+            // res.data.posts.map( (p: _POST) => {
+            //     p.files.map( (f: _FILE) => {
+            //         f.url += "&resize=best-fit&width=100&height=100";
+            //     });
+            // });
             this.share.posts = res.data.posts;
 
       //console.info( 'loadSearchedData', res );
