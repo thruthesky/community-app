@@ -5,7 +5,9 @@ import { Component, Input } from '@angular/core';
 })
 export class CommentViewComponent {
     @Input() comment;
-    showCommentForm: boolean = false;
+
+
+    mode: 'create' | 'edit' | '' = '';
 
     // onClickReply() {
     //     console.log('this.showCommentForm:', this.showCommentForm);

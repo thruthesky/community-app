@@ -15,6 +15,7 @@ import { PostFormComponent } from './components/post-form-component/post-form-co
 import { PostListComponent } from './components/post-list-component/post-list-component';
 import { PostViewComponent } from './components/post-view-component/post-view-component';
 import { CommentViewComponent } from './components/comment-view-component/comment-view-component';
+import { FileFormComponent } from './components/file-form-component/file-form-component';
 
 
 import { LoginPage } from './pages/login/login';
@@ -35,7 +36,8 @@ import { ShareService } from './services/share-service';
         PostFormComponent,
         PostListComponent,
         PostViewComponent,
-        CommentViewComponent
+        CommentViewComponent,
+        FileFormComponent
     ],
     imports: [
         CommonModule,

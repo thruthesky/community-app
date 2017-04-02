@@ -40,6 +40,8 @@ export class ForumPage {
   // photoIdxes: Array<number> = [];
 
 
+  active: boolean = false;
+  
   @ViewChild('postListComponent') postListComponent: PostListComponent;
 
   constructor(

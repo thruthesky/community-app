@@ -1,74 +1,118 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import {
     PostData,
     File,
     NUMBERS,
     _FILE,
-    _POST, _POST_CREATE, _POST_CREATE_RESPONSE
+    _POST, _POST_CREATE, _POST_CREATE_RESPONSE,
+    _POST_EDIT, _POST_EDIT_RESPONSE
 } from './../../../angular-backend/angular-backend';
 import { ShareService } from './../../services/share-service';
 @Component({
     selector: 'post-form-component',
     templateUrl: 'post-form-component.html'
 })
-export class PostFormComponent {
-    @Input() post_config_id: string;
-    formGroup: FormGroup;
-    files: Array<_FILE> = [];
-    active: boolean = false;
+export class PostFormComponent implements OnInit {
 
     @Output() created = new EventEmitter<_POST>();
+    @Output() edited = new EventEmitter<_POST>();
+    @Output() cancel = new EventEmitter<void>();
 
+    @Input() post_config_id: string;
+    @Input() post: _POST = <_POST>{};
+
+
+    formGroup: FormGroup;
+    files: Array<_FILE> = [];
+
+    
     constructor(
         public share: ShareService,
         private fb: FormBuilder,
         public file: File,
         private postData: PostData
     ) {
+    }
 
+    ngOnInit() {
         this.createForm();
     }
-
     createForm() {
-        this.formGroup = this.fb.group({
-            title: [],
-            content: []
-        });
+
+        if ( this.isCreate() ) {
+            this.files = [];
+            this.formGroup = this.fb.group({
+                title: [],
+                content: []
+            });
+        }
+        else { // edit
+            this.files = this.post.files ? this.post.files : [];
+            this.formGroup = this.fb.group({
+                title: [ this.post.title ],
+                content: [ this.post.content ]
+            });
+        }
+        
+
     }
 
 
-  onChangeFile( fileInput ) {
-    this.file.uploadPostFile( fileInput.files[0] ).subscribe( res => {
-      this.files.push( res.data );
-    }, err => {
-      this.file.alert(err);
-    });
-  }
-
-  onSubmit() {
-      
-    console.log( this.formGroup.value );
-
-    let create = <_POST_CREATE> this.formGroup.value;
-
-    create.post_config_id = this.post_config_id;
-    create.file_hooks = this.files.map( (f:_FILE) => f.idx );
-    
-    this.postData.create( create ).subscribe( ( res: _POST_CREATE_RESPONSE ) => {
-        this.share.posts.unshift( res.data );
-        console.log( res );
-        this.success( res.data );
-    }, err => this.postData.alert( err ) );
+    onSubmit() {
+        console.log( this.formGroup.value );
+        if ( this.isCreate() ) this.createPost();
+        else this.editPost();
   }
 
 
-  success( data: _POST ) {
-    this.files = [];
-    this.formGroup.get('title').patchValue('');
-    this.formGroup.get('content').patchValue('');
-    this.active = false;
-    this.created.emit( data );
-  }
+    reset() {
+        this.files = [];
+        this.formGroup.get('title').patchValue('');
+        this.formGroup.get('content').patchValue('');
+    }
+
+    createSuccess( post: _POST ) {
+        this.reset();
+        this.created.emit( post );
+    }
+    editSuccess( post: _POST ) {
+        this.reset();
+        this.edited.emit( post );
+    }
+
+    onClickCancel() {
+        this.cancel.emit();
+    }
+
+    createPost() {
+        let create = <_POST_CREATE> this.formGroup.value;
+        create.post_config_id = this.post_config_id;
+        create.file_hooks = this.files.map( (f:_FILE) => f.idx );
+        this.postData.create( create ).subscribe( ( res: _POST_CREATE_RESPONSE ) => {
+            this.share.posts.unshift( res.data );
+            console.log( res );
+            this.createSuccess( res.data );
+        }, err => this.postData.alert( err ) );
+    }
+
+    editPost() {
+        let edit = <_POST_EDIT> this.formGroup.value;
+        edit.idx = this.post.idx;
+        edit.file_hooks = this.files.map( (f:_FILE) => f.idx );
+        console.log('post-form-conpoment::editPost()', edit);
+        this.postData.edit( edit ).subscribe( ( res: _POST_EDIT_RESPONSE ) => {
+            //his.share.posts.unshift( res.data );
+            console.log( 'after edit: ', res );
+            this.editSuccess( res.data );
+        }, err => this.postData.alert( err ) );
+    }
+
+    isCreate() {
+        return this.post === void 0 || this.post.idx === void 0;
+    }
+    isEdit() {
+        return ! this.isCreate();
+    }
 
 }

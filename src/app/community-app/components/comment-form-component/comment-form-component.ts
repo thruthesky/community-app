@@ -3,12 +3,14 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 //import 'rxjs/add/operator/debounceTime';
 import { 
   PostComment,
+  File,
   _POST,
   _COMMENT,
   _FILE,
-  _COMMENT_CREATE,
-  _COMMENT_CREATE_RESPONSE,
-  UPLOAD, FILE_UPLOAD_RESPONSE, File} from './../../../angular-backend/angular-backend';
+  _COMMENT_CREATE, _COMMENT_CREATE_RESPONSE,
+  _COMMENT_EDIT, _COMMENT_EDIT_RESPONSE,
+  UPLOAD, FILE_UPLOAD_RESPONSE
+} from './../../../angular-backend/angular-backend';
 import { ShareService } from './../../services/share-service';
 @Component({
   selector: 'comment-form-component',
@@ -17,35 +19,55 @@ import { ShareService } from './../../services/share-service';
 
 export class CommentFormComponent implements OnInit {
   
+  @Input() mode: 'create' | 'edit' | '';
+  
+  @Input() parent_idx;          /// only for creating comment.
+  @Input() comment: _COMMENT = <_COMMENT> {};   /// only for editing comment.
+
+  @Output() cancel = new EventEmitter<void>();
+  @Output() created = new EventEmitter<_COMMENT>();
+  @Output() edited = new EventEmitter<_COMMENT>();
+  
+  
   
   formGroup: FormGroup;
-  @Input() parent_idx;
-  @Input() active: boolean = false;
   files: Array<_FILE> = [];
 
 
-  @Output() created = new EventEmitter<_COMMENT>();
 
   constructor(
     public share: ShareService,
     private fb: FormBuilder,
-    private comment: PostComment,
+    private postComment: PostComment,
     private file: File
   ) {
-    this.createForm();
   }
 
   ngOnInit() {
     
+    this.createForm();
   }
 
   createForm() {
-    this.formGroup = this.fb.group({
-      content: []
-    });
+    if ( this.mode == 'create' ) {
+      this.formGroup = this.fb.group({
+        content: []
+      });
+    }
+    else {
+      console.log("CommentFormComponent::createForm()", this.comment);
+      this.files = this.comment.files ? this.comment.files : [];
+      this.formGroup = this.fb.group({
+          content: [ this.comment.content ]
+      });
+    }
   }
 
   onSubmit() {
+    if ( this.mode == 'create' ) this.createComment();
+    else this.editComment();
+  }
+  createComment() {
     console.log( this.formGroup.value );
     
     let req: _COMMENT_CREATE = {
@@ -53,11 +75,9 @@ export class CommentFormComponent implements OnInit {
       content: this.formGroup.get('content').value
     };
 
-
-
     req.file_hooks = this.files.map( (f:_FILE) => f.idx );
 
-    this.comment.create( req ).subscribe( res => {
+    this.postComment.create( req ).subscribe( res => {
       console.log('comment create: ', res);
 
       // console.log( this.share.posts );
@@ -72,26 +92,40 @@ export class CommentFormComponent implements OnInit {
         post.comments.splice( i + 1, 0, res.data );
       }
 
-      this.success( res.data );
-    }, err => this.comment.alert(err) );
+      this.createSuccess( res.data );
+    }, err => this.postComment.alert(err) );
     
-
-
   }
-  success( data: _COMMENT ) {
+
+  editComment() {
+    let req: _COMMENT_EDIT = {
+      idx: this.comment.idx,
+      content: this.formGroup.get('content').value
+    };
+    req.file_hooks = this.files.map( (f:_FILE) => f.idx );
+    this.postComment.edit( req ).subscribe( (res:_COMMENT_EDIT_RESPONSE) => {
+      console.log('editComment():', res.data);
+      this.editSuccess( res.data );
+    });
+  }
+
+  reset() {
     this.files = [];
     this.formGroup.get('content').patchValue('');
-    this.active = false;
-    this.created.emit( data );
+  }
+
+  createSuccess( comment: _COMMENT ) {
+    this.reset();
+    this.created.emit( comment );
+  }
+  editSuccess( comment: _COMMENT ) {
+    this.reset();
+    this.edited.emit( comment );
   }
   
-    onChangeFile( _ ) {
-    this.file.uploadPostFile( _.files[0] ).subscribe( res => {
-      this.files.push( res.data );
-    }, err => {
-      console.log('err:', err);
-      this.file.alert(err);
-    });
+
+  onClickCancel() {
+    this.cancel.emit();
   }
 
 }

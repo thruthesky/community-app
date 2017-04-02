@@ -6,8 +6,13 @@
     <li class="breadcrumb-item active">{{ post_config_id }}</li>
   </ol>
 
+
+  <button *ngIf=" ! active " type="button" class="btn btn-sm btn-primary" (click)=" active = !active ">Create a New Post</button>
+
   <post-form-component
-    [post_config_id]=" post_config_id "
+    *ngIf=" active "
+    (cancel) = " active = false "
+    [post_config_id] = " post_config_id "
   ></post-form-component>
 
   <post-list-component #postListComponent

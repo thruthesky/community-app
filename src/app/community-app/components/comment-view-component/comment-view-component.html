@@ -1,21 +1,27 @@
 <hr>
 
-<article class="comment" [attr.depth]=" comment.depth ">
+<article *ngIf=" mode != 'edit' " class="comment" [attr.depth]=" comment.depth ">
 idx: {{ comment.idx }}
 <p>{{ comment.content }}</p>
 
       <div class="files clearfix" *ngIf=" comment.files ">
         <div class="w-25 float-left" *ngFor=" let file of comment.files ">
-          <img [src]=" file.url + '&type=jpg&resize=crop&width=100&height=100&quality=70'  " style="width: 100%;">
+          <img [src]=" file.url + '&crop=100x100x50'  " style="width: 100%;">
         </div>
       </div>
 <p>
-    <span (click)=" showCommentForm = !showCommentForm ">Reply</span>
+    <span (click)=" mode = 'edit' ">Edit</span>
+    <span (click)=" mode = mode == 'reply' ? '' : mode = 'reply' ">Reply</span>
     Report
 </p>
-<comment-form-component
-    [parent_idx]=" comment.idx "
-    [active] = " showCommentForm "
-    (created) = " showCommentForm = false "
-    ></comment-form-component>
 </article>
+
+<comment-form-component
+    *ngIf = " mode "
+    [mode] = " mode "
+    [parent_idx]=" comment.idx "
+    [comment]=" comment "
+    (created) = " mode = '' "
+    (edited) = " mode = ''; comment = $event "
+    (cancel) = " mode = '' "
+    ></comment-form-component>
