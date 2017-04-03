@@ -6,45 +6,30 @@
     <li class="breadcrumb-item active">{{ post_config_id }}</li>
   </ol>
 
+
+  <button *ngIf=" ! active " type="button" class="btn btn-sm btn-primary" (click)=" active = !active ">Create a New Post</button>
+
   <post-form-component
-    [post_config_id]=" post_config_id "
+    *ngIf=" active "
+    (cancel) = " active = false "
+    [post_config_id] = " post_config_id "
   ></post-form-component>
 
-<div *ngIf="pagination">
-  <div *ngFor="let post of pagination" >
-    <span class="post">
-      {{ post.idx }} | {{ post.title }}
-    </span>
-    <span class="postaction">
-          <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-          <i class="fa fa-times" aria-hidden="true" (click)="onClickDeletePost(post.idx)"></i>
-    </span>
-    <div>
-      <comment-form-component
-        [parentIdx]=post.idx
-        [configId] = post_config_id
-      >
-      </comment-form-component>
-
-    </div>
-    <comment-list-component
-      [parent_idx]= post.idx
-      [post_config]= post_config_id
-    >
-    </comment-list-component>
-
-  </div>
+  <post-list-component #postListComponent
+    [no_of_items_in_one_page] = " no_of_items_in_one_page "
+  ></post-list-component>
 
 
-  <page-navigation
-    [no_of_total_items]=" totalRecord "
-    [no_of_items_in_one_page] = " limitPerPage "
+
+  <!--<page-navigation
+    [no_of_total_items]=" no_of_total_items "
+    [no_of_items_in_one_page] = " no_of_items_in_one_page "
     [no_of_pages_in_navigator] = " numberPerNav "
     [no_of_current_page] = " currentPage "
     [show_prev_next] = " true "
     (pageClick)="onPageClick($event)"
   >
-  </page-navigation>
-</div>
+  </page-navigation>-->
+  
 
 </section>

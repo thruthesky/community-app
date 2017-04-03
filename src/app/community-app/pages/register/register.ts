@@ -133,6 +133,7 @@ export class RegisterPage {
   }
 
 
+
   onChangeFileUpload( fileInput ) {
     let file = fileInput.files[0];
     this.file.uploadPrimaryPhoto( file ).subscribe(res => {
@@ -141,6 +142,10 @@ export class RegisterPage {
       this.file.alert(err);
     });
   }
+
+
+
+
 
   onClickRegister() {
     

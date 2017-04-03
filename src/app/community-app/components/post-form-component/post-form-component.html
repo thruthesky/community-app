@@ -1,26 +1,20 @@
 
-  <form [formGroup]="formGroup" (ngSubmit)="onSubmit()" novalidate>
 
-      <div *ngFor=" let idx of photoIdxes ">
-          <img style="width: 100%" src="{{ file.src( { idx: idx } ) }}">
-      </div>
-      
-      <div class="form-group">
-        <label for="file-box">Upload Photos</label>
-        <input type="file" class="form-control-file" id="file-box" #userfile (change)="onChangeFile( userfile )">
-        <small class="form-text text-muted">Please select a photo to upload</small>
-      </div>
-      <div class="form-group">
-        <label for="title-box">Title</label>
-        <input type="text" class="form-control" id="title-box" formControlName="title">
-        <small class="form-text text-muted">Input title</small>
-      </div>
-      <div class="form-group">
-        <label for="content-box">Content</label>
-        <textarea class="form-control" id="content-box" formControlName="content"></textarea>
-        <small class="form-text text-muted">Please, input content</small>
-      </div>
-      
-      <button type="submit" class="btn btn-primary">Post</button>
+<form [formGroup]="formGroup" (ngSubmit)="onSubmit()" novalidate>
+    
+    <file-form-component [files]=" files "></file-form-component>
 
-  </form>
+    <div class="form-group">
+      <label for="title-box">Title</label>
+      <input type="text" class="form-control" id="title-box" formControlName="title">
+      <small class="form-text text-muted">Input title</small>
+    </div>
+    <div class="form-group">
+      <label for="content-box">Content</label>
+      <textarea class="form-control" id="content-box" formControlName="content"></textarea>
+      <small class="form-text text-muted">Please, input content</small>
+    </div>
+    
+    <button type="submit" class="btn btn-primary">Post</button>
+    <button type="button" class="btn btn-Secondary" (click)=" onClickCancel() ">Cancel</button>
+</form>

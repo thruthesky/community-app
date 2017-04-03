@@ -1,0 +1,27 @@
+<hr>
+
+<article *ngIf=" mode != 'edit' " class="comment" [attr.depth]=" comment.depth ">
+idx: {{ comment.idx }}
+<p>{{ comment.content }}</p>
+
+      <div class="files clearfix" *ngIf=" comment.files ">
+        <div class="w-25 float-left" *ngFor=" let file of comment.files ">
+          <img [src]=" file.url + '&crop=100x100x50'  " style="width: 100%;">
+        </div>
+      </div>
+<p>
+    <span (click)=" mode = 'edit' ">Edit</span>
+    <span (click)=" mode = mode == 'reply' ? '' : mode = 'reply' ">Reply</span>
+    Report
+</p>
+</article>
+
+<comment-form-component
+    *ngIf = " mode "
+    [mode] = " mode "
+    [parent_idx]=" comment.idx "
+    [comment]=" comment "
+    (created) = " mode = '' "
+    (edited) = " mode = ''; comment = $event "
+    (cancel) = " mode = '' "
+    ></comment-form-component>
