@@ -21,6 +21,7 @@ export class FileFormComponent {
     onChangeFile( _ ) {
         this.file.uploadPostFile( _.files[0] ).subscribe( (res:_UPLOAD_RESPONSE) => {
             this.files.push( res.data );
+            console.log('files: ', this.files);
         }, err => {
             console.log('err:', err);
             this.file.alert(err);
@@ -32,7 +33,12 @@ export class FileFormComponent {
         console.log("FileFormComponent::onClickDeleteFile(file): ", file);
         this.file.delete( file.idx ).subscribe( (res:_DELETE_RESPONSE) => {
             console.log("file delete: ", res);
-            this.files = this.files.filter( (f:_FILE) => f.idx != res.data.idx );
+            let i = this.files.findIndex( (f:_FILE) => f.idx == res.data.idx );
+            // Object.assign( this.files, files );
+
+            this.files.splice( i, 1 );
+
+            console.log('files: ', this.files);
         }, err => this.file.alert(err) );
     }
 

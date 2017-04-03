@@ -38,6 +38,15 @@
         <div class="text">Profile</div>
       </li>
 
+
+      <li *ngIf=" user.admin " routerLink="/admin">
+        <span class="fa-stack fa-lg">
+          <i class="fa fa-circle fa-stack-2x"></i>
+          <i class="fa fa-gear fa-stack-1x"></i>
+        </span>
+        <div class="text">Admin</div>
+      </li>
+
       <li routerLink="/forum/qna">
         <span class="fa-stack fa-lg">
           <i class="fa fa-circle fa-stack-2x"></i>

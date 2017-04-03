@@ -103,8 +103,11 @@ export class CommentFormComponent implements OnInit {
       content: this.formGroup.get('content').value
     };
     req.file_hooks = this.files.map( (f:_FILE) => f.idx );
+            console.log('files: ', this.files);
+            console.log('file_hooks', req.file_hooks);
     this.postComment.edit( req ).subscribe( (res:_COMMENT_EDIT_RESPONSE) => {
       console.log('editComment():', res.data);
+      Object.assign( this.comment, res.data );
       this.editSuccess( res.data );
     });
   }

@@ -102,8 +102,8 @@ export class PostFormComponent implements OnInit {
         edit.file_hooks = this.files.map( (f:_FILE) => f.idx );
         console.log('post-form-conpoment::editPost()', edit);
         this.postData.edit( edit ).subscribe( ( res: _POST_EDIT_RESPONSE ) => {
-            //his.share.posts.unshift( res.data );
             console.log( 'after edit: ', res );
+            Object.assign( this.post, res.data );
             this.editSuccess( res.data );
         }, err => this.postData.alert( err ) );
     }

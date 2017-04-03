@@ -5,6 +5,6 @@ import { Component, Input } from '@angular/core';
 })
 export class PostViewComponent {
     @Input() post;
-    showPostEditForm: boolean = true;
+    showPostEditForm: boolean = false;
     showCommentForm: boolean = false;
 }

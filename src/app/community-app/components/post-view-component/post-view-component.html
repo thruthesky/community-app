@@ -34,7 +34,8 @@
   *ngIf=" showPostEditForm "
   [post] = " post "
   (cancel) = " showPostEditForm = false "
-  (edited) = " showPostEditForm = false; post = $event "
+  (created) = " showPostEditForm = false; "
+  (edited) = " showPostEditForm = false; "
 ></post-form-component>
 
 

@@ -58,6 +58,7 @@ export class RegisterPage {
   }
 
   emailValidator(c: AbstractControl): { [key: string]: any } {
+    if ( ! c.value ) return;
     if ( c.value.length < 8 ) {
       return { 'minlength' : '' };
     }
