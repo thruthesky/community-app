@@ -9,31 +9,6 @@
 
 
 
-# Installation
-
-
-````
-$ git clone https://github.com/thruthesky/community-app
-$ git submodule update --init
-$ npm install --verbose
-$ npm install --save classlist.js
-````
-
-* Open src/polyfills.ts and uncomments IE9~IE10.
-    * You may need to import some modules. Those modules are already stated in polyfills.ts
-
-````
-$ ng serve
-````
-
-
-
-# Update
-
-http://angularjs.blogspot.com/2017/03/angular-400-now-available.html
-
-
-
 # TODO
 
 
@@ -86,8 +61,33 @@ options:
 ````
 
 
-# History
+# Publish
 
-## 0.0.3
 
-* Examples of User registration, login, logout, admin management, file upload.
+$ update ./angular-backend/config.ts
+$ ng build prod
+$ scp -r dist/* backend@sonub.com:./www
+$ ssh backend@sonub.com
+$ cd www; git pull
+
+
+
+
+# Installation
+
+
+````
+$ git clone https://github.com/thruthesky/community-app
+$ git submodule update --init
+$ npm install --verbose
+$ npm install --save classlist.js
+````
+
+* Open src/polyfills.ts and uncomments IE9~IE10.
+    * You may need to import some modules. Those modules are already stated in polyfills.ts
+
+````
+$ ng serve
+````
+
+

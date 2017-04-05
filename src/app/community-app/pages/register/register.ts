@@ -1,6 +1,6 @@
 import { Component, NgZone } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators, AbstractControl } from '@angular/forms';
-
+import { Router } from '@angular/router';
 import { User, Test, File,
   USER,
   USER_REGISTER, USER_REGISTER_RESPONSE,
@@ -13,9 +13,16 @@ import { User, Test, File,
   ANONYMOUS_PRIMARY_PHOTO_UPLOAD,
   PRIMARY_PHOTO_UPLOAD,
   _USER_CREATE,
-  _USER_EDIT
+  _USER_EDIT,
+  _RESPONSE,
+  
 } from './../../../angular-backend/angular-backend';
 
+import {
+
+  ERROR_WRONG_SESSION_ID_NO_USER_DATA_BY_THAT_SESSION_ID
+
+} from './../../../angular-backend/define';
 @Component({
   selector: 'register-page',
   templateUrl: './register.html',
@@ -35,6 +42,7 @@ export class RegisterPage {
     private ngZone: NgZone,
     private fb: FormBuilder,
     public user: User,
+    private router: Router,
     private file: File ) {
 
 
@@ -130,7 +138,15 @@ export class RegisterPage {
       //this.src_photo = this.file.src( { idx: this.userData.primary_photo_idx });
       this.primary_photo_idx = this.userData.primary_photo_idx;
       console.log('loaduserdata::res', res);
-    }, err => this.user.alert(err));
+    }, (err:_RESPONSE) => {
+      console.log('err: ', err);
+      if ( err.code == ERROR_WRONG_SESSION_ID_NO_USER_DATA_BY_THAT_SESSION_ID ) {
+        this.user.deleteSessionInfo();
+        alert("WARNING: Your login had invalidated. Please login again.");
+        this.router.navigate( [ '/' ] );
+      }
+      else this.user.alert(err);
+    });
   }
 
 
@@ -143,8 +159,6 @@ export class RegisterPage {
       this.file.alert(err);
     });
   }
-
-
 
 
 
