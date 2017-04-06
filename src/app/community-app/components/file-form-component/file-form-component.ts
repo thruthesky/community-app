@@ -5,6 +5,9 @@ import {
     _UPLOAD_RESPONSE, _DELETE_RESPONSE
 } from './../../../angular-backend/angular-backend';
 
+import {
+    ERROR_NO_FILE_SELECTED
+} from './../../../angular-backend/define';
 @Component({
     selector: 'file-form-component',
     templateUrl:'./file-form-component.html',
@@ -24,6 +27,7 @@ export class FileFormComponent {
             console.log('files: ', this.files);
         }, err => {
             console.log('err:', err);
+            if ( this.file.isError(err) == ERROR_NO_FILE_SELECTED ) return;
             this.file.alert(err);
         });
     }

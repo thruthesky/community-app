@@ -8,7 +8,7 @@ import {
     _POST, _POST_CREATE, _POST_CREATE_RESPONSE,
     _POST_EDIT, _POST_EDIT_RESPONSE
 } from './../../../angular-backend/angular-backend';
-import { ShareService } from './../../services/share-service';
+import { AppService } from './../../services/app-service';
 @Component({
     selector: 'post-form-component',
     templateUrl: 'post-form-component.html'
@@ -28,7 +28,7 @@ export class PostFormComponent implements OnInit {
 
     
     constructor(
-        public share: ShareService,
+        public as: AppService,
         private fb: FormBuilder,
         public file: File,
         private postData: PostData
@@ -78,6 +78,7 @@ export class PostFormComponent implements OnInit {
     }
     editSuccess( post: _POST ) {
         this.reset();
+        console.log("emit: ", post);
         this.edited.emit( post );
     }
 
@@ -90,7 +91,7 @@ export class PostFormComponent implements OnInit {
         create.post_config_id = this.post_config_id;
         create.file_hooks = this.files.map( (f:_FILE) => f.idx );
         this.postData.create( create ).subscribe( ( res: _POST_CREATE_RESPONSE ) => {
-            this.share.posts.unshift( res.data );
+            this.as.posts.unshift( res.data );
             console.log( res );
             this.createSuccess( res.data );
         }, err => this.postData.alert( err ) );
@@ -103,7 +104,8 @@ export class PostFormComponent implements OnInit {
         console.log('post-form-conpoment::editPost()', edit);
         this.postData.edit( edit ).subscribe( ( res: _POST_EDIT_RESPONSE ) => {
             console.log( 'after edit: ', res );
-            Object.assign( this.post, res.data );
+            Object.assign( this.post, res.data ); // two-way binding.
+            //this.post = res.data;
             this.editSuccess( res.data );
         }, err => this.postData.alert( err ) );
     }

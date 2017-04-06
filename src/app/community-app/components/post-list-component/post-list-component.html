@@ -1,7 +1,7 @@
 
 
-<section *ngIf=" share.posts ">
-  <article *ngFor="let post of share.posts" >
+<section *ngIf=" appShare.posts ">
+  <article *ngFor="let post of appShare.posts" class="mb-1">
     
     <post-view-component [post]=" post "></post-view-component>
     

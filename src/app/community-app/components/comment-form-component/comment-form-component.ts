@@ -11,7 +11,7 @@ import {
   _COMMENT_EDIT, _COMMENT_EDIT_RESPONSE,
   UPLOAD, FILE_UPLOAD_RESPONSE
 } from './../../../angular-backend/angular-backend';
-import { ShareService } from './../../services/share-service';
+import { AppService } from './../../services/app-service';
 @Component({
   selector: 'comment-form-component',
   templateUrl: './comment-form-component.html'
@@ -36,7 +36,7 @@ export class CommentFormComponent implements OnInit {
 
 
   constructor(
-    public share: ShareService,
+    public as: AppService,
     private fb: FormBuilder,
     private postComment: PostComment,
     private file: File
@@ -81,9 +81,8 @@ export class CommentFormComponent implements OnInit {
     this.postComment.create( req ).subscribe( res => {
       console.log('comment create: ', res);
 
-      // console.log( this.share.posts );
 
-      let post = this.share.posts.find( (post: _POST) => post.idx == res.data.root_idx );
+      let post = this.as.posts.find( (post: _POST) => post.idx == res.data.root_idx );
       if ( post === void 0 ) return;
       if ( post.comments === void 0 ) post.comments = [];
 

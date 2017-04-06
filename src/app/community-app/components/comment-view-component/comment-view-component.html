@@ -1,8 +1,8 @@
 <hr>
 
-<article *ngIf=" mode != 'edit' " class="comment" [attr.depth]=" comment.depth ">
+<article *ngIf=" mode != 'edit' " class="comment bg-white p-3" [attr.depth]=" comment.depth ">
 idx: {{ comment.idx }}
-<p>{{ comment.content }}</p>
+<p [innerHTML]=" appService.sanitizeContent( comment ) "></p>
 
       <div class="files clearfix" *ngIf=" comment.files ">
         <div class="w-25 float-left" *ngFor=" let file of comment.files ">
@@ -10,8 +10,9 @@ idx: {{ comment.idx }}
         </div>
       </div>
 <p>
-    <span (click)=" mode = 'edit' ">Edit</span>
-    <span (click)=" mode = 'reply' ">Reply</span>
+    <span (click)=" mode = 'edit' " class="pointer">Edit</span>
+    <span (click)=" mode = 'create' " class="pointer">Reply</span>
+    <span (click)="onClickLike() " class="pointer">Like</span>
     Report
 </p>
 </article>

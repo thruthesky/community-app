@@ -91,3 +91,32 @@ $ ng serve
 ````
 
 
+
+
+
+
+# Coding
+
+## Error handling
+
+You have to Observable.throw() for 'subscribe'.
+
+You can Observable.throw( ) with RES_ERROR_xxxxx from defines.ts.
+
+ie)
+````
+return Observable.throw( RES_ERROR_NO_FILE_SELECTED );
+````
+
+you can handle it like below;
+
+````
+    onChangeFile( _ ) {
+        this.file.uploadPostFile( _.files[0] ).subscribe( (res:_UPLOAD_RESPONSE) => {
+        }, err => {
+            console.log('err:', err);
+            if ( this.file.isError(err) == ERROR_NO_FILE_SELECTED ) return;
+            this.file.alert(err);
+        });
+    }
+````

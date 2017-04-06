@@ -23,7 +23,7 @@ import { RegisterPage } from './pages/register/register';
 import { ForumPage } from './pages/forum/forum';
 
 
-import { ShareService } from './services/share-service';
+import { AppService } from './services/app-service';
 @NgModule({
     declarations: [
         HomePage,
@@ -51,7 +51,7 @@ import { ShareService } from './services/share-service';
         HomePage
     ],
     providers: [
-        ShareService
+        AppService
     ]
 })
 export class CommunityAppModule {
