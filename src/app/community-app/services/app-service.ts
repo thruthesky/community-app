@@ -46,7 +46,8 @@ export class AppService {
      * 
      */
     public sanitizeContent( obj ) : string {
-        if ( obj === void 0 || obj['content'] === void 0 ) return '';
+        if ( obj === void 0 || obj['content'] === void 0 || ! obj['content'] ) return '';
+
         let c = obj['content'].replace(/\n/g, "<br>");
         return this.sanitzeHtml( c );
     }

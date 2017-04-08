@@ -9,12 +9,14 @@ idx: {{ comment.idx }}
           <img [src]=" file.url + '&crop=100x100x50'  " style="width: 100%;">
         </div>
       </div>
-<p>
-    <span (click)=" mode = 'edit' " class="pointer">Edit</span>
-    <span (click)=" mode = 'create' " class="pointer">Reply</span>
-    <span (click)="onClickLike() " class="pointer">Like</span>
-    Report
-</p>
+<div class="buttons">
+    <span (click)=" mode = 'edit' " class="">Edit</span>
+    <span (click)=" mode = 'create' " class="">Reply</span>
+    <span (click)=" onClickLike( 'G' ) " class="">Like({{comment.vote_good}})</span>
+    <span (click)=" onClickLike( 'B' ) " class="">Dislike({{comment.vote_bad}})</span>
+    <span (click)=" onClickReport() " class="">Report({{comment.report}})</span>
+</div>
+
 </article>
 
 <comment-form-component

@@ -63,7 +63,7 @@ export class PostFormComponent implements OnInit {
         console.log( this.formGroup.value );
         if ( this.isCreate() ) this.createPost();
         else this.editPost();
-  }
+    }
 
 
     reset() {
@@ -115,6 +115,14 @@ export class PostFormComponent implements OnInit {
     }
     isEdit() {
         return ! this.isCreate();
+    }
+
+
+    
+    onClickLike() {
+        this.postData.like( this.post.idx ).subscribe( res => {
+            console.log('res: ', res);
+        }, err => this.postData.alert( err ) );
     }
 
 }
