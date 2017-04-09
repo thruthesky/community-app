@@ -32,6 +32,9 @@ export class PostViewComponent {
         }, err => this.postData.alert( err ) );
     }
 
+    get myPost() {
+        return this.post.user.id == this.postData.info.id;
+    }
 
 
 }

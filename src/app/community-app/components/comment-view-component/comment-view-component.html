@@ -2,6 +2,7 @@
 
 <article *ngIf=" mode != 'edit' " class="comment bg-white p-3" [attr.depth]=" comment.depth ">
 idx: {{ comment.idx }}
+author: {{ comment.user.name }}
 <p [innerHTML]=" appService.sanitizeContent( comment ) "></p>
 
       <div class="files clearfix" *ngIf=" comment.files ">
@@ -10,7 +11,7 @@ idx: {{ comment.idx }}
         </div>
       </div>
 <div class="buttons">
-    <span (click)=" mode = 'edit' " class="">Edit</span>
+    <span *ngIf=" myComment " (click)=" mode = 'edit' " class="">Edit</span>
     <span (click)=" mode = 'create' " class="">Reply</span>
     <span (click)=" onClickLike( 'G' ) " class="">Like({{comment.vote_good}})</span>
     <span (click)=" onClickLike( 'B' ) " class="">Dislike({{comment.vote_bad}})</span>

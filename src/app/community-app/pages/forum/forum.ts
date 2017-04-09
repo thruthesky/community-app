@@ -9,7 +9,8 @@ import {
   POST,
   UPLOAD,
   POST_LIST, POST_LIST_RESPONSE, LIST,
-  POST_CREATE, POST_CREATE_RESPONSE
+  POST_CREATE, POST_CREATE_RESPONSE,
+  _POST_LIST_RESPONSE
 } from './../../../angular-backend/angular-backend';
 
 import { PostListComponent } from './../../components/post-list-component/post-list-component';
@@ -24,7 +25,13 @@ export class ForumPage {
   // pagination = <Array<POST>> [];
   // posts: POST_LIST = [];
   post_config_id: string = null;
+
+  postListResponse: _POST_LIST_RESPONSE = null;
+  no_of_current_page = 1;
+  no_of_total_items = 0;
   no_of_items_in_one_page: number = 5;
+  no_of_pages_in_navigator = 3;
+
 
   // limitPerPage: number = 5;
   // currentPage: number = 1;
@@ -59,122 +66,23 @@ export class ForumPage {
       if ( params['post_config_id'] !== void 0 ) {
         this.post_config_id = params['post_config_id'];
         this.postListComponent.load( this.post_config_id );
-
-        // console.log('params: ', params );
-
-        // this.onChangedSearch();
-        // this.searchChangeDebounce
-        //   .debounceTime(300) // wait 300ms after the last event before emitting last event
-        //   .subscribe(() => this.onChangedSearch());
-
       }
     });
   }
 
 
 
-  onClickPost() {
-    // this.postForm.post_config_id = this.post_config_id;
-    // this.postForm.file_hooks = this.photoIdxes;
-    // this.postData.create( this.postForm ).subscribe( ( res: POST_CREATE_RESPONSE ) =>{
-    //   console.log( res );
-    // }, err => this.postData.alert( err ) );
+  onLoaded( res:_POST_LIST_RESPONSE ) {
+    this.postListResponse = res;
+    this.no_of_total_items = res.data.total;
   }
 
 
-
-  onClickDeletePost( postidx ) {
-    // let confirmDelete = confirm('Are you sure you want to delete this post?');
-    // if( ! confirmDelete) return console.log('canceled');
-
-    // this.postData.delete( parseInt(postidx) ).subscribe( (res) =>{
-    //   console.info( 'res::' , res );
-    //   console.log( 'deleted: ', postidx );
-    // }, err => this.postData.alert( 'error: ' + err));
+  onPageClick( page ) {
+    console.log('onPageClick::page : ', page);
+    this.no_of_current_page = page;
+    this.postListComponent.load( this.post_config_id, this.no_of_current_page );
   }
-
-
-  onChangedSearch() {
-    //console.log('onChangeSearch', this.searchForm);
-
-    // if (this.searchForm.title) {
-    //   if (this.searchForm.title.length < 2) return;
-    // }
-    // if (this.searchForm.content) {
-    //   if (this.searchForm.content.length < 2) return;
-    // }
-
-    // let cond = '';
-    // let bind = '';
-
-    // if (this.searchForm.idx) cond += "idx LIKE ? ";
-    // if (this.searchForm.idx) bind += `%${this.searchForm.idx}%`;
-
-    // if (this.searchForm.title) cond += cond ? "AND ( title LIKE ? ) " : "( title LIKE ?  )";
-    // if (this.searchForm.title) bind += bind ? `,%${this.searchForm.name}%,%${this.searchForm.title}%,%${this.searchForm.title}%` : `%${this.searchForm.title}%,%${this.searchForm.name}%,%${this.searchForm.name}%`;
-    // let req: POST_LIST = {
-    //   order : 'idx DESC',
-    //   extra: {
-    //     'post_config_id' : this.post_config_id
-    //   }
-    // };
-    // this.postData.list( req ).subscribe( (res: POST_LIST_RESPONSE) => {
-    //   console.log(res);
-    //   this.posts = res.data.posts;
-    // }, err => this.postData.alert( err ) );
-
-
-    // this.searchQuery.where = cond;
-    // this.searchQuery.bind = bind;
-    // this.searchQuery.order= 'idx DESC';
-    // this.currentPage = 1;
-    this.loadSearchedData();
-  }
-
-
-  onPageClick($event) {
-    //console.log('onPageClick::$event',$event);
-    // this.currentPage = $event;
-    // this.loadSearchedData();
-  }
-
-  loadSearchedData() {
-
-    // this.pagination = [];
-    // this.searchQuery.from = this.limitPerPage * this.currentPage - this.limitPerPage;
-    // this.searchQuery.limit = this.limitPerPage;
-    // this.searchQuery.extra = {
-    //   'post_config_id' : this.post_config_id,
-    //   file: true,
-    //   meta: true
-    // };
-    // this.searchQuery.where = "parent_idx = 0 AND deleted IS NULL";
-    // this.postData.list(this.searchQuery).subscribe((res: POST_LIST_RESPONSE ) => {
-    //   //console.info( 'loadSearchedData', res );
-    //   this.pagination = res.data.posts;
-    //   this.totalRecord = parseInt(res.data.total);
-    //   console.log( 'data:: ' , this.pagination );
-    // }, err => this.postData.alert(err));
-  }
-
-
-
-
-  // onChangeFile( fileInput ) {
-  //   console.log("file changed: ", fileInput);
-  //   let file = fileInput.files[0];
-  //   let req = <UPLOAD> {};
-
-  //   this.file.upload(req, file).subscribe(res => {
-  //     console.log("file upload", res);
-  //     this.photoIdxes.push( res.data.idx );
-  //   }, err => {
-  //     console.log('error', err);
-  //   });
-  // }
-
-
-
 
 
 

@@ -9,6 +9,7 @@
         <input class="form-control-file" #userfile type="file" (change)="onChangeFileUpload( userfile )">
       </div>
 
+
       <div *ngIf=" data?.primary_photo?.idx " class="primary-photo" style="position: relative; max-width: 100px;">
         <span (click)="onClickDeletePhoto()" class="fa-stack fa-lg pointer" style="position: absolute; right: .6em; bottom: .6em;">
           <i class="fa fa-circle fa-stack-2x fa-inverse"></i>

@@ -19,7 +19,8 @@ import { User, Test, File,
   _USER_CREATE,
   _USER_EDIT,
   _USER_EDIT_RESPONSE,
-  _DELETE_RESPONSE
+  _DELETE_RESPONSE,
+  _USER_RESPONSE
   
 } from './../../../angular-backend/angular-backend';
 
@@ -29,7 +30,7 @@ import {
 
 } from './../../../angular-backend/define';
 
-type d = _USER_DATA_RESPONSE;
+type d = _USER_RESPONSE;
 
 @Component({
   selector: 'register-page',
@@ -41,7 +42,7 @@ export class RegisterPage {
   //create: _USER_CREATE = <_USER_CREATE> {};
   //edit: _USER_EDIT = <_USER_EDIT> {};
 
-  data = {};
+  data = <d>{};
   
   //primary_photo_idx: number = null;
 
@@ -140,7 +141,8 @@ export class RegisterPage {
   
   loadUserData(){
     
-    this.user.data().subscribe( ( res: USER_DATA_RESPONSE ) => {
+    this.user.data().subscribe( ( res: _USER_DATA_RESPONSE ) => {
+      
       this.data = res.data.user;
       //this.form = this.userData;
       console.log(this.data);
@@ -209,4 +211,8 @@ export class RegisterPage {
         (<d>this.data).primary_photo = <any> {};
     }, err => this.file.alert(err) );
   }
+
+
+
+
 }

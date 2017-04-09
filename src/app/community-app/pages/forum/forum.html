@@ -18,19 +18,20 @@
 
   <post-list-component #postListComponent
     [no_of_items_in_one_page] = " no_of_items_in_one_page "
+    (loaded)=" onLoaded( $event ) "
   ></post-list-component>
 
 
+        <page-navigation
+                [no_of_total_items]=" no_of_total_items "
+                [no_of_items_in_one_page] = " no_of_items_in_one_page "
+                [no_of_pages_in_navigator] = " no_of_pages_in_navigator "
+                [no_of_current_page] = " no_of_current_page "
+                [show_prev_next] = " true "
+                (pageClick)="onPageClick( $event )"
+        >
+        </page-navigation>
 
-  <!--<page-navigation
-    [no_of_total_items]=" no_of_total_items "
-    [no_of_items_in_one_page] = " no_of_items_in_one_page "
-    [no_of_pages_in_navigator] = " numberPerNav "
-    [no_of_current_page] = " currentPage "
-    [show_prev_next] = " true "
-    (pageClick)="onPageClick($event)"
-  >
-  </page-navigation>-->
   
 
 </section>

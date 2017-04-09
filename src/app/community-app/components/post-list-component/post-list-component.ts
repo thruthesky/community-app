@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import {
     PostData,
@@ -17,6 +17,7 @@ import { AppService } from './../../services/app-service';
 })
 export class PostListComponent implements OnInit {
     @Input() no_of_items_in_one_page: number = 0;
+    @Output() loaded = new EventEmitter<_POST_LIST_RESPONSE>();
     constructor(
         public appShare: AppService,
         private postData: PostData
@@ -28,13 +29,14 @@ export class PostListComponent implements OnInit {
     }
 
 
-    load( id ) {
+    load( id, page = 1 ) {
         this.appShare.post_config_id = id;
         
         let req: _LIST = {
             where: 'parent_idx=?',
             bind: '0',
             order: 'idx desc',
+            page: page,
             extra: {
                 post_config_id: this.appShare.post_config_id,
                 user: true,
@@ -52,17 +54,18 @@ export class PostListComponent implements OnInit {
             // });
             if ( res && res.data && res.data.posts ) {
                 this.appShare.posts = res.data.posts;
-
                 this.appShare.posts.map( (post: _POST) => {
                     //this.appShare.sanitizeContent( post );
                 });
             }
 
-      //console.info( 'loadSearchedData', res );
-    //   this.pagination = res.data.posts;
-    //   this.totalRecord = parseInt(res.data.total);
-    //   console.log( 'data:: ' , this.pagination );
-    }, err => this.postData.alert(err));
+            this.loaded.emit( res );
+
+        //console.info( 'loadSearchedData', res );
+        //   this.pagination = res.data.posts;
+        //   this.totalRecord = parseInt(res.data.total);
+        //   console.log( 'data:: ' , this.pagination );
+        }, err => this.postData.alert(err));
     }
 
 }
