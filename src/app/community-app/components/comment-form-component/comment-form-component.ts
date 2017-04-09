@@ -11,7 +11,7 @@ import {
   _COMMENT_EDIT, _COMMENT_EDIT_RESPONSE,
   UPLOAD, FILE_UPLOAD_RESPONSE
 } from './../../../angular-backend/angular-backend';
-import { ShareService } from './../../services/share-service';
+import { AppService } from './../../services/app-service';
 @Component({
   selector: 'comment-form-component',
   templateUrl: './comment-form-component.html'
@@ -19,7 +19,7 @@ import { ShareService } from './../../services/share-service';
 
 export class CommentFormComponent implements OnInit {
   
-  @Input() mode: 'create' | 'edit' | '';
+  @Input() mode: 'create' | 'edit' = 'create';
   
   @Input() parent_idx;          /// only for creating comment.
   @Input() comment: _COMMENT = <_COMMENT> {};   /// only for editing comment.
@@ -36,7 +36,7 @@ export class CommentFormComponent implements OnInit {
 
 
   constructor(
-    public share: ShareService,
+    public as: AppService,
     private fb: FormBuilder,
     private postComment: PostComment,
     private file: File
@@ -49,13 +49,14 @@ export class CommentFormComponent implements OnInit {
   }
 
   createForm() {
+    console.log("CommentFormComponent::createForm() : mode: ", this.mode);
+    console.log("CommentFormComponent::createForm()", this.comment);
     if ( this.mode == 'create' ) {
       this.formGroup = this.fb.group({
         content: []
       });
     }
     else {
-      console.log("CommentFormComponent::createForm()", this.comment);
       this.files = this.comment.files ? this.comment.files : [];
       this.formGroup = this.fb.group({
           content: [ this.comment.content ]
@@ -68,7 +69,7 @@ export class CommentFormComponent implements OnInit {
     else this.editComment();
   }
   createComment() {
-    console.log( this.formGroup.value );
+    console.log( "CommentFormComponent::createComment() Going to create a comment: ", this.formGroup.value );
     
     let req: _COMMENT_CREATE = {
       parent_idx: this.parent_idx,
@@ -80,9 +81,8 @@ export class CommentFormComponent implements OnInit {
     this.postComment.create( req ).subscribe( res => {
       console.log('comment create: ', res);
 
-      // console.log( this.share.posts );
 
-      let post = this.share.posts.find( (post: _POST) => post.idx == res.data.root_idx );
+      let post = this.as.posts.find( (post: _POST) => post.idx == res.data.root_idx );
       if ( post === void 0 ) return;
       if ( post.comments === void 0 ) post.comments = [];
 
@@ -98,15 +98,20 @@ export class CommentFormComponent implements OnInit {
   }
 
   editComment() {
+    console.log( "CommentFormComponent::editComment() Going to edit a comment: ", this.formGroup.value );
+    
     let req: _COMMENT_EDIT = {
       idx: this.comment.idx,
       content: this.formGroup.get('content').value
     };
     req.file_hooks = this.files.map( (f:_FILE) => f.idx );
+            console.log('files: ', this.files);
+            console.log('file_hooks', req.file_hooks);
     this.postComment.edit( req ).subscribe( (res:_COMMENT_EDIT_RESPONSE) => {
       console.log('editComment():', res.data);
+      Object.assign( this.comment, res.data );
       this.editSuccess( res.data );
-    });
+    }, err => this.postComment.alert( err ));
   }
 
   reset() {

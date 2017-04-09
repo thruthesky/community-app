@@ -9,31 +9,6 @@
 
 
 
-# Installation
-
-
-````
-$ git clone https://github.com/thruthesky/community-app
-$ git submodule update --init
-$ npm install --verbose
-$ npm install --save classlist.js
-````
-
-* Open src/polyfills.ts and uncomments IE9~IE10.
-    * You may need to import some modules. Those modules are already stated in polyfills.ts
-
-````
-$ ng serve
-````
-
-
-
-# Update
-
-http://angularjs.blogspot.com/2017/03/angular-400-now-available.html
-
-
-
 # TODO
 
 
@@ -86,8 +61,62 @@ options:
 ````
 
 
-# History
+# Publish
 
-## 0.0.3
 
-* Examples of User registration, login, logout, admin management, file upload.
+$ update ./angular-backend/config.ts
+$ ng build prod
+$ scp -r dist/* backend@sonub.com:./www
+$ ssh backend@sonub.com
+$ cd www; git pull
+
+
+
+
+# Installation
+
+
+````
+$ git clone https://github.com/thruthesky/community-app
+$ git submodule update --init
+$ npm install --verbose
+$ npm install --save classlist.js
+````
+
+* Open src/polyfills.ts and uncomments IE9~IE10.
+    * You may need to import some modules. Those modules are already stated in polyfills.ts
+
+````
+$ ng serve
+````
+
+
+
+
+
+
+# Coding
+
+## Error handling
+
+You have to Observable.throw() for 'subscribe'.
+
+You can Observable.throw( ) with RES_ERROR_xxxxx from defines.ts.
+
+ie)
+````
+return Observable.throw( RES_ERROR_NO_FILE_SELECTED );
+````
+
+you can handle it like below;
+
+````
+    onChangeFile( _ ) {
+        this.file.uploadPostFile( _.files[0] ).subscribe( (res:_UPLOAD_RESPONSE) => {
+        }, err => {
+            console.log('err:', err);
+            if ( this.file.isError(err) == ERROR_NO_FILE_SELECTED ) return;
+            this.file.alert(err);
+        });
+    }
+````

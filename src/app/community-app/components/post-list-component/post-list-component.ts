@@ -10,7 +10,7 @@ import {
     _POST, _POSTS,
     _FILE
 } from './../../../angular-backend/angular-backend';
-import { ShareService } from './../../services/share-service';
+import { AppService } from './../../services/app-service';
 @Component({
     selector: 'post-list-component',
     templateUrl: 'post-list-component.html'
@@ -18,7 +18,7 @@ import { ShareService } from './../../services/share-service';
 export class PostListComponent implements OnInit {
     @Input() no_of_items_in_one_page: number = 0;
     constructor(
-        public share: ShareService,
+        public appShare: AppService,
         private postData: PostData
     ) {
 
@@ -29,14 +29,14 @@ export class PostListComponent implements OnInit {
 
 
     load( id ) {
-        this.share.post_config_id = id;
+        this.appShare.post_config_id = id;
         
         let req: _LIST = {
             where: 'parent_idx=?',
             bind: '0',
             order: 'idx desc',
             extra: {
-                post_config_id: this.share.post_config_id,
+                post_config_id: this.appShare.post_config_id,
                 user: true,
                 meta: true,
                 file: true,
@@ -44,13 +44,19 @@ export class PostListComponent implements OnInit {
             }
         };
         this.postData.list( req ).subscribe((res: _POST_LIST_RESPONSE ) => {
-            console.log( res.data.posts );
+            console.log( res );
             // res.data.posts.map( (p: _POST) => {
             //     p.files.map( (f: _FILE) => {
             //         f.url += "&resize=best-fit&width=100&height=100";
             //     });
             // });
-            this.share.posts = res.data.posts;
+            if ( res && res.data && res.data.posts ) {
+                this.appShare.posts = res.data.posts;
+
+                this.appShare.posts.map( (post: _POST) => {
+                    //this.appShare.sanitizeContent( post );
+                });
+            }
 
       //console.info( 'loadSearchedData', res );
     //   this.pagination = res.data.posts;

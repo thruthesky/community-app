@@ -8,7 +8,15 @@
       <div class="row form-group">
         <input class="form-control-file" #userfile type="file" (change)="onChangeFileUpload( userfile )">
       </div>
-      <img *ngIf=" primary_photo_idx " src="{{ file.url( primary_photo_idx ) }}">
+
+      <div *ngIf=" data?.primary_photo?.idx " class="primary-photo" style="position: relative; max-width: 100px;">
+        <span (click)="onClickDeletePhoto()" class="fa-stack fa-lg pointer" style="position: absolute; right: .6em; bottom: .6em;">
+          <i class="fa fa-circle fa-stack-2x fa-inverse"></i>
+          <i class="fa fa-trash fa-stack-1x"></i>
+        </span>
+
+        <img class="img-thumbnail" src="{{ data.primary_photo.url }}&crop=100x120x80">
+      </div>
       
       <ng-container *ngIf=" ! user.logged ">
       <div class="row">
@@ -28,8 +36,6 @@
       <div class="row" *ngIf=" user.logged ">
         {{ user.info.id }}
       </div>
-      
-
 
       <div class="row">
         <input class="form-control" formControlName="name" placeholder="Name">

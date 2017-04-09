@@ -1,20 +1,35 @@
 import { Component, NgZone } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators, AbstractControl } from '@angular/forms';
-
+import { Router } from '@angular/router';
 import { User, Test, File,
   USER,
-  USER_REGISTER, USER_REGISTER_RESPONSE,
+  USER_REGISTER,
+  USER_REGISTER_RESPONSE,
   USER_DATA_RESPONSE,
   SESSION_INFO,
-  USER_FIELDS,
-  USER_EDIT_RESPONSE,
+  //USER_FIELDS,
+  //USER_EDIT_RESPONSE,
   USER_EDIT,
   FILE_UPLOAD,
   ANONYMOUS_PRIMARY_PHOTO_UPLOAD,
   PRIMARY_PHOTO_UPLOAD,
+  _RESPONSE,
+  _FILE,
+  _USER_DATA_RESPONSE,
   _USER_CREATE,
-  _USER_EDIT
+  _USER_EDIT,
+  _USER_EDIT_RESPONSE,
+  _DELETE_RESPONSE
+  
 } from './../../../angular-backend/angular-backend';
+
+import {
+
+  ERROR_WRONG_SESSION_ID_NO_USER_DATA_BY_THAT_SESSION_ID
+
+} from './../../../angular-backend/define';
+
+type d = _USER_DATA_RESPONSE;
 
 @Component({
   selector: 'register-page',
@@ -23,11 +38,14 @@ import { User, Test, File,
 })
 export class RegisterPage {
   //form: USER_REGISTER | USER_EDIT = {};
-  userData: USER_FIELDS = null;
+  //create: _USER_CREATE = <_USER_CREATE> {};
+  //edit: _USER_EDIT = <_USER_EDIT> {};
 
+  data = {};
+  
+  //primary_photo_idx: number = null;
 
-  primary_photo_idx: number = null;
-
+  //primary_photo: _FILE = <_FILE> {};
 
   form: FormGroup;
 
@@ -35,7 +53,9 @@ export class RegisterPage {
     private ngZone: NgZone,
     private fb: FormBuilder,
     public user: User,
+    private router: Router,
     private file: File ) {
+
 
 
       if ( this.user.logged ) this.loadUserData();
@@ -58,6 +78,7 @@ export class RegisterPage {
   }
 
   emailValidator(c: AbstractControl): { [key: string]: any } {
+    if ( ! c.value ) return;
     if ( c.value.length < 8 ) {
       return { 'minlength' : '' };
     }
@@ -120,16 +141,24 @@ export class RegisterPage {
   loadUserData(){
     
     this.user.data().subscribe( ( res: USER_DATA_RESPONSE ) => {
-      this.userData = res.data.user;
+      this.data = res.data.user;
       //this.form = this.userData;
-      console.log(this.userData);
+      console.log(this.data);
 
-      this.form.patchValue( this.userData );
+      this.form.patchValue( this.data );
 
       //this.src_photo = this.file.src( { idx: this.userData.primary_photo_idx });
-      this.primary_photo_idx = this.userData.primary_photo_idx;
+      //this.primary_photo = this.userData.primary_photo;
       console.log('loaduserdata::res', res);
-    }, err => this.user.alert(err));
+    }, (err:_RESPONSE) => {
+      console.log('err: ', err);
+      if ( err.code == ERROR_WRONG_SESSION_ID_NO_USER_DATA_BY_THAT_SESSION_ID ) {
+        this.user.deleteSessionInfo();
+        alert("WARNING: Your login had invalidated. Please login again.");
+        this.router.navigate( [ '/' ] );
+      }
+      else this.user.alert(err);
+    });
   }
 
 
@@ -137,13 +166,12 @@ export class RegisterPage {
   onChangeFileUpload( fileInput ) {
     let file = fileInput.files[0];
     this.file.uploadPrimaryPhoto( file ).subscribe(res => {
-      this.primary_photo_idx = res.data.idx;
+      console.log("Register::onChangeFileUpload:: success: ", res);
+      (<d>this.data).primary_photo = res.data;
     }, err => {
       this.file.alert(err);
     });
   }
-
-
 
 
 
@@ -153,7 +181,7 @@ export class RegisterPage {
 
     let register = <_USER_CREATE> this.form.value;
 
-    register.file_hooks = [ this.primary_photo_idx ];
+    if ( (<d>this.data).primary_photo ) register.file_hooks = [ (<d>this.data).primary_photo.idx ];
     this.user.register( register ).subscribe( res => {
 
       console.log('register: ', register);
@@ -166,11 +194,19 @@ export class RegisterPage {
 
   onClickUpdate() {
     let edit = <_USER_EDIT> this.form.value;
-    delete edit['password'];
-    delete edit['id'];
-    this.user.edit( edit ).subscribe( ( res: USER_EDIT_RESPONSE ) => {
+    this.user.edit( edit ).subscribe( ( res: _USER_EDIT_RESPONSE ) => {
       console.log( res );
+      alert("User infomration updated");
     }, err => this.user.alert( err ) );
   }
 
+
+  onClickDeletePhoto() {
+    console.log("FileFormComponent::onClickDeleteFile(file): ", (<d>this.data).primary_photo);
+
+    this.file.delete( (<d>this.data).primary_photo.idx ).subscribe( (res:_DELETE_RESPONSE) => {
+        console.log("file delete: ", res);
+        (<d>this.data).primary_photo = <any> {};
+    }, err => this.file.alert(err) );
+  }
 }
