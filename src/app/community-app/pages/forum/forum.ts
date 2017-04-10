@@ -21,9 +21,7 @@ import { PostListComponent } from './../../components/post-list-component/post-l
   styleUrls:['./forum.css']
 })
 export class ForumPage {
-  // postForm: POST_CREATE = {};
-  // pagination = <Array<POST>> [];
-  // posts: POST_LIST = [];
+  
   post_config_id: string = null;
 
   postListResponse: _POST_LIST_RESPONSE = null;
@@ -33,21 +31,15 @@ export class ForumPage {
   no_of_pages_in_navigator = 3;
 
 
-  // limitPerPage: number = 5;
-  // currentPage: number = 1;
-  // numberPerNav: number = 4;
-  // totalRecord: number = 0;
-  // comments = <Array<POST>>[];
 
-  // searchForm = <POST>{};
-  // searchQuery = <LIST>{};
 
-  // searchChangeDebounce = new Subject();
 
-  // photoIdxes: Array<number> = [];
 
 
   active: boolean = false;
+
+
+  //temp_page = this.no_of_current_page;
   
   @ViewChild('postListComponent') postListComponent: PostListComponent;
 
@@ -75,13 +67,15 @@ export class ForumPage {
   onLoaded( res:_POST_LIST_RESPONSE ) {
     this.postListResponse = res;
     this.no_of_total_items = res.data.total;
+    //this.no_of_current_page = this.temp_page;
+    this.no_of_current_page = res.data.page;
   }
 
 
   onPageClick( page ) {
     console.log('onPageClick::page : ', page);
-    this.no_of_current_page = page;
-    this.postListComponent.load( this.post_config_id, this.no_of_current_page );
+    //this.temp_page = page;
+    this.postListComponent.load( this.post_config_id, page );
   }
 
 

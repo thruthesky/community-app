@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, NgZone } from '@angular/core';
 import {
     File,
     _FILE,
@@ -17,20 +17,30 @@ export class FileFormComponent {
 
     @Input() files: Array<_FILE> = [];
 
-    constructor( private file: File ) {
+    percentage: number = 0;
+    constructor( private file: File, private ngZone: NgZone ) {
 
     }
 
+
     onChangeFile( _ ) {
-        this.file.uploadPostFile( _.files[0] ).subscribe( (res:_UPLOAD_RESPONSE) => {
+        this.percentage = 1;
+        this.file.uploadPostFile( _.files[0], percentage => {
+            console.log('percentage:', percentage);
+            this.percentage = percentage;
+            this.ngZone.run( () => {} );
+        } ).subscribe( (res:_UPLOAD_RESPONSE) => {
             this.files.push( res.data );
             console.log('files: ', this.files);
+            this.percentage = 0;
         }, err => {
             console.log('err:', err);
             if ( this.file.isError(err) == ERROR_NO_FILE_SELECTED ) return;
             this.file.alert(err);
         });
     }
+
+
 
 
     onClickDeleteFile( file ) {

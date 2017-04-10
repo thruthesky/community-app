@@ -1,6 +1,8 @@
 import { Component, NgZone } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators, AbstractControl } from '@angular/forms';
 import { Router } from '@angular/router';
+import { AppService } from './../../services/app-service';
+
 import { User, Test, File,
   USER,
   USER_REGISTER,
@@ -50,11 +52,13 @@ export class RegisterPage {
 
   form: FormGroup;
 
-  constructor(
+  constructor (
+    private router: Router,
+    private appService: AppService,
     private ngZone: NgZone,
     private fb: FormBuilder,
     public user: User,
-    private router: Router,
+    //private router: Router,
     private file: File ) {
 
 
@@ -145,13 +149,13 @@ export class RegisterPage {
       
       this.data = res.data.user;
       //this.form = this.userData;
-      console.log(this.data);
+      // console.log(this.data);
 
       this.form.patchValue( this.data );
 
       //this.src_photo = this.file.src( { idx: this.userData.primary_photo_idx });
       //this.primary_photo = this.userData.primary_photo;
-      console.log('loaduserdata::res', res);
+      // console.log('loaduserdata::res', res);
     }, (err:_RESPONSE) => {
       console.log('err: ', err);
       if ( err.code == ERROR_WRONG_SESSION_ID_NO_USER_DATA_BY_THAT_SESSION_ID ) {
@@ -177,6 +181,9 @@ export class RegisterPage {
 
 
 
+  /**
+   * @see readme#registration
+   */
   onClickRegister() {
     
     console.log( this.form.value );
@@ -186,7 +193,11 @@ export class RegisterPage {
     if ( (<d>this.data).primary_photo ) register.file_hooks = [ (<d>this.data).primary_photo.idx ];
     this.user.register( register ).subscribe( res => {
 
-      console.log('register: ', register);
+      // console.log('register: ', register);
+
+      //this.router.navigate( [ '/' ] );
+
+
 
     }, err => this.user.alert( err ) );
     
@@ -196,6 +207,12 @@ export class RegisterPage {
 
   onClickUpdate() {
     let edit = <_USER_EDIT> this.form.value;
+
+
+    /// When register, "id, password" exist. If the user registers, then it must be deleted. But if the user does not register, (only update, already register), id, pw does not exists.
+    if ( edit['id'] !== void 0 ) delete edit['id'];
+    if ( edit['password'] !== void 0 ) delete edit['password'];
+
     this.user.edit( edit ).subscribe( ( res: _USER_EDIT_RESPONSE ) => {
       console.log( res );
       alert("User infomration updated");

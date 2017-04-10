@@ -17,6 +17,7 @@ import { PostViewComponent } from './components/post-view-component/post-view-co
 import { CommentViewComponent } from './components/comment-view-component/comment-view-component';
 import { FileFormComponent } from './components/file-form-component/file-form-component';
 
+import { RedirectComponent } from './components/redirect/redirect';
 
 import { LoginPage } from './pages/login/login';
 import { RegisterPage } from './pages/register/register';
@@ -37,7 +38,8 @@ import { AppService } from './services/app-service';
         PostListComponent,
         PostViewComponent,
         CommentViewComponent,
-        FileFormComponent
+        FileFormComponent,
+        RedirectComponent
     ],
     imports: [
         CommonModule,

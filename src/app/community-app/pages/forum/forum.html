@@ -17,11 +17,10 @@
   ></post-form-component>
 
   <post-list-component #postListComponent
-    [no_of_items_in_one_page] = " no_of_items_in_one_page "
     (loaded)=" onLoaded( $event ) "
   ></post-list-component>
 
-
+  
         <page-navigation
                 [no_of_total_items]=" no_of_total_items "
                 [no_of_items_in_one_page] = " no_of_items_in_one_page "

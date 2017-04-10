@@ -34,6 +34,7 @@ import { EnhanceSample } from './enhancer/components/sample';
 
 import { HomePage } from './community-app/community-app.module';
 
+import { RedirectComponent } from './community-app/components/redirect/redirect';
 
 const appRoutes: Routes = [
   { path: '', component: HomePage },
@@ -42,6 +43,14 @@ const appRoutes: Routes = [
   { path: 'register', component: RegisterPage },
   { path: 'forum', component: ForumPage },
   { path: 'forum/:post_config_id', component: ForumPage },
+
+
+  //{ path: 'admin', component: AdminPage },
+
+
+  { path: 'redirect', component: RedirectComponent },
+
+
 
   { path: 'admin/user', component: BackendAdminUserListPage },
   { path: 'admin/user/edit/:idx', component: BackendAdminUserEditPage },
