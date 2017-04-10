@@ -12,6 +12,10 @@
     
     <div class="form-group">
       <label for="file-box">Upload Photos</label>
+        <div *ngIf=" percentage " class="progress mb-2">
+            <div class="progress-bar" role="progressbar" [style.width]=" percentage + '%' ">{{ percentage }} %</div>
+        </div>
+
       <input type="file" class="form-control-file" id="file-box" #file (change)="onChangeFile(file)">
       <small class="form-text text-muted">Please select a photo to upload</small>
     </div>

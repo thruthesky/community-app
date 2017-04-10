@@ -30,7 +30,7 @@
         </span>
         <div class="text">Register</div>
       </li>
-      <li *ngIf=" user.logged " routerLink="/profile">
+      <li *ngIf=" user.logged " (click)="onClickProfile('/profile')">
         <span class="fa-stack fa-lg">
           <i class="fa fa-circle fa-stack-2x"></i>
           <i class="fa fa-user-circle-o fa-stack-1x"></i>

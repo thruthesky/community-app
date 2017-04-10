@@ -120,3 +120,10 @@ you can handle it like below;
         });
     }
 ````
+
+
+
+# User Regitration
+
+* After user registration, the user MUST be redirected to home or profile upload page. If you do not redirect the page, source code may get complicated. For instance, registration page has ID, PW but update page MUST NOT.
+    * You can not redirect to the current page in Angular.

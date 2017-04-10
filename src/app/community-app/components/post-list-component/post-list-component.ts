@@ -16,7 +16,6 @@ import { AppService } from './../../services/app-service';
     templateUrl: 'post-list-component.html'
 })
 export class PostListComponent implements OnInit {
-    @Input() no_of_items_in_one_page: number = 0;
     @Output() loaded = new EventEmitter<_POST_LIST_RESPONSE>();
     constructor(
         public appShare: AppService,

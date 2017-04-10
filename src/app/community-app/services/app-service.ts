@@ -1,11 +1,9 @@
 import { Injectable } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
+import { Router } from '@angular/router';
 import {
     PostData,
-    // File,
-    // NUMBERS,
-    // _FILE, _FILES,
-    // _POST_CREATE, _POST_CREATE_RESPONSE,
+    
     _LIST, _POST_LIST_RESPONSE,
     _POSTS
 } from './../../angular-backend/angular-backend';
@@ -16,10 +14,27 @@ export class AppService {
     post_config_id: string = '';
     posts: _POSTS = [];
 
-    constructor( private domSanitizer: DomSanitizer ) {
+    constructor(
+        private router: Router,
+        private domSanitizer: DomSanitizer ) {
 
     }
 
+    public redirect( url ) {
+        
+      console.log('AppService::recirect() : ', url);
+      
+      let active = this.router.isActive( url, true);
+      if( active ) {
+          console.log("active:");
+        this.router.navigate( [ '/redirect' ] );
+      }
+      else {
+        this.router.navigateByUrl( url );
+      }
+
+    
+    }
 
     private sanitzeHtml( html ) : string {
         return this.domSanitizer.bypassSecurityTrustHtml( html ) as string;

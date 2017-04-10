@@ -34,6 +34,7 @@ import { EnhanceSample } from './enhancer/components/sample';
 
 import { HomePage } from './community-app/community-app.module';
 
+import { RedirectComponent } from './community-app/components/redirect/redirect';
 
 const appRoutes: Routes = [
   { path: '', component: HomePage },
@@ -45,6 +46,8 @@ const appRoutes: Routes = [
 
   //{ path: 'admin', component: AdminPage },
 
+
+  { path: 'redirect', component: RedirectComponent },
 
 
   { path: 'admin/user', component: BackendAdminUserListPage },
