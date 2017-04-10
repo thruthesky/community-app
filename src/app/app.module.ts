@@ -13,7 +13,9 @@ import { AngularBackendAdmin,
   BackendAdminPage,
   BackendAdminUserListPage,
   BackendAdminUserEditPage,
-  BackendAdminForumPage
+  BackendAdminForumConfigPage,
+  BackendAdminForumCategoryPage,
+  BackendAdminForumPostPage
 } from './angular-backend/angular-backend-admin';
 
 
@@ -25,8 +27,6 @@ import { CommunityAppModule } from './community-app/community-app.module';
 import { LoginPage } from './community-app/pages/login/login';
 import { RegisterPage } from './community-app/pages/register/register';
 import { ForumPage } from './community-app/pages/forum/forum';
-
-//import { AdminPage } from './pages/adminpage/adminpage';
 
 import { EnhanceSample } from './enhancer/components/sample';
 
@@ -44,16 +44,22 @@ const appRoutes: Routes = [
   { path: 'forum', component: ForumPage },
   { path: 'forum/:post_config_id', component: ForumPage },
 
+
   //{ path: 'admin', component: AdminPage },
 
 
   { path: 'redirect', component: RedirectComponent },
 
 
+
   { path: 'admin/user', component: BackendAdminUserListPage },
   { path: 'admin/user/edit/:idx', component: BackendAdminUserEditPage },
-  { path: 'admin/forum/:idx', component: BackendAdminForumPage },
-  { path: 'admin/forum', component: BackendAdminForumPage },
+  { path: 'admin/forum', component: BackendAdminForumConfigPage },
+  { path: 'admin/forum/configs', component: BackendAdminForumConfigPage },
+  { path: 'admin/forum/categories', component: BackendAdminForumCategoryPage },
+  { path: 'admin/forum/posts', component: BackendAdminForumPostPage },
+  { path: 'admin/forum/posts/:post_config_id', component: BackendAdminForumPostPage },
+
   { path: 'admin', component: BackendAdminPage },
 
   { path: '**', component: HomePage },

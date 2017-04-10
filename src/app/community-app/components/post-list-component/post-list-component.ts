@@ -28,7 +28,7 @@ export class PostListComponent implements OnInit {
     }
 
 
-    load( id, page = 1 ) {
+    load( id, page = 1, limit = 10 ) {
         this.appShare.post_config_id = id;
         
         let req: _LIST = {
@@ -36,6 +36,7 @@ export class PostListComponent implements OnInit {
             bind: '0',
             order: 'idx desc',
             page: page,
+            limit: limit,
             extra: {
                 post_config_id: this.appShare.post_config_id,
                 user: true,
