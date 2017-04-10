@@ -119,10 +119,10 @@ export class PostFormComponent implements OnInit {
 
 
     
-    onClickLike() {
-        this.postData.like( this.post.idx ).subscribe( res => {
-            console.log('res: ', res);
-        }, err => this.postData.alert( err ) );
-    }
+    // onClickLike( choice ) {
+    //     this.postData.vote( this.post.idx, choice ).subscribe( res => {
+    //         console.log('res: ', res);
+    //     }, err => this.postData.alert( err ) );
+    // }
 
 }
