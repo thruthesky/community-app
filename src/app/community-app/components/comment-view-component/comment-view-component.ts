@@ -43,4 +43,9 @@ export class CommentViewComponent {
     }
 
 
+
+    get myComment() {
+        return this.comment.user.id == this.postComment.info.id;
+    }
+
 }
