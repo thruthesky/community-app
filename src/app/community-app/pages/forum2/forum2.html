@@ -1,0 +1,55 @@
+<header-component></header-component>
+<section class="page-body">
+  
+  <div *ngIf=" ! list?.data?.configs " class="alert alert-success">
+    <i class="fa fa-spin fa-spinner"></i>
+    Loading <b>{{ post_config_id }}</b> forum ...
+  </div>
+  
+  
+  <div *ngIf=" list?.data?.configs " class="alert alert-info">
+    <div>{{ list.data.configs[0].name }} / {{ list.data.configs[0].description }}</div>
+  </div>
+
+
+    <button *ngIf=" ! showPostForm " (click)=" showPostForm = true " class="btn btn-secondary">Create New Post</button>
+    <post-form-basic-component
+    *ngIf=" showPostForm "
+    [post_config_id] = " post_config_id "
+    [option] = " {
+        hideForumID: true
+    } "
+    [post] = " postPostForm "
+    (create) = " list.data.posts.unshift( $event ); showPostForm = false "
+    (edit) = " showPostForm = false "
+    (cancel) = " showPostForm = false "
+    ></post-form-basic-component>
+
+
+    <ng-container *ngIf=" list?.data?.posts ">
+        <article *ngFor=" let post of list.data.posts " class="mb-1">
+            <post-view-basic-component [post]=" post " [list]=" list "></post-view-basic-component>
+            <ng-container *ngIf=" post.comments ">
+                <comment-view-basic-component *ngFor=" let comment of post.comments "
+                    [list] = " list "
+                    [comment] = " comment ">
+                </comment-view-basic-component>
+            </ng-container>
+        </article>
+    </ng-container>
+
+
+    <page-navigation
+        *ngIf=" list?.data "
+        [no_of_total_items]=" list.data.total "
+        [no_of_items_in_one_page] = " list.data.limit "
+        [no_of_pages_in_navigator] = " 3 "
+        [no_of_current_page] = " list.data.page "
+        [show_prev_next] = " true "
+        (pageClick)="onPageClick( $event )"
+    >
+    </page-navigation>
+
+  
+
+</section>
