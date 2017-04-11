@@ -1,11 +1,15 @@
 <header-component></header-component>
 <section class="page-body">
-  <ol class="breadcrumb">
-    <li class="breadcrumb-item">Home</li>
-    <li class="breadcrumb-item">Forum</li>
-    <li class="breadcrumb-item active">{{ post_config_id }}</li>
-  </ol>
-
+  
+  <div *ngIf=" ! config.id " class="alert alert-success">
+    <i class="fa fa-spin fa-spinner"></i>
+    Loading <b>{{ post_config_id }}</b> forum ...
+  </div>
+  
+  
+  <div *ngIf=" config?.id " class="alert alert-info">
+    <div>{{ config.name }} / {{ config.description }}</div>
+  </div>
 
   <button *ngIf=" ! active " type="button" class="btn btn-sm btn-primary" (click)=" active = !active ">Create a New Post</button>
 

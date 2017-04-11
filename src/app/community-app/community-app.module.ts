@@ -22,6 +22,7 @@ import { RedirectComponent } from './components/redirect/redirect';
 import { LoginPage } from './pages/login/login';
 import { RegisterPage } from './pages/register/register';
 import { ForumPage } from './pages/forum/forum';
+import { Forum2Page } from './pages/forum2/forum2';
 
 
 import { AppService } from './services/app-service';
@@ -32,6 +33,7 @@ import { AppService } from './services/app-service';
         LoginPage,
         RegisterPage,
         ForumPage,
+        Forum2Page,
         //CommentListComponent,
         CommentFormComponent,
         PostFormComponent,

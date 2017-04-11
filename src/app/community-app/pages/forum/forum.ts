@@ -10,7 +10,8 @@ import {
   UPLOAD,
   POST_LIST, POST_LIST_RESPONSE, LIST,
   POST_CREATE, POST_CREATE_RESPONSE,
-  _POST_LIST_RESPONSE
+  _POST_LIST_RESPONSE,
+  _CONFIG
 } from './../../../angular-backend/angular-backend';
 
 import { PostListComponent } from './../../components/post-list-component/post-list-component';
@@ -18,11 +19,12 @@ import { PostListComponent } from './../../components/post-list-component/post-l
 @Component({
   selector: 'forum-page',
   templateUrl: './forum.html',
-  styleUrls:['./forum.css']
+  styleUrls:['./forum.scss']
 })
 export class ForumPage {
   
   post_config_id: string = null;
+  config: _CONFIG = <_CONFIG> {};
 
   postListResponse: _POST_LIST_RESPONSE = null;
   no_of_current_page = 1;
@@ -51,6 +53,7 @@ export class ForumPage {
   ngOnInit() {
 
     this.activated.params.subscribe( params => {
+      this.config = <_CONFIG> {};
       if ( params['post_config_id'] !== void 0 ) {
         this.post_config_id = params['post_config_id'];
         this.postListComponent.load( this.post_config_id, 1, this.no_of_items_in_one_page );
@@ -62,9 +65,12 @@ export class ForumPage {
     this.postListResponse = res;
 
     console.log('res:', res);
+    this.config = res.data.configs[0];
     this.no_of_total_items = res.data.total;
     this.no_of_current_page = res.data.page;
     this.no_of_items_in_one_page = res.data.limit;
+
+
   }
 
 

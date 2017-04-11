@@ -27,6 +27,7 @@ import { CommunityAppModule } from './community-app/community-app.module';
 import { LoginPage } from './community-app/pages/login/login';
 import { RegisterPage } from './community-app/pages/register/register';
 import { ForumPage } from './community-app/pages/forum/forum';
+import { Forum2Page } from './community-app/pages/forum2/forum2';
 
 import { EnhanceSample } from './enhancer/components/sample';
 
@@ -43,6 +44,9 @@ const appRoutes: Routes = [
   { path: 'register', component: RegisterPage },
   { path: 'forum', component: ForumPage },
   { path: 'forum/:post_config_id', component: ForumPage },
+
+  { path: 'forum2/:post_config_id', component: Forum2Page },
+
 
 
   //{ path: 'admin', component: AdminPage },
