@@ -46,7 +46,7 @@ export class PostListComponent implements OnInit {
             }
         };
         this.postData.list( req ).subscribe((res: _POST_LIST_RESPONSE ) => {
-            console.log( res );
+            // console.log( res );
             // res.data.posts.map( (p: _POST) => {
             //     p.files.map( (f: _FILE) => {
             //         f.url += "&resize=best-fit&width=100&height=100";
