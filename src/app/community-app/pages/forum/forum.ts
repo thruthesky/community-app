@@ -27,12 +27,8 @@ export class ForumPage {
   postListResponse: _POST_LIST_RESPONSE = null;
   no_of_current_page = 1;
   no_of_total_items = 0;
-  no_of_items_in_one_page: number = 5;
+  no_of_items_in_one_page: number = 2;
   no_of_pages_in_navigator = 3;
-
-
-
-
 
 
 
@@ -57,25 +53,25 @@ export class ForumPage {
     this.activated.params.subscribe( params => {
       if ( params['post_config_id'] !== void 0 ) {
         this.post_config_id = params['post_config_id'];
-        this.postListComponent.load( this.post_config_id );
+        this.postListComponent.load( this.post_config_id, 1, this.no_of_items_in_one_page );
       }
     });
   }
 
-
-
   onLoaded( res:_POST_LIST_RESPONSE ) {
     this.postListResponse = res;
+
+    console.log('res:', res);
     this.no_of_total_items = res.data.total;
-    //this.no_of_current_page = this.temp_page;
     this.no_of_current_page = res.data.page;
+    this.no_of_items_in_one_page = res.data.limit;
   }
 
 
   onPageClick( page ) {
     console.log('onPageClick::page : ', page);
     //this.temp_page = page;
-    this.postListComponent.load( this.post_config_id, page );
+    this.postListComponent.load( this.post_config_id, page, this.no_of_items_in_one_page );
   }
 
 
