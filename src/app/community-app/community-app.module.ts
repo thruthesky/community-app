@@ -21,6 +21,7 @@ import { RedirectComponent } from './components/redirect/redirect';
 
 import { LoginPage } from './pages/login/login';
 import { RegisterPage } from './pages/register/register';
+import { Register2Page } from './pages/register2/register2';
 import { ForumPage } from './pages/forum/forum';
 import { Forum2Page } from './pages/forum2/forum2';
 
@@ -32,6 +33,7 @@ import { AppService } from './services/app-service';
         HeaderComponent,
         LoginPage,
         RegisterPage,
+        Register2Page,
         ForumPage,
         Forum2Page,
         //CommentListComponent,

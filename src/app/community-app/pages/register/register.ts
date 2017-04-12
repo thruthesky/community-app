@@ -68,7 +68,9 @@ export class RegisterPage {
       this.form = fb.group({
         name: [ '', [ Validators.required, Validators.minLength(3), Validators.maxLength(32) ] ],
         email: [ '', [ Validators.required, this.emailValidator ] ],
-        mobile: []
+        mobile: [],
+        gender: [],
+        birthday: []
       });
 
       if ( ! this.user.logged ) {
