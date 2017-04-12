@@ -30,6 +30,15 @@
         </span>
         <div class="text">Register</div>
       </li>
+
+      <li *ngIf=" ! user.logged " routerLink="/register2">
+        <span class="fa-stack fa-lg">
+          <i class="fa fa-circle fa-stack-2x"></i>
+          <i class="fa fa-user-plus fa-stack-1x"></i>
+        </span>
+        <div class="text">Register2</div>
+      </li>
+
       <li *ngIf=" user.logged " (click)="onClickProfile('/profile')">
         <span class="fa-stack fa-lg">
           <i class="fa fa-circle fa-stack-2x"></i>
@@ -37,6 +46,16 @@
         </span>
         <div class="text">Profile</div>
       </li>
+
+
+      <li *ngIf=" user.logged " (click)="onClickProfile('/profile2')">
+        <span class="fa-stack fa-lg">
+          <i class="fa fa-circle fa-stack-2x"></i>
+          <i class="fa fa-user-circle-o fa-stack-1x"></i>
+        </span>
+        <div class="text">Profile2</div>
+      </li>
+
 
 
       <li *ngIf=" user.admin " routerLink="/admin">
