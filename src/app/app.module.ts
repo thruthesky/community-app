@@ -29,6 +29,7 @@ import { RegisterPage } from './community-app/pages/register/register';
 import { Register2Page } from './community-app/pages/register2/register2';
 import { ForumPage } from './community-app/pages/forum/forum';
 import { Forum2Page } from './community-app/pages/forum2/forum2';
+import { Forum3Page } from './community-app/pages/forum3/forum3';
 
 import { EnhanceSample } from './enhancer/components/sample';
 
@@ -49,6 +50,7 @@ const appRoutes: Routes = [
   { path: 'forum/:post_config_id', component: ForumPage },
 
   { path: 'forum2/:post_config_id', component: Forum2Page },
+  { path: 'forum3/:post_config_id', component: Forum3Page },
 
 
 

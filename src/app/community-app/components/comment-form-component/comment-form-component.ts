@@ -25,8 +25,8 @@ export class CommentFormComponent implements OnInit {
   @Input() comment: _COMMENT = <_COMMENT> {};   /// only for editing comment.
 
   @Output() cancel = new EventEmitter<void>();
-  @Output() created = new EventEmitter<_COMMENT>();
-  @Output() edited = new EventEmitter<_COMMENT>();
+  @Output() create = new EventEmitter<_COMMENT>();
+  @Output() edit = new EventEmitter<_COMMENT>();
   
   
   
@@ -121,11 +121,11 @@ export class CommentFormComponent implements OnInit {
 
   createSuccess( comment: _COMMENT ) {
     this.reset();
-    this.created.emit( comment );
+    this.create.emit( comment );
   }
   editSuccess( comment: _COMMENT ) {
     this.reset();
-    this.edited.emit( comment );
+    this.edit.emit( comment );
   }
   
 

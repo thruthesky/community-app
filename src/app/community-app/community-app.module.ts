@@ -24,7 +24,8 @@ import { RegisterPage } from './pages/register/register';
 import { Register2Page } from './pages/register2/register2';
 import { ForumPage } from './pages/forum/forum';
 import { Forum2Page } from './pages/forum2/forum2';
-
+import { Forum3Page } from './pages/forum3/forum3';
+import { PageScroll } from './services/page-scroll';
 
 import { AppService } from './services/app-service';
 @NgModule({
@@ -36,6 +37,7 @@ import { AppService } from './services/app-service';
         Register2Page,
         ForumPage,
         Forum2Page,
+        Forum3Page,
         //CommentListComponent,
         CommentFormComponent,
         PostFormComponent,
@@ -57,7 +59,8 @@ import { AppService } from './services/app-service';
         HomePage
     ],
     providers: [
-        AppService
+        AppService,
+        PageScroll
     ]
 })
 export class CommunityAppModule {
