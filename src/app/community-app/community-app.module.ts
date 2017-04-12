@@ -28,6 +28,7 @@ import { Forum3Page } from './pages/forum3/forum3';
 import { PageScroll } from './services/page-scroll';
 
 import { AppService } from './services/app-service';
+import { Language } from './services/language';
 @NgModule({
     declarations: [
         HomePage,
@@ -60,7 +61,8 @@ import { AppService } from './services/app-service';
     ],
     providers: [
         AppService,
-        PageScroll
+        PageScroll,
+        Language
     ]
 })
 export class CommunityAppModule {

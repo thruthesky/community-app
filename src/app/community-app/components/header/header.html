@@ -6,46 +6,48 @@
           <i class="fa fa-circle fa-stack-2x"></i>
           <i class="fa fa-home fa-stack-1x"></i>
         </span>
-        <div class="text">Home</div>
+        <div class="text">{{ t.home }}</div>
       </li>
+      
+
       <li *ngIf=" ! user.logged " routerLink="/login">
         <span class="fa-stack fa-lg">
           <i class="fa fa-circle fa-stack-2x"></i>
           <i class="fa fa-sign-in fa-stack-1x"></i>
         </span>
-        <div class="text">Login</div>
+        <div class="text">{{ t.login }}</div>
       </li>
       <li *ngIf=" user.logged " (click)="onClickLogout()">
         <span class="fa-stack fa-lg">
           <i class="fa fa-circle fa-stack-2x"></i>
           <i class="fa fa-sign-out fa-stack-1x"></i>
         </span>
-        <div class="text">Logout</div>
+        <div class="text">{{ t.logout }}</div>
       </li>
       
-      <li *ngIf=" ! user.logged " routerLink="/register">
+      <!--<li *ngIf=" ! user.logged " routerLink="/register">
         <span class="fa-stack fa-lg">
           <i class="fa fa-circle fa-stack-2x"></i>
           <i class="fa fa-user-plus fa-stack-1x"></i>
         </span>
-        <div class="text">Register</div>
-      </li>
+        <div class="text">Sign-in</div>
+      </li>-->
 
       <li *ngIf=" ! user.logged " routerLink="/register2">
         <span class="fa-stack fa-lg">
           <i class="fa fa-circle fa-stack-2x"></i>
           <i class="fa fa-user-plus fa-stack-1x"></i>
         </span>
-        <div class="text">Register2</div>
+        <div class="text">{{ t.register }}</div>
       </li>
 
-      <li *ngIf=" user.logged " (click)="onClickProfile('/profile')">
+      <!--<li *ngIf=" user.logged " (click)="onClickProfile('/profile')">
         <span class="fa-stack fa-lg">
           <i class="fa fa-circle fa-stack-2x"></i>
           <i class="fa fa-user-circle-o fa-stack-1x"></i>
         </span>
         <div class="text">Profile</div>
-      </li>
+      </li>-->
 
 
       <li *ngIf=" user.logged " (click)="onClickProfile('/profile2')">
@@ -53,52 +55,50 @@
           <i class="fa fa-circle fa-stack-2x"></i>
           <i class="fa fa-user-circle-o fa-stack-1x"></i>
         </span>
-        <div class="text">Profile2</div>
+        <div class="text">{{ t.profile }}</div>
       </li>
-
-
 
       <li *ngIf=" user.admin " routerLink="/admin">
         <span class="fa-stack fa-lg">
           <i class="fa fa-circle fa-stack-2x"></i>
           <i class="fa fa-gear fa-stack-1x"></i>
         </span>
-        <div class="text">Admin</div>
+        <div class="text">{{ t.admin }}</div>
       </li>
 
-      <li routerLink="/forum/qna">
+      <!--<li routerLink="/forum/qna">
         <span class="fa-stack fa-lg">
           <i class="fa fa-circle fa-stack-2x"></i>
           <i class="fa fa-commenting-o fa-stack-1x"></i>
         </span>
         <div class="text">QnA</div>
-      </li>
+      </li>-->
       
       <li routerLink="/forum2/qna">
         <span class="fa-stack fa-lg">
           <i class="fa fa-circle fa-stack-2x"></i>
           <i class="fa fa-commenting-o fa-stack-1x"></i>
         </span>
-        <div class="text">QnA2</div>
+        <div class="text">{{ t.qna }}</div>
       </li>
       
       
-      <li routerLink="/forum3/qna">
+      <li routerLink="/forum3/test">
         <span class="fa-stack fa-lg">
           <i class="fa fa-circle fa-stack-2x"></i>
-          <i class="fa fa-commenting-o fa-stack-1x"></i>
+          <i class="fa fa-file-photo-o fa-stack-1x"></i>
         </span>
-        <div class="text">QnA3</div>
+        <div class="text">{{ t.test }}</div>
       </li>
       
 
-      <li routerLink="/forum/test">
+      <!--<li routerLink="/forum/test">
         <span class="fa-stack fa-lg">
           <i class="fa fa-circle fa-stack-2x"></i>
           <i class="fa fa-file-photo-o fa-stack-1x"></i>
         </span>
         <div class="text">Gallery</div>
-      </li>
+      </li>-->
       
     </ul>
   </nav>

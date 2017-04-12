@@ -57,6 +57,10 @@ export class Forum3Page {
 
   }
 
+    ngOnDestroy() {
+      this.watch.unsubscribe();
+    }
+
   onLoaded( res:_POST_LIST_RESPONSE ) {
     this.postListResponse = res;
     console.log('res:', res);

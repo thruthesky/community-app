@@ -25,8 +25,9 @@
         setTimeout( () => { this.inLoading = false; console.info(`Page No. ${this.pageNo} loaded!`); }, 3000 );
       });
     }
+    
     ngOnDestroy() {
-      this.watch.subscribe();
+      this.watch.unsubscribe();
     }
 
  * @endcode
@@ -40,6 +41,10 @@
     }
     ngOnInit() {
       this.watch = this.pageScroll.watch( 'section.content', 350 ).subscribe( e => this.loadPage() );
+    }
+    
+    ngOnDestroy() {
+      this.watch.unsubscribe();
     }
 
     loadPage() {

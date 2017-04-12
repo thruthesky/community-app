@@ -2,10 +2,16 @@
 <section class="page-body">
 
 
+      <div class="container pt-3">
+            <div *ngIf=" list?.data?.posts " class="row text-center">
+                  <div *ngFor=" let post of list.data.posts " class="col-lg-4 mb-3">
+                        <img class="rounded-circle mb-2" src="{{ post.files[0].url }}&crop=200x200x80">
+                        <h2>{{ post.title }}</h2>
+                        <p>{{ post.content }}</p>
+                        <a class="btn btn-secondary" href="#" role="button">View details »</a>
+                  </div>
+            </div>
+      </div>
 
-      <p>home</p><p>home</p><p>home</p><p>home</p><p>home</p><p>home</p>
-      <p>home</p><p>home</p><p>home</p><p>home</p><p>home</p><p>home</p>
-      <p>home</p><p>home</p><p>home</p><p>home</p><p>home</p><p>home</p>
-      <p>home</p><p>home</p><p>home</p><p>home</p><p>home</p><p>home</p>
 
 </section>
