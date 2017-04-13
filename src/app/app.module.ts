@@ -15,7 +15,8 @@ import { AngularBackendAdmin,
   BackendAdminUserEditPage,
   BackendAdminForumConfigPage,
   BackendAdminForumCategoryPage,
-  BackendAdminForumPostPage
+  BackendAdminForumPostPage,
+  BackendAdminFileListPage
 } from './angular-backend/angular-backend-admin';
 
 
@@ -66,6 +67,7 @@ const appRoutes: Routes = [
   { path: 'admin/forum/categories', component: BackendAdminForumCategoryPage },
   { path: 'admin/forum/posts', component: BackendAdminForumPostPage },
   { path: 'admin/forum/posts/:post_config_id', component: BackendAdminForumPostPage },
+  { path: 'admin/file', component: BackendAdminFileListPage },
 
   { path: 'admin', component: BackendAdminPage },
 
@@ -76,7 +78,7 @@ const appRoutes: Routes = [
   declarations: [
     AppComponent,
    // AdminPage,
-   
+
     EnhanceSample
   ],
   imports: [
