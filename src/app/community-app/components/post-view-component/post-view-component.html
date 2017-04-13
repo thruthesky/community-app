@@ -38,8 +38,8 @@
   *ngIf=" showPostEditForm "
   [post] = " post "
   (cancel) = " showPostEditForm = false "
-  (created) = " showPostEditForm = false; "
-  (edited) = " showPostEditForm = false; "
+  (create) = " showPostEditForm = false; "
+  (edit) = " showPostEditForm = false; "
 ></post-form-component>
 
 
@@ -47,6 +47,7 @@
 <comment-form-component
   *ngIf = " showCommentForm "
   [parent_idx]=" post.idx "
-  (created) = " showCommentForm = false "
+  (create) = " showCommentForm = false "
+  (edit) = " showCommentForm = false "
   (cancel) = " showCommentForm = false "
 ></comment-form-component>

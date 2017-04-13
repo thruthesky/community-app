@@ -5,8 +5,11 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { AngularBackend } from './../angular-backend/angular-backend';
 import { AngularBackendComponentModule } from './../angular-backend/modules/angular-backend-components.module';
 
+import { CommunityAppRoutingModule } from './community-app.routing.module';
+
+
 import { HomePage } from './pages/home/home';
-export { HomePage } from './pages/home/home';
+export { HomePage } from './pages/home/home'; // @todo is this necessary?
 
 import { HeaderComponent } from './components/header/header';
 //import { CommentListComponent } from './components/comment-list-component/comment-list-component';
@@ -24,9 +27,11 @@ import { RegisterPage } from './pages/register/register';
 import { Register2Page } from './pages/register2/register2';
 import { ForumPage } from './pages/forum/forum';
 import { Forum2Page } from './pages/forum2/forum2';
-
+import { Forum3Page } from './pages/forum3/forum3';
+import { PageScroll } from './services/page-scroll';
 
 import { AppService } from './services/app-service';
+import { Language } from './services/language';
 @NgModule({
     declarations: [
         HomePage,
@@ -36,6 +41,7 @@ import { AppService } from './services/app-service';
         Register2Page,
         ForumPage,
         Forum2Page,
+        Forum3Page,
         //CommentListComponent,
         CommentFormComponent,
         PostFormComponent,
@@ -50,6 +56,7 @@ import { AppService } from './services/app-service';
         RouterModule,
         ReactiveFormsModule,
         FormsModule,
+        CommunityAppRoutingModule,
         AngularBackend,
         AngularBackendComponentModule
     ],
@@ -57,7 +64,9 @@ import { AppService } from './services/app-service';
         HomePage
     ],
     providers: [
-        AppService
+        AppService,
+        PageScroll,
+        Language
     ]
 })
 export class CommunityAppModule {

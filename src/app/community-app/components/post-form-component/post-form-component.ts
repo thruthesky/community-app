@@ -15,8 +15,8 @@ import { AppService } from './../../services/app-service';
 })
 export class PostFormComponent implements OnInit {
 
-    @Output() created = new EventEmitter<_POST>();
-    @Output() edited = new EventEmitter<_POST>();
+    @Output() create = new EventEmitter<_POST>();
+    @Output() edit = new EventEmitter<_POST>();
     @Output() cancel = new EventEmitter<void>();
 
     @Input() post_config_id: string;
@@ -74,12 +74,12 @@ export class PostFormComponent implements OnInit {
 
     createSuccess( post: _POST ) {
         this.reset();
-        this.created.emit( post );
+        this.create.emit( post );
     }
     editSuccess( post: _POST ) {
         this.reset();
         console.log("emit: ", post);
-        this.edited.emit( post );
+        this.edit.emit( post );
     }
 
     onClickCancel() {
