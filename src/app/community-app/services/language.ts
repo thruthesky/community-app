@@ -42,6 +42,9 @@
  */
 import { Injectable } from '@angular/core';
 import { text } from './../language-translate';
+
+
+
 @Injectable()
 export class Language {
     languageCode: string = 'en';
@@ -64,11 +67,15 @@ export class Language {
       if ( text[ code ] === void 0 ) return code;
       if ( text[ code ][ this.languageCode ] === void 0 ) return code;
       let str = text[ code ][ this.languageCode ];
+      console.log(args);
       if ( args !== void 0 && Object.keys( args ).length ) {
+
         for( let i in args ) {
+            console.log(`str: ${str}, i: ${i}, args[${i}]: ${args[i]}`)
             str = str.replace('#' + i, args[i]);
         }
       }
+      console.log("return str: ", str);
       return str;
     }
 

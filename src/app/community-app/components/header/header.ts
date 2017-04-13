@@ -10,15 +10,45 @@ import { Language } from '../../services/language';
 })
 export class HeaderComponent implements OnInit {
 
-  usertype;
-  t = {};
+
+
+  t;
+
+ // i18n. 
+ 
+
+
+
+      // this.t['home'] = this.ln.t( 'home' );
+      // this.t['login'] = this.ln.t( 'login' );
+      // this.t['logout'] = this.ln.t( 'logout' );
+      // this.t['register'] = this.ln.t( 'register' );
+      // this.t['profile'] = this.ln.t( 'profile' );
+      // this.t['qna'] = this.ln.t( 'qna' );
+      // this.t['test'] = this.ln.t( 'test' );
+      // this.t['admin'] = this.ln.t( 'admin' );
+
   constructor (
     private appService: AppService,
     private router: Router,
     public user: User,
-    public ln: Language ) {
+    public ln: Language
+    ) {
       
 
+      ln.languageCode = 'en';
+      this.t = {
+        home: ln.t('home')
+      };
+      this.t['qna'] = ln.t('qna');
+      
+      ['home', 'login', 'logout', 'register', 'profile', 'qna', 'test', 'admin'].map( v => {
+        this.t[v] = ln.t( v );
+      });
+
+
+
+    console.log( this.t );
   }
 
   // t( code, args? ) {
@@ -26,20 +56,6 @@ export class HeaderComponent implements OnInit {
   // }
   ngOnInit() {
 
-      this.ln.languageCode = 'ko';
-
-
-      this.t['home'] = this.ln.t( 'home' );
-
-      this.t['login'] = this.ln.t( 'login' );
-      this.t['logout'] = this.ln.t( 'logout' );
-      this.t['register'] = this.ln.t( 'register' );
-      this.t['profile'] = this.ln.t( 'profile' );
-      this.t['qna'] = this.ln.t( 'qna' );
-      this.t['test'] = this.ln.t( 'test' );
-      this.t['admin'] = this.ln.t( 'admin' );
-
-      console.log( this.t );
   }
   onClickLogout() {
     this.router.navigate( [ '/' ] );

@@ -1,14 +1,19 @@
 <header class="top-menu fs-90">
   <nav>
     <ul>
+
+
       <li routerLink="/home">
         <span class="fa-stack fa-lg">
           <i class="fa fa-circle fa-stack-2x"></i>
           <i class="fa fa-home fa-stack-1x"></i>
         </span>
-        <div class="text">{{ t.home }}</div>
+        <div class="text">{{ t['home'] }}</div>
       </li>
-      
+
+
+
+
 
       <li *ngIf=" ! user.logged " routerLink="/login">
         <span class="fa-stack fa-lg">
@@ -17,6 +22,7 @@
         </span>
         <div class="text">{{ t.login }}</div>
       </li>
+
       <li *ngIf=" user.logged " (click)="onClickLogout()">
         <span class="fa-stack fa-lg">
           <i class="fa fa-circle fa-stack-2x"></i>
