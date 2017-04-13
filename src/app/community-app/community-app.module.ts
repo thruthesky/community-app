@@ -5,8 +5,11 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { AngularBackend } from './../angular-backend/angular-backend';
 import { AngularBackendComponentModule } from './../angular-backend/modules/angular-backend-components.module';
 
+import { CommunityAppRoutingModule } from './community-app.routing.module';
+
+
 import { HomePage } from './pages/home/home';
-export { HomePage } from './pages/home/home';
+export { HomePage } from './pages/home/home'; // @todo is this necessary?
 
 import { HeaderComponent } from './components/header/header';
 //import { CommentListComponent } from './components/comment-list-component/comment-list-component';
@@ -53,6 +56,7 @@ import { Language } from './services/language';
         RouterModule,
         ReactiveFormsModule,
         FormsModule,
+        CommunityAppRoutingModule,
         AngularBackend,
         AngularBackendComponentModule
     ],
