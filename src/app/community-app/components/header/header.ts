@@ -14,19 +14,13 @@ export class HeaderComponent implements OnInit {
 
   t;
 
- // i18n. 
- 
 
 
 
-      // this.t['home'] = this.ln.t( 'home' );
-      // this.t['login'] = this.ln.t( 'login' );
-      // this.t['logout'] = this.ln.t( 'logout' );
-      // this.t['register'] = this.ln.t( 'register' );
-      // this.t['profile'] = this.ln.t( 'profile' );
-      // this.t['qna'] = this.ln.t( 'qna' );
-      // this.t['test'] = this.ln.t( 'test' );
-      // this.t['admin'] = this.ln.t( 'admin' );
+
+
+
+
 
   constructor (
     private appService: AppService,
@@ -34,9 +28,10 @@ export class HeaderComponent implements OnInit {
     public user: User,
     public ln: Language
     ) {
-      
 
-      ln.languageCode = 'en';
+   
+
+      ln.languageCode = 'ko';
       this.t = {
         home: ln.t('home')
       };
@@ -48,7 +43,7 @@ export class HeaderComponent implements OnInit {
 
 
 
-    console.log( this.t );
+    //console.log( this.t );
   }
 
   // t( code, args? ) {

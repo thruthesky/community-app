@@ -28,6 +28,8 @@ import { Register2Page } from './pages/register2/register2';
 import { ForumPage } from './pages/forum/forum';
 import { Forum2Page } from './pages/forum2/forum2';
 import { Forum3Page } from './pages/forum3/forum3';
+import { PostViewPage } from './pages/post-view/post-view';
+
 import { PageScroll } from './services/page-scroll';
 
 import { AppService } from './services/app-service';
@@ -49,16 +51,17 @@ import { Language } from './services/language';
         PostViewComponent,
         CommentViewComponent,
         FileFormComponent,
-        RedirectComponent
+        RedirectComponent,
+        PostViewPage
     ],
     imports: [
         CommonModule,
         RouterModule,
         ReactiveFormsModule,
         FormsModule,
-        CommunityAppRoutingModule,
         AngularBackend,
-        AngularBackendComponentModule
+        AngularBackendComponentModule,
+        CommunityAppRoutingModule
     ],
     exports: [
         HomePage

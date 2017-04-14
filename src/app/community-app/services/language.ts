@@ -51,7 +51,7 @@ export class Language {
 
     constructor() {
         this.languageCode = 'en';
-        console.log('code: ', this.languageCode);
+        //console.log('code: ', this.languageCode);
     }
 
     /**
@@ -62,20 +62,20 @@ export class Language {
      * @param args 
      */
     t(code: string, args?: any): string {
-        console.log(`languageCode: ${this.languageCode}, code: ${code}`);
+        //console.log(`languageCode: ${this.languageCode}, code: ${code}`);
       if ( code === void 0 ) return 'code undefined';
       if ( text[ code ] === void 0 ) return code;
       if ( text[ code ][ this.languageCode ] === void 0 ) return code;
       let str = text[ code ][ this.languageCode ];
-      console.log(args);
+      //console.log(args);
       if ( args !== void 0 && Object.keys( args ).length ) {
 
         for( let i in args ) {
-            console.log(`str: ${str}, i: ${i}, args[${i}]: ${args[i]}`)
+            //console.log(`str: ${str}, i: ${i}, args[${i}]: ${args[i]}`)
             str = str.replace('#' + i, args[i]);
         }
       }
-      console.log("return str: ", str);
+      //console.log("return str: ", str);
       return str;
     }
 
