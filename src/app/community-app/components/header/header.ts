@@ -30,6 +30,8 @@ export class HeaderComponent implements OnInit {
     ) {
 
    
+   
+
 
       ln.languageCode = 'ko';
       this.t = {
@@ -37,7 +39,9 @@ export class HeaderComponent implements OnInit {
       };
       this.t['qna'] = ln.t('qna');
       
-      ['home', 'login', 'logout', 'register', 'profile', 'qna', 'test', 'admin'].map( v => {
+      ['home', 'login', 'logout', 'register', 'profile', 'qna', 'test',
+        'admin', 'menu']
+      .map( v => {
         this.t[v] = ln.t( v );
       });
 
