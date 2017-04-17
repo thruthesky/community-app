@@ -35,5 +35,9 @@ export const text = {
     menu: {
         en: 'Menu',
         ko: '메뉴'
+    },
+    change_password: {
+        en: 'Change Password',
+        ko: '비밀변경'
     }
 };

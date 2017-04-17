@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LoginPage } from './pages/login/login';
+import { PasswordPage } from './pages/password/password';
 import { RegisterPage } from './pages/register/register';
 import { Register2Page } from './pages/register2/register2';
 import { ForumPage } from './pages/forum/forum';
@@ -12,6 +13,7 @@ import { HomePage } from './pages/home/home';
 import { RedirectComponent } from './components/redirect/redirect';
 const CommunityAppRoutes: Routes = [
   { path: 'login', component: LoginPage },
+  { path: 'password', component: PasswordPage },
   { path: 'profile', component: RegisterPage },
   { path: 'profile2', component: Register2Page },
   { path: 'register', component: RegisterPage },

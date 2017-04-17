@@ -23,6 +23,7 @@ import { FileFormComponent } from './components/file-form-component/file-form-co
 import { RedirectComponent } from './components/redirect/redirect';
 
 import { LoginPage } from './pages/login/login';
+import { PasswordPage } from './pages/password/password';
 import { RegisterPage } from './pages/register/register';
 import { Register2Page } from './pages/register2/register2';
 import { ForumPage } from './pages/forum/forum';
@@ -52,7 +53,8 @@ import { Language } from './services/language';
         CommentViewComponent,
         FileFormComponent,
         RedirectComponent,
-        PostViewPage
+        PostViewPage,
+        PasswordPage
     ],
     imports: [
         CommonModule,
