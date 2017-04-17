@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import 'rxjs/add/operator/debounceTime';
 import {
   PostData,
@@ -37,7 +37,8 @@ export class Forum3Page {
   constructor(
     private activated: ActivatedRoute,
     private pageScroll: PageScroll,
-    private postData: PostData )
+    private postData: PostData,
+    private router: Router )
   {
 
   }
@@ -46,21 +47,24 @@ export class Forum3Page {
 
     this.activated.params.subscribe( params => {
       if ( params['post_config_id'] !== void 0 ) {
+        this.reset();
         this.post_config_id = params['post_config_id'];
-        
         this.load();
       }
     });
-
-
     this.watch = this.pageScroll.watch( 'section.posts', 350 ).subscribe( e => this.load() );
-
   }
 
     ngOnDestroy() {
       this.watch.unsubscribe();
     }
 
+    reset() {
+        this.lists = [];
+        this.page = 0;
+        this.inLoading = false;
+        this.noMorePosts = false;
+    }
   onLoaded( res:_POST_LIST_RESPONSE ) {
     this.postListResponse = res;
     console.log('res:', res);
@@ -102,7 +106,11 @@ export class Forum3Page {
             if ( res.data.posts.length == 0 ) this.noMorePosts = true;
             else {
             }
-        }, err => this.postData.alert(err));
+        }, err => {
+            
+            if ( err['code']  == -40232 ) this.router.navigateByUrl('/');
+            else this.reset();
+        });
     }
 
 
