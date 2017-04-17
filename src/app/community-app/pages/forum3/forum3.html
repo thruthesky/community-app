@@ -34,6 +34,7 @@
                     <ng-container *ngIf=" post.comments ">
                         <comment-view-basic-component *ngFor=" let comment of post.comments "
                             [list] = " list "
+                            [post] = " post "
                             [comment] = " comment ">
                         </comment-view-basic-component>
                     </ng-container>

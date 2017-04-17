@@ -7,6 +7,9 @@ import { PostData, _LIST, _POST_LIST_RESPONSE } from './../../../angular-backend
 export class HomePage {
 
   list: _POST_LIST_RESPONSE = <_POST_LIST_RESPONSE>{};
+  
+
+  secondList: _POST_LIST_RESPONSE = <_POST_LIST_RESPONSE>{};
 
   constructor( private postData: PostData  ) {
 
@@ -28,6 +31,15 @@ export class HomePage {
       console.log('post list: ', res);
       this.list = res;
     }, err => this.postData.alert(err));
+
+
+    req.page = 2;
+    this.postData.list( req ).subscribe((res: _POST_LIST_RESPONSE ) => {
+      console.log('post list: ', res);
+      this.secondList = res;
+    }, err => this.postData.alert(err));
+
+
 
   }
 

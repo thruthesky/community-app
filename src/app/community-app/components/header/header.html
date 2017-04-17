@@ -1,4 +1,4 @@
-<header class="top-menu fs-90">
+<header class="top-menu fs-90 hidden-sm-up">
   <nav>
     <ul>
       <li routerLink="/home">
@@ -6,9 +6,8 @@
           <i class="fa fa-circle fa-stack-2x"></i>
           <i class="fa fa-home fa-stack-1x"></i>
         </span>
-        <div class="text">{{ t.home }}</div>
+        <div class="text">{{ t['home'] }}</div>
       </li>
-      
 
       <li *ngIf=" ! user.logged " routerLink="/login">
         <span class="fa-stack fa-lg">
@@ -17,6 +16,7 @@
         </span>
         <div class="text">{{ t.login }}</div>
       </li>
+
       <li *ngIf=" user.logged " (click)="onClickLogout()">
         <span class="fa-stack fa-lg">
           <i class="fa fa-circle fa-stack-2x"></i>
@@ -25,13 +25,7 @@
         <div class="text">{{ t.logout }}</div>
       </li>
       
-      <!--<li *ngIf=" ! user.logged " routerLink="/register">
-        <span class="fa-stack fa-lg">
-          <i class="fa fa-circle fa-stack-2x"></i>
-          <i class="fa fa-user-plus fa-stack-1x"></i>
-        </span>
-        <div class="text">Sign-in</div>
-      </li>-->
+      
 
       <li *ngIf=" ! user.logged " routerLink="/register2">
         <span class="fa-stack fa-lg">
@@ -41,19 +35,11 @@
         <div class="text">{{ t.register }}</div>
       </li>
 
-      <!--<li *ngIf=" user.logged " (click)="onClickProfile('/profile')">
-        <span class="fa-stack fa-lg">
-          <i class="fa fa-circle fa-stack-2x"></i>
-          <i class="fa fa-user-circle-o fa-stack-1x"></i>
-        </span>
-        <div class="text">Profile</div>
-      </li>-->
-
 
       <li *ngIf=" user.logged " (click)="onClickProfile('/profile2')">
         <span class="fa-stack fa-lg">
           <i class="fa fa-circle fa-stack-2x"></i>
-          <i class="fa fa-user-circle-o fa-stack-1x"></i>
+          <i class="fa fa-user-o fa-stack-1x"></i>
         </span>
         <div class="text">{{ t.profile }}</div>
       </li>
@@ -66,13 +52,7 @@
         <div class="text">{{ t.admin }}</div>
       </li>
 
-      <!--<li routerLink="/forum/qna">
-        <span class="fa-stack fa-lg">
-          <i class="fa fa-circle fa-stack-2x"></i>
-          <i class="fa fa-commenting-o fa-stack-1x"></i>
-        </span>
-        <div class="text">QnA</div>
-      </li>-->
+
       
       <li routerLink="/forum2/qna">
         <span class="fa-stack fa-lg">
@@ -92,14 +72,70 @@
       </li>
       
 
-      <!--<li routerLink="/forum/test">
+
+      <li routerLink="/forum3/test">
         <span class="fa-stack fa-lg">
-          <i class="fa fa-circle fa-stack-2x"></i>
-          <i class="fa fa-file-photo-o fa-stack-1x"></i>
+          <i class="fa fa-bars fs-150 pt-1 text-center white"></i>
         </span>
-        <div class="text">Gallery</div>
-      </li>-->
-      
+        <div class="text">{{ t.menu }}</div>
+      </li>
+
     </ul>
   </nav>
+</header>
+
+<header class="fixed-top hidden-xs-down bg-grey white">
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-4">
+        <div class="p-2 orange" routerLink="/">로고</div>
+      </div>
+
+      <div class="col-sm-8">
+
+
+        <nav>
+          <ul class="list-menu clearfix">
+
+      <li *ngIf=" ! user.logged " routerLink="/login">
+        <div class="text">{{ t.login }}</div>
+      </li>
+
+      <li *ngIf=" user.logged " (click)="onClickLogout()">
+        <div class="text">{{ t.logout }}</div>
+      </li>
+      
+      
+
+      <li *ngIf=" ! user.logged " routerLink="/register2">
+      
+        <div class="text">{{ t.register }}</div>
+      </li>
+
+
+      <li *ngIf=" user.logged " (click)="onClickProfile('/profile2')">
+        
+        
+        <div class="text">{{ t.profile }}</div>
+      </li>
+
+
+      <li *ngIf=" user.admin " routerLink="/admin">
+        <div class="text">{{ t.admin }}</div>
+      </li>
+          </ul>
+        </nav>
+        <nav>
+          <ul  class="list-menu">
+
+            <li>지유게시판</li>
+            <li><div routerLink="/forum2/qna">질문답변</div></li>
+            <li><div routerLink="/forum3/test">정보게시판</div></li>
+          </ul>
+        </nav>
+        
+      </div>
+      
+    </div>
+  </div>
 </header>

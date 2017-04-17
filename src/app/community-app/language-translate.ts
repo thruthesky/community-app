@@ -31,5 +31,9 @@ export const text = {
     admin: {
         en: 'Admin',
         ko: '관리자'
+    },
+    menu: {
+        en: 'Menu',
+        ko: '메뉴'
     }
 };
